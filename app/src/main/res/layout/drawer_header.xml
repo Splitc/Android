@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height160"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <RelativeLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true">
+
+        <com.application.splitc.utils.TextViewLight
+            android:id="@+id/textview_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/drawer_header_image_layout"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/height10"
+            android:layout_marginLeft="@dimen/height5"
+            android:layout_toEndOf="@+id/drawer_header_image_layout"
+            android:layout_toRightOf="@+id/drawer_header_image_layout"
+            android:gravity="end"
+            android:textColor="@color/zhl_dark"
+            android:textSize="@dimen/size20"
+            tools:text="Welcome Nikhil"/>
+
+        <LinearLayout
+            android:id="@+id/drawer_header_image_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/height20"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.application.splitc.utils.ZCircularImageView
+                    android:id="@+id/user_image"
+                    android:layout_width="@dimen/height80"
+                    android:layout_height="@dimen/height80"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/user" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <com.application.splitc.utils.TextViewLight
+        android:layout_below="@+id/layout1"
+        android:id="@+id/textview_viewprofile"
+        android:layout_width="@dimen/height80"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/about_text"
+        android:clickable="true"
+        android:textColor="@color/zhl_dark"
+        android:textSize="@dimen/size14"
+        android:layout_marginLeft="@dimen/height20"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/height15"
+        android:layout_marginRight="@dimen/height15"
+        android:background="#ccc" />
+
+</RelativeLayout>

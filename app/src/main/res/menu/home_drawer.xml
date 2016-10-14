@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:icon="@drawable/my_loads"
+        android:id="@+id/nav_myloads"
+        android:checked="true"
+        android:title="@string/drawer_menu_my_loads_string"/>
+
+    <item
+        android:icon="@drawable/my_order_history"
+        android:id="@+id/nav_order_history"
+        android:title="@string/drawer_menu_order_history_string"/>
+
+</menu>

@@ -1,0 +1,42 @@
+[
+    {
+        "merged": "/Users/apoorvarora/Documents/Rivigo/Splitc/FacebookSDK/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/com_facebook_button_like_background.png",
+        "source": "/Users/apoorvarora/Documents/Rivigo/Splitc/FacebookSDK/res/drawable-xxhdpi/com_facebook_button_like_background.png"
+    },
+    {
+        "merged": "/Users/apoorvarora/Documents/Rivigo/Splitc/FacebookSDK/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/com_facebook_button_like_pressed.png",
+        "source": "/Users/apoorvarora/Documents/Rivigo/Splitc/FacebookSDK/res/drawable-xxhdpi/com_facebook_button_like_pressed.png"
+    },
+    {
+        "merged": "/Users/apoorvarora/Documents/Rivigo/Splitc/FacebookSDK/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/com_facebook_button_like_icon.png",
+        "source": "/Users/apoorvarora/Documents/Rivigo/Splitc/FacebookSDK/res/drawable-xxhdpi/com_facebook_button_like_icon.png"
+    },
+    {
+        "merged": "/Users/apoorvarora/Documents/Zapplon/Android/FacebookSDK/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/com_facebook_button_like_background.png",
+        "source": "/Users/apoorvarora/Documents/Zapplon/Android/FacebookSDK/res/drawable-xxhdpi/com_facebook_button_like_background.png"
+    },
+    {
+        "merged": "/Users/apoorvarora/Documents/Zapplon/Android/FacebookSDK/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/com_facebook_button_like_icon_selected.png",
+        "source": "/Users/apoorvarora/Documents/Zapplon/Android/FacebookSDK/res/drawable-xxhdpi/com_facebook_button_like_icon_selected.png"
+    },
+    {
+        "merged": "/Users/apoorvarora/Documents/Rivigo/Splitc/FacebookSDK/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/com_facebook_button_like_background_selected.png",
+        "source": "/Users/apoorvarora/Documents/Rivigo/Splitc/FacebookSDK/res/drawable-xxhdpi/com_facebook_button_like_background_selected.png"
+    },
+    {
+        "merged": "/Users/apoorvarora/Documents/Zapplon/Android/FacebookSDK/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/com_facebook_button_like_pressed.png",
+        "source": "/Users/apoorvarora/Documents/Zapplon/Android/FacebookSDK/res/drawable-xxhdpi/com_facebook_button_like_pressed.png"
+    },
+    {
+        "merged": "/Users/apoorvarora/Documents/Rivigo/Splitc/FacebookSDK/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/com_facebook_button_like_icon_selected.png",
+        "source": "/Users/apoorvarora/Documents/Rivigo/Splitc/FacebookSDK/res/drawable-xxhdpi/com_facebook_button_like_icon_selected.png"
+    },
+    {
+        "merged": "/Users/apoorvarora/Documents/Zapplon/Android/FacebookSDK/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/com_facebook_button_like_icon.png",
+        "source": "/Users/apoorvarora/Documents/Zapplon/Android/FacebookSDK/res/drawable-xxhdpi/com_facebook_button_like_icon.png"
+    },
+    {
+        "merged": "/Users/apoorvarora/Documents/Zapplon/Android/FacebookSDK/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/com_facebook_button_like_background_selected.png",
+        "source": "/Users/apoorvarora/Documents/Zapplon/Android/FacebookSDK/res/drawable-xxhdpi/com_facebook_button_like_background_selected.png"
+    }
+]

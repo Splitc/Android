@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="SplitActionBarThemeBase" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="SplitActionBarTheme" parent="@style/SplitActionBarThemeBase">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="SplitActionBarHomeTheme" parent="@style/SplitHomeBaseTheme">
+        <item name="colorPrimary">@color/colorPrimary</item>
+    </style>
+
+    <style name="SplitHomeBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:actionBarDivider">@null</item>
+        <item name="android:textColorSecondary">@color/textColorSecondary</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="actionMenuTextColor">@color/textColorPrimary</item>
+    </style>
+
+    <style name="ToolbarBaseTheme" parent="Theme.AppCompat">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="android:height">@dimen/action_bar_height</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="actionMenuTextColor">@color/white</item>
+    </style>
+
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@android:color/white</item>
+        <item name="thickness">@dimen/thickness</item>
+        <item name="gapBetweenBars">@dimen/gapBetweenBars</item>
+        <item name="drawableSize">@dimen/drawableSize</item>
+    </style>
+
+    <style name="NavigationTheme" parent="AppTheme">
+        <item name="android:textSize">@dimen/size14</item>
+        <item name="android:layout_marginBottom">@dimen/size3</item>
+    </style>
+</resources>
