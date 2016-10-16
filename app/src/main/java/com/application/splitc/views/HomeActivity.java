@@ -2,8 +2,10 @@ package com.application.splitc.views;
 
 import android.animation.Animator;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -11,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -23,19 +26,23 @@ import android.widget.TextView;
 import com.application.splitc.R;
 import com.application.splitc.ZApplication;
 import com.application.splitc.utils.CommonLib;
+import com.application.splitc.utils.UploadManager;
+import com.application.splitc.utils.UploadManagerCallback;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+
+import java.io.IOException;
 
 /**
  * Created by apoorvarora on 10/10/16.
  */
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements UploadManagerCallback{
 
     private final String TAG = HomeActivity.class.getSimpleName();
     private DrawerLayout drawerLayout;
     private FrameLayout contentFrame;
     private NavigationView navigationView;
     private Toolbar toolbar;
-    private TextView versionNumberTextView, logoutTextView;
+    private TextView versionNumberTextView;
     private FloatingActionButton fabButton;
 
     private Activity mContext;
@@ -59,12 +66,13 @@ public class HomeActivity extends AppCompatActivity {
         width = getWindowManager().getDefaultDisplay().getWidth();
         height = getWindowManager().getDefaultDisplay().getHeight();
 
+        UploadManager.addCallback(this);
+
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         contentFrame = (FrameLayout) findViewById(R.id.contentFrame);
         navigationView = (NavigationView) findViewById(R.id.navigationView);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         versionNumberTextView = (TextView) findViewById(R.id.versionNumberTextView);
-        logoutTextView = (TextView) findViewById(R.id.logoutTextView);
         fabButton = (FloatingActionButton) findViewById(R.id.fabButton);
 
         setListeners();
@@ -128,7 +136,77 @@ public class HomeActivity extends AppCompatActivity {
 
         versionNumberTextView.setText("v 1.0.0");
 
+
+        findViewById(R.id.logoutTextView).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final AlertDialog logoutDialog;
+                logoutDialog = new AlertDialog.Builder(mContext).setTitle(getResources().getString(R.string.logout))
+                        .setMessage(getResources().getString(R.string.logout_confirm))
+                        .setPositiveButton(getResources().getString(R.string.logout), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                drawerLayout.closeDrawers();
+                                UploadManager.logout(prefs.getString("access_token", ""));
+
+                                // clear all prefs
+                                vapp.logout();
+
+                                // To stop getting notifications after logout
+                                unregisterInBackground();
+
+                                // let's start again
+                                if (prefs.getInt("userId", 0) == 0) {
+                                    Intent intent = new Intent(vapp, SplashActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            }
+                        }).setNegativeButton(getResources().getString(R.string.dialog_cancel),
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                })
+                        .create();
+                logoutDialog.show();
+            }
+        });
+
+        fabButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, NewRideActivity.class);
+                startActivity(intent);
+            }
+        });
     }
+
+    private void unregisterInBackground() {
+
+        new AsyncTask<Void, Void, String>() {
+
+            @Override
+            protected String doInBackground(Void... params) {
+
+                String msg = "";
+                try {
+                    if (gcm == null) {
+                        gcm = GoogleCloudMessaging.getInstance(HomeActivity.this);
+                    }
+
+                    gcm.unregister();
+
+                } catch (IOException ex) {
+                    msg = "Error :" + ex.getMessage();
+                }
+                return msg;
+            }
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
 
     // Controls visibility/scale of FAB on drawer open/close
     private void scaleFAB(float input) {
@@ -187,6 +265,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public void onDestroy(){
         destroyed = true;
+        UploadManager.removeCallback(this);
         super.onDestroy();
     }
 
@@ -225,4 +304,14 @@ public class HomeActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    @Override
+    public void uploadStarted(int requestType, Object data) {
+
+    }
+
+    @Override
+    public void uploadFinished(int requestType, Object data, boolean status, String errorMessage) {
+        if (requestType == UploadManager.LOGOUT) {
+        }
+    }
 }

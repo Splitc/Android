@@ -10,26 +10,52 @@ public class ParserJson {
 
     public static final Object[] parseData (int requestType, String responseJson) throws JSONException {
         if(requestType == UploadManager.LOGIN) {
-            return parse_GenericStringResponse(new JSONObject(responseJson));
+            return parse_LoginResponse(new JSONObject(responseJson));
         } else
             return parse_GenericStringResponse(new JSONObject(responseJson));
     }
 
-    public static final Object[] parse_GenericStringResponse(JSONObject responseJson) throws JSONException {
+    public static final Object[] parse_LoginResponse(JSONObject responseJson) throws JSONException {
 
-        Object[] response = new Object[]{null, false, "Something went wrong"};
+        Object[] response = new Object[] { null, false, "Something went wrong"};
 
         if (responseJson == null)
             return response;
 
-        if ( responseJson.has("httpCode") && responseJson.get("httpCode") instanceof Integer && responseJson.getInt("httpCode") == 200 )
-            response[1] = true;
+        if (responseJson.has("status")) {
+            if (responseJson.getString("status").equals("success")) {
+                response[1] = true;
+                if (responseJson.has("response")) {
+                    response[0] = new JSONObject(String.valueOf(responseJson.get("response")));
+                }
+            } else {
+                if (responseJson.has("errorMessage")) {
+                    response[2] = responseJson.getString("errorMessage");
+                }
+            }
+        }
 
-        if ( responseJson.has("errorString") && responseJson.get("errorString") != null )
-            response[2] = String.valueOf(responseJson.get("errorString"));
+        return response;
+    }
 
-        if (responseJson.has("object")) {
-            response[0] = String.valueOf(responseJson.get("object"));
+    public static final Object[] parse_GenericStringResponse(JSONObject responseJson) throws JSONException {
+
+        Object[] response = new Object[] { null, false, "Something went wrong"};
+
+        if (responseJson == null)
+            return response;
+
+        if (responseJson.has("status")) {
+            if (responseJson.getString("status").equals("success")) {
+                response[1] = true;
+                if (responseJson.has("response")) {
+                    response[0] = String.valueOf(responseJson.get("response"));
+                }
+            } else {
+                if (responseJson.has("errorMessage")) {
+                    response[2] = responseJson.getString("errorMessage");
+                }
+            }
         }
 
         return response;

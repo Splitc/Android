@@ -6,5 +6,9 @@
     {
         "merged": "/Users/apoorvarora/Documents/Zapplon/Android/FacebookSDK/build/intermediates/res/merged/androidTest/debug/drawable-ldpi-v4/com_facebook_close.png",
         "source": "/Users/apoorvarora/Documents/Zapplon/Android/FacebookSDK/build/intermediates/bundles/debug/res/drawable-ldpi-v4/com_facebook_close.png"
+    },
+    {
+        "merged": "/Users/neo/Documents/Splitc-Repos/Android/FacebookSDK/build/intermediates/res/merged/androidTest/debug/drawable-ldpi-v4/com_facebook_close.png",
+        "source": "/Users/neo/Documents/Splitc-Repos/Android/FacebookSDK/build/intermediates/bundles/debug/res/drawable-ldpi-v4/com_facebook_close.png"
     }
 ]

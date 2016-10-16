@@ -263,24 +263,20 @@ public class ZApplication extends Application {
 
     public void logout() {
         SharedPreferences prefs = getSharedPreferences("application_settings", 0);
+
         SharedPreferences.Editor editor = prefs.edit();
-        editor.remove("isRegistrationComplete");
         editor.remove("email");
         editor.remove("userId");
         editor.remove("access_token");
-        editor.remove("companyName");
         editor.remove("username");
         editor.remove("profile_pic");
-        editor.remove("place_id");
-        editor.remove("place_display_name");
-        editor.remove("contact_PRIMARY");
-        editor.remove("contact_SECONDARY");
-
-        if (!prefs.getBoolean("remember_me", false)) {
-            editor.remove("remember_me");
-            editor.remove("login_password");
-            editor.remove("login_email");
-        }
+        editor.remove("thumbUrl");
+        editor.remove("description");
+        editor.remove("verified");
+        editor.remove("phone");
+        editor.putBoolean("facebook_post_permission", false);
+        editor.putBoolean("post_to_facebook_flag", false);
+        editor.putBoolean("facebook_connect_flag", false);
 
         editor.commit();
     }

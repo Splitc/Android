@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 
 import okhttp3.Call;
+import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -38,8 +39,8 @@ public class UploadManager {
     public static final int LOGOUT = 104;
     public static final int APP_CONFIG = 105;
 
-    private static final String HEADER_KEY_TOKEN = "accesstoken";
-    private static final String HEADER_KEY_USERID = "userid";
+    public static final String HEADER_KEY_TOKEN = "accesstoken";
+    public static final String HEADER_KEY_USERID = "userid";
 
     public static void Initialize(Context context) {
         UploadManager.context = context;
@@ -242,6 +243,58 @@ public class UploadManager {
 
             for (UploadManagerCallback callback : callbacks) {
                 callback.uploadFinished(requestType, arg, (boolean) arg[1], "");
+            }
+        }
+    }
+
+    public static void logout(String accessToken) {
+        for (UploadManagerCallback callback : callbacks) {
+            callback.uploadStarted(LOGOUT, "");
+        }
+        new Logout().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new Object[]{accessToken});
+    }
+
+    private static class Logout extends AsyncTask<Object, Void, Object[]> {
+
+        @Override
+        protected Object[] doInBackground(Object... params) {
+
+            Object result[] = new Object[]{"", false, "Something went wrong"};
+
+            FormBody.Builder requestBuilder = new FormBody.Builder();
+            requestBuilder.add("access_token", (String) params[0]);
+            requestBuilder.add("client_id", CommonLib.CLIENT_ID);
+            requestBuilder.add("app_type", CommonLib.APP_TYPE);
+
+            RequestBody requestBody = requestBuilder.build();
+            String url = CommonLib.SERVER_URL + "user/logout?";
+            Request
+                    request = new Request.Builder()
+                    .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                    .url(url)
+                    .put(requestBody)
+                    .build();
+
+            OkHttpClient okHttpClient = new OkHttpClient();
+            Call call = okHttpClient.newCall(request);
+
+            try {
+                Response response = call.execute();
+                return ParserJson.parse_GenericStringResponse(new JSONObject(response.body().string()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(Object[] arg) {
+            if (arg != null && arg.length == 3 && !(Boolean) arg[1])
+                Toast.makeText(context, (String) arg[2], Toast.LENGTH_SHORT).show();
+
+            for (UploadManagerCallback callback : callbacks) {
+                callback.uploadFinished(LOGOUT, arg, (boolean) arg[1], "");
             }
         }
     }

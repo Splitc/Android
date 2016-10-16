@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.application.splitc.R;
 import com.application.splitc.utils.CommonLib;
 import com.application.splitc.utils.ParserJson;
+import com.application.splitc.utils.UploadManager;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
@@ -44,6 +45,13 @@ import java.util.regex.Pattern;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import okhttp3.Call;
+import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+
 /**
  * Created by apoorvarora on 10/10/16.
  */
@@ -64,7 +72,6 @@ public class FacebookConnect {
     //private final String FIELD_LOCATION = "location";
     private final String FIELDS = "fields";
     private final String FIELD_PICTURE = "picture.type(large)";
-    private final String FIELD_ABOUT_ME = "bio";
 
     private Exception failException = null;
 
@@ -258,7 +265,7 @@ public class FacebookConnect {
         CommonLib.ZLog("FC", "fbRequestME");
 
         String REQUEST_FIELDS = TextUtils.join(",", new String[] {
-                FIELD_ID, FIELD_EMAIL, FIELD_NAME, FIELD_BIRTHDAY, FIELD_GENDER, FIELD_PICTURE, FIELD_ABOUT_ME});//, FIELD_LOCATION });
+                FIELD_ID, FIELD_EMAIL, FIELD_NAME, FIELD_BIRTHDAY, FIELD_GENDER, FIELD_PICTURE});//, FIELD_LOCATION });
 
         Bundle parameters = new Bundle();
         parameters.putString(FIELDS, REQUEST_FIELDS);
@@ -388,137 +395,138 @@ public class FacebookConnect {
         @Override
         protected JSONObject doInBackground(String... params) {
 
-            // email = params[2];
-//            try {
-//                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-//                nameValuePairs.add(new BasicNameValuePair("fbid", params[0]));
-//                String bio = "";
-//
-//                try {
-//                    JSONObject fbDataJson = new JSONObject(params[1]);
-//                    String profile_pic = null;
-//                    if (fbDataJson.has("picture")) {
-//                        JSONObject profilePicJson;
-//                        profilePicJson = fbDataJson.getJSONObject("picture");
-//                        if (profilePicJson.has("data")) {
-//                            profilePicJson = profilePicJson.getJSONObject("data");
-//                            if (profilePicJson.has("url"))
-//                                profile_pic = String.valueOf(profilePicJson.get("url"));
-//                        }
-//                    }
-//                    if(fbDataJson.has("bio")) {
-//                        bio = String.valueOf(fbDataJson.get("bio"));
-//                        nameValuePairs.add(new BasicNameValuePair("bio", bio));
-//                    }
-//                    if(profile_pic != null)
-//                        nameValuePairs.add(new BasicNameValuePair("profile_pic", profile_pic));
-//                    JSONObject fbData = new JSONObject();
-//                    if(fbDataJson.has("id"))
-//                        fbData.put("id", String.valueOf(fbDataJson.get("id")));
-//                    if(fbDataJson.has("email"))
-//                        fbData.put("email", String.valueOf(fbDataJson.get("email")));
-//                    if(fbDataJson.has("name"))
-//                        fbData.put("name", String.valueOf(fbDataJson.get("name")));
-//                    nameValuePairs.add(new BasicNameValuePair("fbdata", String.valueOf(fbData)));
-//                } catch(JSONException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                nameValuePairs.add(new BasicNameValuePair("fb_token", params[3]));
-//                nameValuePairs.add(new BasicNameValuePair("fb_permission", params[4]));
-//
-//                try {
-//                    JSONObject object = new JSONObject(params[1]);
-//                    if( object.has("email") ) {
-//                        String emailStr = String.valueOf(object.get("email"));
-//                        if(emailStr != null)
-//                            nameValuePairs.add(new BasicNameValuePair("email", emailStr));
-//                        else {
-//                            try{
-//                                AccountManager am = AccountManager.get(((Context) callback).getApplicationContext());
-//                                if(am!=null){
-//                                    Account[] accounts= am.getAccounts();
-//                                    Pattern emailPattern = Patterns.EMAIL_ADDRESS;
-//                                    for(Account account: accounts) {
-//                                        if(account.type.equals("com.google")&&emailPattern.matcher(account.name).matches()) {
-//                                            emailStr = account.name;
-//                                        }
-//                                    }
-//                                }
-//                            } catch(Exception e){
-//                                Crashlytics.logException(e);
-//                            }
-//                            nameValuePairs.add(new BasicNameValuePair("email", emailStr));
-//                        }
-//                    } else {
-//                        //Pre-fill of sign-up credentials
-//                        String emailStr = null;
-//                        try{
-//                            AccountManager am = AccountManager.get(((Context) callback).getApplicationContext());
-//                            if(am!=null){
-//                                Account[] accounts= am.getAccounts();
-//                                Pattern emailPattern = Patterns.EMAIL_ADDRESS;
-//                                for(Account account: accounts) {
-//                                    if(account.type.equals("com.google")&&emailPattern.matcher(account.name).matches()) {
-//                                        emailStr = account.name;
-//                                    }
-//                                }
-//                            }
-//                        } catch(Exception e){
-////                            Crashlytics.logException(e);
-//                        }
-//                        if(emailStr != null)
-//                            nameValuePairs.add(new BasicNameValuePair("email", emailStr));
-//                    }
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                nameValuePairs.add(new BasicNameValuePair("client_id", CommonLib.CLIENT_ID));
-//                nameValuePairs.add(new BasicNameValuePair("app_type", CommonLib.APP_TYPE));
-//                nameValuePairs.add(new BasicNameValuePair("referred_by", invitationId));
-//                nameValuePairs.add(new BasicNameValuePair("deviceId", CommonLib.getIMEI((Context)callback)));
-//
-//                if (callback instanceof Activity) {
-//                    CommonLib.ZLog("FC", "FBLogin Inside the callback check ");
-//                    SharedPreferences prefs = ((Activity) callback).getSharedPreferences("application_settings", 0);
-//                    SharedPreferences.Editor editor = prefs.edit();
-//                    editor.putString("description", bio);
-//                    editor.commit();
-//
-//                    String invited_by = prefs.getString("invited_by",null);
-//                    nameValuePairs.add(new BasicNameValuePair("invited_by", invited_by));
-//                    prefs.edit().remove("invited_by").commit();
-//
-//                    regId = prefs.getString("registration_id", "");
-//                    if (!regId.equals("")) {
-//                        CommonLib.ZLog("FC", "FBLogin Sending UUID ");
-//                        regIdSent = true;
-//                        nameValuePairs.add(new BasicNameValuePair("channel_url", regId));
-//                        nameValuePairs.add(new BasicNameValuePair("uuid", regId));
-//                    }
-//                }
-//
-//
-//                String url = CommonLib.SERVER + "auth/login?isFacebookLogin=true" + "&uuid=" + APPLICATION_ID + "&device_id=" + CommonLib.getIMEI((Context)callback);
-//
-//                HttpResponse response = PostWrapper.getPostResponse(url, nameValuePairs, null);
-//
-//                if (response != null) {
-//                    responseCode = response.getStatusLine().getStatusCode();
-//                }
-//                int responseCode = response.getStatusLine().getStatusCode();
-//
-//                JSONObject resp = null;
-//                if (responseCode == HttpURLConnection.HTTP_OK) {
-//                    InputStream is = CommonLib.getStream(response);
-//                    resp = ParserJson.parseFBLoginResponse(is);
-//                }
-//                return resp;
-//            } catch (Exception e) {
-//                failException = e;
-//            }
+            FormBody.Builder requestBuilder = new FormBody.Builder();
 
+            requestBuilder.add("fbid", params[0]);
+            String bio = "";
+
+            try {
+                JSONObject fbDataJson = new JSONObject(params[1]);
+                String profile_pic = null;
+                if (fbDataJson.has("picture")) {
+                    JSONObject profilePicJson;
+                    profilePicJson = fbDataJson.getJSONObject("picture");
+                    if (profilePicJson.has("data")) {
+                        profilePicJson = profilePicJson.getJSONObject("data");
+                        if (profilePicJson.has("url"))
+                            profile_pic = String.valueOf(profilePicJson.get("url"));
+                    }
+                }
+                if (fbDataJson.has("bio")) {
+                    bio = String.valueOf(fbDataJson.get("bio"));
+                    requestBuilder.add("bio", bio);
+                }
+                if (profile_pic != null)
+                    requestBuilder.add("profile_pic", profile_pic);
+                JSONObject fbData = new JSONObject();
+                if (fbDataJson.has("id"))
+                    fbData.put("id", String.valueOf(fbDataJson.get("id")));
+                if (fbDataJson.has("email"))
+                    fbData.put("email", String.valueOf(fbDataJson.get("email")));
+                if (fbDataJson.has("name"))
+                    fbData.put("name", String.valueOf(fbDataJson.get("name")));
+                requestBuilder.add("fbdata", String.valueOf(fbData));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            requestBuilder.add("fb_token", params[3]);
+            requestBuilder.add("fb_permission", params[4]);
+
+            try {
+                JSONObject object = new JSONObject(params[1]);
+                if (object.has("email")) {
+                    String emailStr = String.valueOf(object.get("email"));
+                    if (emailStr != null)
+                        requestBuilder.add("email", emailStr);
+                    else {
+                        try {
+                            AccountManager am = AccountManager.get(((Context) callback).getApplicationContext());
+                            if (am != null) {
+                                Account[] accounts = am.getAccounts();
+                                Pattern emailPattern = Patterns.EMAIL_ADDRESS;
+                                for (Account account : accounts) {
+                                    if (account.type.equals("com.google") && emailPattern.matcher(account.name).matches()) {
+                                        emailStr = account.name;
+                                    }
+                                }
+                            }
+                        } catch (Exception e) {
+//                                Crashlytics.logException(e);
+                        }
+                        requestBuilder.add("email", emailStr);
+                    }
+                } else {
+                    //Pre-fill of sign-up credentials
+                    String emailStr = null;
+                    try {
+                        AccountManager am = AccountManager.get(((Context) callback).getApplicationContext());
+                        if (am != null) {
+                            Account[] accounts = am.getAccounts();
+                            Pattern emailPattern = Patterns.EMAIL_ADDRESS;
+                            for (Account account : accounts) {
+                                if (account.type.equals("com.google") && emailPattern.matcher(account.name).matches()) {
+                                    emailStr = account.name;
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+//                            Crashlytics.logException(e);
+                    }
+                    if (emailStr != null)
+                        requestBuilder.add("email", emailStr);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            requestBuilder.add("client_id", CommonLib.CLIENT_ID);
+            requestBuilder.add("app_type", CommonLib.APP_TYPE);
+            requestBuilder.add("referred_by", invitationId);
+
+            if (callback instanceof Activity) {
+                CommonLib.ZLog("FC", "FBLogin Inside the callback check ");
+                SharedPreferences prefs = ((Activity) callback).getSharedPreferences("application_settings", 0);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("description", bio);
+                editor.commit();
+
+//                String invited_by = prefs.getString("invited_by", null);
+//                requestBuilder.add("invited_by", invited_by);
+//                prefs.edit().remove("invited_by").commit();
+
+                regId = prefs.getString("registration_id", "");
+                if (!regId.equals("")) {
+                    CommonLib.ZLog("FC", "FBLogin Sending UUID ");
+                    regIdSent = true;
+                    requestBuilder.add("channel_url", regId);
+                    requestBuilder.add("uuid", regId);
+                }
+
+            }
+
+            String url = CommonLib.SERVER_URL + "auth/login?isFacebookLogin=true";
+
+            RequestBody requestBody = requestBuilder.build();
+
+            okhttp3.Request
+                    request = new okhttp3.Request.Builder()
+                    .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                    .url(url)
+                    .post(requestBody)
+                    .build();
+
+            OkHttpClient okHttpClient = new OkHttpClient();
+            Call call = okHttpClient.newCall(request);
+
+            try {
+                okhttp3.Response response = call.execute();
+                Object[] fbResponse = ParserJson.parseData(UploadManager.LOGIN, response.body().string());
+                if(fbResponse != null && fbResponse.length == 3 && ((Boolean)fbResponse[1]))
+                    return (JSONObject) fbResponse[0];
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return null;
         }
 
@@ -540,25 +548,6 @@ public class FacebookConnect {
                         status = 1;
                         accessToken = res.getString("access_token");
                         uid = res.getInt("user_id");
-                        if(res.has("HSLogin") && res.get("HSLogin") instanceof Boolean) {
-                            SharedPreferences prefs = ((Context)callback).getSharedPreferences("application_settings", 0);
-                            SharedPreferences.Editor editor = prefs.edit();
-                            editor.putBoolean("HSLogin",
-                                    res.getBoolean("HSLogin"));
-                            if (res.has("instutionLogin")) {
-                                editor.putBoolean("instutionLogin",
-                                        res.getBoolean("instutionLogin"));
-                            }
-                            if (res.has("INSTITUTION_NAME")) {
-                                editor.putString("INSTITUTION_NAME",
-                                        res.getString("INSTITUTION_NAME"));
-                            }
-                            if (res.has("STUDENT_ID")) {
-                                editor.putString("STUDENT_ID",
-                                        res.getString("STUDENT_ID"));
-                            }
-                            editor.commit();
-                        }
                         if(res.has("user")) {
                             res = res.getJSONObject("user");
                             if(res.has("user")) {
@@ -586,7 +575,7 @@ public class FacebookConnect {
                 } finally {
 
                     Bundle bundle = new Bundle();
-                    bundle.putInt("uid", uid);
+                    bundle.putInt("userId", uid);
                     bundle.putString("profile_pic", profile_pic);
                     bundle.putString("email", email);
                     bundle.putString("username", uname);

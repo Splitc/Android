@@ -8,6 +8,7 @@ import android.graphics.Typeface;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -30,7 +31,7 @@ public class CommonLib {
 
     public final static boolean ZLogger = false;
 
-    public static String SERVER_URL = "BuildConfig.HOST";
+    public static String SERVER_URL = "http://192.168.1.33:8080/SplitcServer/rest/";
 
     // Login animation time
     public static final int ANIMATION_LOGIN = 200;
@@ -39,8 +40,10 @@ public class CommonLib {
     /**
      * GCM Sender ID
      */
-    public static final String GCM_SENDER_ID = "BuildConfig.GCM_SENDER_ID";
+    public static final String GCM_SENDER_ID = "996855199819";
 
+    public static final String CLIENT_ID = "splitc_android_client";
+    public static final String APP_TYPE = "splitc_android";
 
     // Font file def follows
     public static String FONT_MEDIUM = "fonts/transporter_Medium.ttf";
@@ -48,6 +51,7 @@ public class CommonLib {
     public static String FONT_REGULAR = "fonts/transporter_Regular.ttf";
     public static String FONT_BOLD = "fonts/transporter_Bold.ttf";
     public static String Icons = "fonts/splitc_Icon.ttf";
+    public static String IconsZ = "fonts/zapp_Icon.ttf";
 
     public static final int REQUEST_CODE_START_LOCATION = 101;
     public static final int REQUEST_CODE_DROP_LOCATION = 102;
@@ -312,5 +316,15 @@ public class CommonLib {
         return result[0];
 
     }
+
+    //IMEISV
+    public static String getIMEI(Context context) {
+        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        String imeisv = telephonyManager.getDeviceId();
+        if (imeisv == null)
+            imeisv = "Unknown";
+        return imeisv;
+    }
+
 
 }

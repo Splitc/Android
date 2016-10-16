@@ -353,7 +353,7 @@ public class SplashActivity extends AppCompatActivity implements FacebookConnect
 
                 @Override
                 public void onAnimationEnd(Animation animation) {
-                    if (prefs.getInt("uid", 0) == 0) {
+                    if (prefs.getInt("userId", 0) == 0) {
                         tourDots.setVisibility(View.VISIBLE);
                         tourDots.startAnimation(animation2);
 //                        mSignupContainer.setVisibility(View.VISIBLE);
@@ -399,7 +399,7 @@ public class SplashActivity extends AppCompatActivity implements FacebookConnect
 
             if (hardwareRegistered == 0) {
                 // Call
-                if (prefs.getInt("uid", 0) != 0 && !regId.equals("")) {
+                if (prefs.getInt("userId", 0) != 0 && !regId.equals("")) {
                     sendRegistrationIdToBackend();
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putInt("HARDWARE_REGISTERED", 1);
@@ -482,7 +482,7 @@ public class SplashActivity extends AppCompatActivity implements FacebookConnect
                     msg = "Device registered, registration ID=" + regId;
                     storeRegistrationId(context, regId);
 
-                    if (prefs.getInt("uid", 0) != 0 && !regId.equals(""))
+                    if (prefs.getInt("userId", 0) != 0 && !regId.equals(""))
                         sendRegistrationIdToBackend();
 
                 } catch (IOException ex) {
@@ -594,7 +594,7 @@ public class SplashActivity extends AppCompatActivity implements FacebookConnect
                     z_ProgressDialog.dismiss();
             } else {
                 SharedPreferences.Editor editor = prefs.edit();
-                editor.putInt("uid", bundle.getInt("uid"));
+                editor.putInt("userId", bundle.getInt("userId"));
                 if (bundle.containsKey("email"))
                     editor.putString("email", bundle.getString("email"));
                 if (bundle.containsKey("description"))
@@ -627,21 +627,17 @@ public class SplashActivity extends AppCompatActivity implements FacebookConnect
     }
 
     public void facebookAction(View view) {
-        Intent intent = new Intent(this, HomeActivity.class);
-        startActivity(intent);
-        finish();
-//        z_ProgressDialog = new ProgressDialog(SplashActivity.this,R.style.StyledDialog);
-//        z_ProgressDialog.setMessage(getResources().getString(R.string.verifying_creds));
-//        z_ProgressDialog.setCancelable(false);
-//        z_ProgressDialog.setIndeterminate(true);
-//        z_ProgressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-//        z_ProgressDialog.setCancelable(false);
-//        z_ProgressDialog.show();
-//        String regId = prefs.getString("registration_id", "");
-//        FacebookConnect facebookConnect = new FacebookConnect(SplashActivity.this, 1, APPLICATION_ID, true, regId, "");
-//        facebookConnect.execute();
-//        checkPlayServices();
-
+        z_ProgressDialog = new ProgressDialog(SplashActivity.this,R.style.StyledDialog);
+        z_ProgressDialog.setMessage(getResources().getString(R.string.verifying_creds));
+        z_ProgressDialog.setCancelable(false);
+        z_ProgressDialog.setIndeterminate(true);
+        z_ProgressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        z_ProgressDialog.setCancelable(false);
+        z_ProgressDialog.show();
+        String regId = prefs.getString("registration_id", "");
+        FacebookConnect facebookConnect = new FacebookConnect(SplashActivity.this, 1, APPLICATION_ID, true, regId, "");
+        facebookConnect.execute();
+        checkPlayServices();
     }
 
     @Override
@@ -719,7 +715,7 @@ public class SplashActivity extends AppCompatActivity implements FacebookConnect
                         editor.putString("STUDENT_ID", responseJSON.getString("STUDENT_ID"));
                     }
                     if (responseJSON.has("user_id") && responseJSON.get("user_id") instanceof Integer) {
-                        editor.putInt("uid", responseJSON.getInt("user_id"));
+                        editor.putInt("userId", responseJSON.getInt("userId"));
                     }
                     editor.commit();
                     checkPlayServices();
@@ -963,7 +959,7 @@ public class SplashActivity extends AppCompatActivity implements FacebookConnect
     }
 
     public void navigateToHome() {
-        if (prefs.getInt("uid", 0) != 0) {
+        if (prefs.getInt("userId", 0) != 0) {
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
             finish();
