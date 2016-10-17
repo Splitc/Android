@@ -124,8 +124,8 @@
     <string name="email_required_text">OOPS!\n We couldn\'t fetch email.</string>
     <string name="email_required_hint">Email</string>
 
-    <string name="drawer_menu_my_loads_string">My loads</string>
-    <string name="drawer_menu_order_history_string">Order history</string>
+    <string name="drawer_menu_my_loads_string">Home</string>
+    <string name="drawer_menu_order_history_string">My Trips</string>
     <string name="logout_text">Logout</string>
 
     <string name="openDrawer">Open navigation drawer</string>

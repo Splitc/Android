@@ -56,13 +56,27 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin">
 
             <com.application.splitc.utils.TextViewLight
-                android:id="@+id/versionNumberTextView"
+                android:id="@+id/feedback"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/size14"
                 android:padding="@dimen/size10"
                 android:textColor="@color/zhl_dark"
                 android:paddingTop="@dimen/height5"
+                android:text="@string/feedback"
+                android:onClick="feedback"
+                android:paddingBottom="@dimen/height5"/>
+
+            <com.application.splitc.utils.TextViewLight
+                android:id="@+id/about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/size14"
+                android:padding="@dimen/size10"
+                android:textColor="@color/zhl_dark"
+                android:paddingTop="@dimen/height5"
+                android:text="@string/about_us"
+                android:onClick="aboutUs"
                 android:paddingBottom="@dimen/height5"/>
 
             <com.application.splitc.utils.TextViewLight

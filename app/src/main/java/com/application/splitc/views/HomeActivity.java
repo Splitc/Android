@@ -42,7 +42,6 @@ public class HomeActivity extends AppCompatActivity implements UploadManagerCall
     private FrameLayout contentFrame;
     private NavigationView navigationView;
     private Toolbar toolbar;
-    private TextView versionNumberTextView;
     private FloatingActionButton fabButton;
 
     private Activity mContext;
@@ -72,7 +71,6 @@ public class HomeActivity extends AppCompatActivity implements UploadManagerCall
         contentFrame = (FrameLayout) findViewById(R.id.contentFrame);
         navigationView = (NavigationView) findViewById(R.id.navigationView);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        versionNumberTextView = (TextView) findViewById(R.id.versionNumberTextView);
         fabButton = (FloatingActionButton) findViewById(R.id.fabButton);
 
         setListeners();
@@ -134,9 +132,6 @@ public class HomeActivity extends AppCompatActivity implements UploadManagerCall
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
-        versionNumberTextView.setText("v 1.0.0");
-
-
         findViewById(R.id.logoutTextView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -179,6 +174,15 @@ public class HomeActivity extends AppCompatActivity implements UploadManagerCall
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, NewRideActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        View headerView = navigationView.getHeaderView(0);
+        headerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new  Intent(mContext, UserProfileActivity.class);
                 startActivity(intent);
             }
         });
@@ -313,5 +317,13 @@ public class HomeActivity extends AppCompatActivity implements UploadManagerCall
     public void uploadFinished(int requestType, Object data, boolean status, String errorMessage) {
         if (requestType == UploadManager.LOGOUT) {
         }
+    }
+
+    public void feedback(View view) {
+
+    }
+
+    public void aboutUs(View view) {
+
     }
 }
