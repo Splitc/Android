@@ -29,6 +29,11 @@
     <color name="zomato_red_trans_fifty">#80e75149</color>
     <color name="zomato_red_feedback">#e14e4e</color>
     -->
+    <color name="zapplon_red_secondary">#b83a04</color>
+    <color name="zapplon_red">#e86a30</color>
+    <color name="zapplon_red_feedback">#e86a30</color>
+    <color name="zapplon_primary_dark">#333333</color>
+
     <color name="zomato_red_secondary">#BC212D</color>
     <color name="zomato_red">@color/green_gradient</color>
     <color name="baatna_primary_dark">#3dc49a</color>

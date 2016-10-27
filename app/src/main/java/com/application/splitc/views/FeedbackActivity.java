@@ -57,7 +57,7 @@ public class FeedbackActivity extends AppCompatActivity implements UploadManager
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.feedback_page);
+        setContentView(R.layout.activity_feedback);
         UploadManager.addCallback(this);
         Display display = getWindowManager().getDefaultDisplay();
         screenWidth = display.getWidth();
@@ -92,7 +92,7 @@ public class FeedbackActivity extends AppCompatActivity implements UploadManager
 
         SpannableString s = new SpannableString(getString(R.string.feedback_title));
         s.setSpan(
-                new TypefaceSpan(getApplicationContext(), CommonLib.BOLD_FONT_FILENAME,
+                new TypefaceSpan(getApplicationContext(), CommonLib.FONT_BOLD,
                         getResources().getColor(R.color.white), getResources().getDimension(R.dimen.size16)),
                 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         TextView title = (TextView) actionBarCustomView.findViewById(R.id.title);
@@ -137,7 +137,7 @@ public class FeedbackActivity extends AppCompatActivity implements UploadManager
             public void updateDrawState(TextPaint ds) {
                 super.updateDrawState(ds);
                 ds.setUnderlineText(false);
-                ds.setTypeface(CommonLib.getTypeface(getApplicationContext(), CommonLib.Thin));
+                ds.setTypeface(CommonLib.getTypeface(getApplicationContext(), CommonLib.FONT_LIGHT));
                 ds.setTextSize(getResources().getDimension(R.dimen.size12));
                 ds.setColor(getResources().getColor(R.color.z_red_feedback));
             }
@@ -159,10 +159,10 @@ public class FeedbackActivity extends AppCompatActivity implements UploadManager
 
         try {
             final String LogString = new String("App Version  : " + CommonLib.VERSION_STRING + "\n" + "Connection   : "
-                    + CommonLib.getNetworkState(this) + "\n" + "Identifier   : " + prefs.getString("app_id", "") + "\n"
+                    + "\n" + "Identifier   : " + prefs.getString("app_id", "") + "\n"
                     + /* "Location     : " + zapp.lat + " , " + zapp.lon + */"\n" + "User Id     	: "
                     + prefs.getInt("uid", 0) + "\n" + "User Agent   : "
-                    + CommonLib.getVersionString(getApplicationContext()) + "&device=" + Build.MANUFACTURER + ", "
+                    + "&device=" + Build.MANUFACTURER + ", "
                     + Build.BRAND + ", " + Build.MODEL);
 
             FileOutputStream fOut = openFileOutput("log.txt", MODE_WORLD_READABLE);
@@ -245,10 +245,10 @@ public class FeedbackActivity extends AppCompatActivity implements UploadManager
 
     private String getLogString() {
         String LogString = new String("App Version  : " + CommonLib.VERSION_STRING + "\n" + "Connection   : "
-                + CommonLib.getNetworkState(this) + "\n" + "Identifier   : " + prefs.getString("app_id", "") + "\n"
+                + "\n" + "Identifier   : " + prefs.getString("app_id", "") + "\n"
                 + /* "Location     : " + zapp.lat + " , " + zapp.lon + */ "\n" + "User Id      : "
                 + prefs.getInt("uid", 0) + "\n" + "User Agent   : "
-                + CommonLib.getVersionString(getApplicationContext()) + "&device=" + Build.MANUFACTURER + ","
+                + "&device=" + Build.MANUFACTURER + ","
                 + Build.BRAND + "," + Build.MODEL);
 
         return LogString;
@@ -266,12 +266,12 @@ public class FeedbackActivity extends AppCompatActivity implements UploadManager
         if (!((EditText) findViewById(R.id.feedback_content)).getText().toString().equals("")) {
             String message = ((EditText) findViewById(R.id.feedback_content)).getText().toString();
             String LogString = new String("App Version  : " + CommonLib.VERSION_STRING + "\n" + "Connection   : "
-                    + CommonLib.getNetworkState(this) + "\n" + "Identifier   : " + prefs.getString("app_id", "") + "\n"
+                    + "\n" + "Identifier   : " + prefs.getString("app_id", "") + "\n"
                     + "Location     : " + zapp.lat + " , " + zapp.lon + "\n" + "User Id      : "
                     + prefs.getInt("uid", 0) + "\n" + "User Agent   : "
-                    + CommonLib.getVersionString(getApplicationContext()) + "&device=" + Build.MANUFACTURER + ","
+                    + "&device=" + Build.MANUFACTURER + ","
                     + Build.BRAND + "," + Build.MODEL);
-            UploadManager.sendFeedback(message, LogString);
+//            UploadManager.sendFeedback(message, LogString);
         }
     }
 
@@ -280,13 +280,13 @@ public class FeedbackActivity extends AppCompatActivity implements UploadManager
                 && ((EditText) findViewById(R.id.feedback_content)).getText().toString().trim().length() > 0) {
             String message = ((EditText) findViewById(R.id.feedback_content)).getText().toString();
             String LogString = new String("App Version  : " + CommonLib.VERSION_STRING + "\n" + "Connection   : "
-                    + CommonLib.getNetworkState(this) + "\n" + "Identifier   : " + prefs.getString("app_id", "") + "\n"
+                    + "\n" + "Identifier   : " + prefs.getString("app_id", "") + "\n"
                     + "Location     : " + zapp.lat + " , " + zapp.lon + "\n" + "User Id      : "
                     + prefs.getInt("uid", 0) + "\n" + "User Agent   : "
-                    + CommonLib.getVersionString(getApplicationContext()) + "&device=" + Build.MANUFACTURER + ","
+                    + "&device=" + Build.MANUFACTURER + ","
                     + Build.BRAND + "," + Build.MODEL);
 
-            UploadManager.sendFeedback(message, LogString);
+//            UploadManager.sendFeedback(message, LogString);
         }
     }
 
@@ -301,12 +301,12 @@ public class FeedbackActivity extends AppCompatActivity implements UploadManager
 
     @Override
     public void uploadFinished(int requestType, Object data, boolean status, String errorMessage) {
-        if (requestType == CommonLib.SEND_FEEDBACK) {
-            if (!destroyed && status) {
-                Toast.makeText(FeedbackActivity.this, "Hey! Thanks for your feeback, means a lot to us!",
-                        Toast.LENGTH_LONG).show();
-                onBackPressed();
-            }
-        }
+//        if (requestType == CommonLib.SEND_FEEDBACK) {
+//            if (!destroyed && status) {
+//                Toast.makeText(FeedbackActivity.this, "Hey! Thanks for your feeback, means a lot to us!",
+//                        Toast.LENGTH_LONG).show();
+//                onBackPressed();
+//            }
+//        }
     }
 }

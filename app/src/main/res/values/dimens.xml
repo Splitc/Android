@@ -81,6 +81,6 @@
     <dimen name="drawer_iconview_size">25dp</dimen>
     <dimen name="drawer_iconview_size_big">45dp</dimen>
     <dimen name="drawer_iconview_size_x_large">135dp</dimen>
-
+    <item name="toolbar_height" type="dimen">@dimen/height46</item>
     <!-- Crop dimensions -->
 </resources>
