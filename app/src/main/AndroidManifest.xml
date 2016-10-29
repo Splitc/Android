@@ -63,6 +63,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/SplitActionBarHomeTheme"
             android:windowSoftInputMode="adjustResize|stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <!-- Home Sweet Home -->
@@ -96,10 +100,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/SplitActionBarHomeTheme"
             android:windowSoftInputMode="adjustResize|stateHidden" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <!-- Facebook Activity -->

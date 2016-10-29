@@ -147,9 +147,6 @@ public class HomeActivity extends AppCompatActivity implements UploadManagerCall
                                 // clear all prefs
                                 vapp.logout();
 
-                                // To stop getting notifications after logout
-                                unregisterInBackground();
-
                                 // let's start again
                                 if (prefs.getInt("userId", 0) == 0) {
                                     Intent intent = new Intent(vapp, SplashActivity.class);
@@ -187,30 +184,6 @@ public class HomeActivity extends AppCompatActivity implements UploadManagerCall
             }
         });
     }
-
-    private void unregisterInBackground() {
-
-        new AsyncTask<Void, Void, String>() {
-
-            @Override
-            protected String doInBackground(Void... params) {
-
-                String msg = "";
-                try {
-                    if (gcm == null) {
-                        gcm = GoogleCloudMessaging.getInstance(HomeActivity.this);
-                    }
-
-                    gcm.unregister();
-
-                } catch (IOException ex) {
-                    msg = "Error :" + ex.getMessage();
-                }
-                return msg;
-            }
-        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-    }
-
 
     // Controls visibility/scale of FAB on drawer open/close
     private void scaleFAB(float input) {

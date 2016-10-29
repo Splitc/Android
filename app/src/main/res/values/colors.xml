@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#418dd9</color>
+    <color name="colorPrimaryDark">#509be6</color>
+    <color name="colorAccent">#428cd6</color>
 
     <!-- Text colors -->
     <color name="textColorPrimary">#2b4564</color>
@@ -36,7 +36,7 @@
 
     <color name="zomato_red_secondary">#BC212D</color>
     <color name="zomato_red">@color/green_gradient</color>
-    <color name="baatna_primary_dark">#3dc49a</color>
+    <color name="baatna_primary_dark">#509be6</color>
     <color name="zomato_red_trans_fifty">#80CB202D</color>
     <color name="zomato_red_feedback">#AB000D</color>
     <color name="zomato_grey">#aeaeae</color>

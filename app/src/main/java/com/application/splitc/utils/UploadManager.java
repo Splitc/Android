@@ -267,7 +267,7 @@ public class UploadManager {
             requestBuilder.add("app_type", CommonLib.APP_TYPE);
 
             RequestBody requestBody = requestBuilder.build();
-            String url = CommonLib.SERVER_URL + "user/logout?";
+            String url = CommonLib.SERVER_URL + "auth/logout?";
             Request
                     request = new Request.Builder()
                     .addHeader("Content-Type", "application/x-www-form-urlencoded")
