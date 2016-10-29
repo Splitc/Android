@@ -1,16 +1,23 @@
 package com.application.splitc.views;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -30,19 +37,19 @@ import com.application.splitc.utils.CommonLib;
 import com.application.splitc.utils.ImageLoader;
 import com.application.splitc.utils.UploadManager;
 import com.application.splitc.utils.UploadManagerCallback;
+import com.application.splitc.utils.ZLocationCallback;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 import okhttp3.FormBody;
 
 /**
  * Created by apoorvarora on 10/10/16.
  */
-public class HomeActivity extends AppCompatActivity implements UploadManagerCallback{
+public class HomeActivity extends AppCompatActivity implements UploadManagerCallback {
 
     private final String TAG = HomeActivity.class.getSimpleName();
     private DrawerLayout drawerLayout;
@@ -62,6 +69,7 @@ public class HomeActivity extends AppCompatActivity implements UploadManagerCall
     private boolean mFABVisible = false;
 
     private ImageLoader loader;
+    private Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -284,7 +292,7 @@ public class HomeActivity extends AppCompatActivity implements UploadManagerCall
     private void setupHomeFragment() {
         FragmentManager fragmentManager = getSupportFragmentManager();
 
-        Fragment fragment = fragmentManager.findFragmentByTag("homeFragment");
+        fragment = fragmentManager.findFragmentByTag("homeFragment");
 
         if (fragment == null) {
             fragment = new HomeFragment();
@@ -301,7 +309,7 @@ public class HomeActivity extends AppCompatActivity implements UploadManagerCall
     private void setupMyRidesFragment() {
         FragmentManager fragmentManager = getSupportFragmentManager();
 
-        Fragment fragment = fragmentManager.findFragmentByTag("myRidesFragment");
+        fragment = fragmentManager.findFragmentByTag("myRidesFragment");
 
         if (fragment == null) {
             fragment = new MyRidesFragment();

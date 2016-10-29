@@ -79,6 +79,13 @@ public class UploadManager {
         new PostDataToServer().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new Object[]{requestType, requestUrl, requestObject});
     }
 
+    public static void fetchDataFromServer(int requestType, String requestUrl) {
+        for (UploadManagerCallback callback : callbacks) {
+            callback.uploadStarted(requestType, requestUrl);
+        }
+        new FetchDataFromServer().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, new Object[]{requestType, requestUrl});
+    }
+
     private static class PostDataToServer extends AsyncTask<Object, Void, Object[]> {
 
         private int requestType;
@@ -126,4 +133,57 @@ public class UploadManager {
             }
         }
     }
+
+    private static class FetchDataFromServer extends AsyncTask<Object, Void, Object[]> {
+
+        private int requestType;
+        private String requestUrl;
+
+        @Override
+        protected Object[] doInBackground(Object... params) {
+
+            requestType = (Integer) params[0];
+            requestUrl = (String) params[1];
+
+            Object result[] = new Object[]{"", false, "Something went wrong"};
+
+            String token = prefs.getString("access_token", "");
+            int userId = prefs.getInt("userId", 0);
+
+            token = "MIMYCAL+ObLzbSFuxN0URA==";
+            userId = 200;
+
+            Request
+                    request = new Request.Builder()
+                    .addHeader("Content-Type", "application/json")
+                    .addHeader(HEADER_KEY_TOKEN, token)
+                    .addHeader(HEADER_KEY_USERID, userId + "")
+                    .url(requestUrl)
+                    .get()
+                    .build();
+
+            OkHttpClient okHttpClient = new OkHttpClient();
+            Call call = okHttpClient.newCall(request);
+
+            try {
+                Response response = call.execute();
+                return ParserJson.parseData(requestType, response.body().string());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(Object[] arg) {
+            if (arg != null && arg.length == 3 && !(Boolean) arg[1])
+                Toast.makeText(context, (String) arg[2], Toast.LENGTH_SHORT).show();
+
+            for (UploadManagerCallback callback : callbacks) {
+                callback.uploadFinished(requestType, arg, (boolean) arg[1], requestUrl);
+            }
+        }
+    }
+
 }

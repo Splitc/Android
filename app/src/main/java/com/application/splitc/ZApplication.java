@@ -281,4 +281,16 @@ public class ZApplication extends Application {
         editor.commit();
     }
 
+    public void setAddressString(String lstr) {
+        SharedPreferences prefs = getSharedPreferences("application_settings", 0);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("address", lstr);
+        editor.commit();
+    }
+    public String getAddressString() {
+        SharedPreferences prefs = getSharedPreferences("application_settings", 0);
+        String address= prefs.getString("address", "");
+        return address;
+    }
+
 }

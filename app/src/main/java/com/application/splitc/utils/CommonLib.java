@@ -2,12 +2,14 @@ package com.application.splitc.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -44,6 +46,29 @@ public class CommonLib {
 
     public static final String CLIENT_ID = "splitc_android_client";
     public static final String APP_TYPE = "splitc_android";
+
+    public static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 201;
+
+    /**
+     * Checks if the app has permission to write to device storage
+     *
+     * If the app does not has permission then the user will be prompted to grant permissions
+     *
+     * @param activity
+     */
+    public static void verifyPermissions(Activity activity, final String permission, final String[] permissions, final int requestCode) {
+        // Check if we have write permission
+        int activePermission = ActivityCompat.checkSelfPermission(activity, permission);
+
+        if (activePermission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    activity,
+                    permissions,
+                    requestCode
+            );
+        }
+    }
 
     // Font file def follows
     public static String FONT_MEDIUM = "fonts/transporter_Medium.ttf";
