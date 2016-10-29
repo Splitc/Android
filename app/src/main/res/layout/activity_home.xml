@@ -61,10 +61,9 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/size14"
                 android:padding="@dimen/size10"
-                android:textColor="@color/zhl_dark"
+                android:textColor="@color/zhl_darkest"
                 android:paddingTop="@dimen/height5"
                 android:text="@string/feedback"
-                android:onClick="feedback"
                 android:paddingBottom="@dimen/height5"/>
 
             <com.application.splitc.utils.TextViewLight
@@ -73,10 +72,9 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/size14"
                 android:padding="@dimen/size10"
-                android:textColor="@color/zhl_dark"
+                android:textColor="@color/zhl_darkest"
                 android:paddingTop="@dimen/height5"
                 android:text="@string/about_us"
-                android:onClick="aboutUs"
                 android:paddingBottom="@dimen/height5"/>
 
             <com.application.splitc.utils.TextViewLight
@@ -86,7 +84,7 @@
                 android:textSize="@dimen/size14"
                 android:text="@string/logout_text"
                 android:padding="@dimen/size10"
-                android:textColor="@color/zhl_dark"
+                android:textColor="@color/zhl_darkest"
                 android:paddingTop="@dimen/height5"
                 android:paddingBottom="@dimen/height5"
                 android:layout_marginBottom="@dimen/height10"/>

@@ -30,7 +30,12 @@ import com.application.splitc.utils.UploadManager;
 import com.application.splitc.utils.UploadManagerCallback;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+
+import okhttp3.FormBody;
 
 /**
  * Created by apoorvarora on 10/10/16.
@@ -142,7 +147,13 @@ public class HomeActivity extends AppCompatActivity implements UploadManagerCall
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 drawerLayout.closeDrawers();
-                                UploadManager.logout(prefs.getString("access_token", ""));
+
+                                FormBody.Builder requestBuilder = new FormBody.Builder();
+                                requestBuilder.add("access_token", prefs.getString("access_token", ""));
+                                requestBuilder.add("client_id", CommonLib.CLIENT_ID);
+                                requestBuilder.add("app_type", CommonLib.APP_TYPE);
+                                String url = CommonLib.SERVER_URL + "auth/logout";
+                                UploadManager.postDataToServer(UploadManager.LOGOUT, url, requestBuilder);
 
                                 // clear all prefs
                                 vapp.logout();
@@ -164,6 +175,21 @@ public class HomeActivity extends AppCompatActivity implements UploadManagerCall
                                 })
                         .create();
                 logoutDialog.show();
+            }
+        });
+
+        findViewById(R.id.about).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent intent = new Intent(HomeActivity.this, About);
+            }
+        });
+
+        findViewById(R.id.feedback).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, FeedbackActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -292,11 +318,4 @@ public class HomeActivity extends AppCompatActivity implements UploadManagerCall
         }
     }
 
-    public void feedback(View view) {
-
-    }
-
-    public void aboutUs(View view) {
-
-    }
 }
