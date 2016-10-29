@@ -22,7 +22,7 @@
             android:layout_toEndOf="@+id/drawer_header_image_layout"
             android:layout_toRightOf="@+id/drawer_header_image_layout"
             android:gravity="end"
-            android:textColor="@color/zhl_dark"
+            android:textColor="@color/zhl_darkest"
             android:textSize="@dimen/size20"
             tools:text="Welcome Nikhil"/>
 
@@ -42,7 +42,7 @@
                     android:id="@+id/user_image"
                     android:layout_width="@dimen/height80"
                     android:layout_height="@dimen/height80"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitXY"
                     android:src="@drawable/user" />
             </RelativeLayout>
 
@@ -56,9 +56,9 @@
         android:layout_width="@dimen/height80"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/about_text"
+        android:text="@string/view_profile"
         android:clickable="true"
-        android:textColor="@color/zhl_dark"
+        android:textColor="@color/zhl_darker"
         android:textSize="@dimen/size14"
         android:layout_marginLeft="@dimen/height20"/>
 

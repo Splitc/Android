@@ -21,11 +21,13 @@ import android.view.View;
 import android.view.ViewPropertyAnimator;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.application.splitc.R;
 import com.application.splitc.ZApplication;
 import com.application.splitc.utils.CommonLib;
+import com.application.splitc.utils.ImageLoader;
 import com.application.splitc.utils.UploadManager;
 import com.application.splitc.utils.UploadManagerCallback;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -59,6 +61,8 @@ public class HomeActivity extends AppCompatActivity implements UploadManagerCall
     private final int NEW_LOAD_CODE = 121;
     private boolean mFABVisible = false;
 
+    private ImageLoader loader;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +73,7 @@ public class HomeActivity extends AppCompatActivity implements UploadManagerCall
         mContext = this;
         width = getWindowManager().getDefaultDisplay().getWidth();
         height = getWindowManager().getDefaultDisplay().getHeight();
+        loader = new ImageLoader(mContext, vapp);
 
         UploadManager.addCallback(this);
 
@@ -116,7 +121,7 @@ public class HomeActivity extends AppCompatActivity implements UploadManagerCall
                         setupHomeFragment();
                         break;
                     case R.id.nav_order_history:
-//                        setOrderHistoryFragment();
+                        setupMyRidesFragment();
                         break;
                 }
                 return true;
@@ -209,6 +214,10 @@ public class HomeActivity extends AppCompatActivity implements UploadManagerCall
                 startActivity(intent);
             }
         });
+
+        loader.setImageFromUrlOrDisk(prefs.getString("profile_pic", ""), ((ImageView)headerView.findViewById(R.id.user_image)), "", width, height, false);
+
+        ((TextView)headerView.findViewById(R.id.textview_username)).setText("Howdy " + prefs.getString("username", "") + " !!!");
     }
 
     // Controls visibility/scale of FAB on drawer open/close
@@ -286,6 +295,23 @@ public class HomeActivity extends AppCompatActivity implements UploadManagerCall
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(getString(R.string.drawer_menu_my_loads_string));
+        }
+    }
+
+    private void setupMyRidesFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        Fragment fragment = fragmentManager.findFragmentByTag("myRidesFragment");
+
+        if (fragment == null) {
+            fragment = new MyRidesFragment();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.contentFrame, fragment, "myRidesFragment")
+                    .commitAllowingStateLoss();
+        }
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(getString(R.string.drawer_menu_order_history_string));
         }
     }
 

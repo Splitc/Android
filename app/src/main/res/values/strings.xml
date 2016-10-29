@@ -43,6 +43,7 @@
     <string name="about_us_terms_of_use">Terms of Service</string>
     <string name="about_us_privacypolicy">Privacy Policy</string>
     <string name="save">Save</string>
+    <string name="view_profile">View profile</string>
     <string name="messages">Messages</string>
     <string name="post_request">New Request</string>
     <string name="could_not_logout">Could not logout</string>
@@ -125,7 +126,7 @@
     <string name="email_required_hint">Email</string>
 
     <string name="drawer_menu_my_loads_string">Home</string>
-    <string name="drawer_menu_order_history_string">My Trips</string>
+    <string name="drawer_menu_order_history_string">My Rides</string>
     <string name="logout_text">Logout</string>
 
     <string name="openDrawer">Open navigation drawer</string>
