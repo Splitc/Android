@@ -1,139 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/new_request_scroll_container"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:fillViewport="true"
-    android:scrollbarStyle="outsideOverlay"
-    >
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/new_request_container"
+    <include
+        layout="@layout/home_toolbar"/>
+
+    <ScrollView
+        android:id="@+id/new_request_scroll_container"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical">
-
-        <include layout="@layout/home_toolbar"/>
-
-        <com.application.splitc.utils.TextViewBold
-            android:id="@+id/location_label"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:textColor="@color/secondary_text_color"
-            android:layout_marginLeft="@dimen/size30"
-            android:paddingTop="@dimen/size5"
-            android:paddingBottom="@dimen/size5"
-            android:paddingRight="@dimen/size5"
-            android:layout_marginTop="@dimen/size10"
-            android:text="@string/where"
-            android:gravity="center_vertical"
-            android:textSize="@dimen/size14"/>
-
-        <include
-            android:id="@+id/location_container"
-            layout="@layout/autocomplete_location_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-
-         <!--Travelling right now -->
-        <com.application.splitc.utils.TextViewBold
-            android:id="@+id/pickup_label"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:textColor="@color/secondary_text_color"
-            android:layout_marginLeft="@dimen/size30"
-            android:paddingTop="@dimen/size5"
-            android:paddingBottom="@dimen/size5"
-            android:paddingRight="@dimen/size5"
-            android:layout_marginTop="@dimen/size10"
-            android:text="@string/when"
-            android:gravity="center_vertical"
-            android:textSize="@dimen/size14"/>
+        android:layout_height="fill_parent"
+        android:fillViewport="true"
+        android:scrollbarStyle="outsideOverlay"
+        >
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/action_bar_height"
-            android:orientation="horizontal"
-            android:paddingLeft="@dimen/size10"
-            android:background="@drawable/whitebuttoncustomback" >
+            android:id="@+id/new_request_container"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
 
-            <com.application.splitc.utils.IconView
-                android:id="@+id/pickup_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:gravity="center_vertical"
-                android:textColor="@color/all_icon_color"
-                android:text="@string/z_timer"
-                android:paddingLeft="@dimen/size10"
-                android:textSize="@dimen/drawer_iconview_size"/>
-
-            <com.application.splitc.utils.TextViewLight
-                android:id="@+id/pickup_timer"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="fill_parent"
+            <com.application.splitc.utils.TextViewBold
+                android:id="@+id/location_label"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:textColor="@color/primary_text_color"
-                android:textColorHint="@color/secondary_text_color"
-                android:layout_marginLeft="@dimen/size25"
-                android:hint="@string/trip_start_time"
+                android:textColor="@color/secondary_text_color"
+                android:layout_marginLeft="@dimen/size30"
+                android:paddingTop="@dimen/size5"
+                android:paddingBottom="@dimen/size5"
+                android:paddingRight="@dimen/size5"
+                android:layout_marginTop="@dimen/size10"
+                android:text="@string/where"
                 android:gravity="center_vertical"
                 android:textSize="@dimen/size14"/>
 
-        </LinearLayout>
+            <include
+                android:id="@+id/location_container"
+                layout="@layout/autocomplete_location_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
 
-        <FrameLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/size10">
+            <!--Travelling right now -->
+            <com.application.splitc.utils.TextViewBold
+                android:id="@+id/pickup_label"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="@color/secondary_text_color"
+                android:layout_marginLeft="@dimen/size30"
+                android:paddingTop="@dimen/size5"
+                android:paddingBottom="@dimen/size5"
+                android:paddingRight="@dimen/size5"
+                android:layout_marginTop="@dimen/size10"
+                android:text="@string/when"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/size14"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/action_bar_height"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/size10"
+                android:background="@drawable/whitebuttoncustomback" >
+
+                <com.application.splitc.utils.IconViewZ
+                    android:id="@+id/pickup_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/all_icon_color"
+                    android:text="@string/z_timer"
+                    android:paddingLeft="@dimen/size10"
+                    android:textSize="@dimen/drawer_iconview_size"/>
+
+                <com.application.splitc.utils.TextViewLight
+                    android:id="@+id/pickup_timer"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="fill_parent"
+                    android:singleLine="true"
+                    android:textColor="@color/primary_text_color"
+                    android:textColorHint="@color/secondary_text_color"
+                    android:layout_marginLeft="@dimen/size25"
+                    android:hint="@string/trip_start_time"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/size14"/>
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/size10">
+
+                <com.application.splitc.utils.EditTextRegular
+                    android:id="@+id/required_persons"
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/height60"
+                    android:gravity="bottom|left"
+                    android:hint="@string/time_duration"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/default_font_color"
+                    android:textColorHint="@color/default_font_color"
+                    android:textSize="@dimen/size16"
+                    android:maxLength="2"/>
+
+                <com.application.splitc.utils.TextViewBold
+                    android:id="@+id/required_persons_hint"
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/height60"
+                    android:gravity="bottom|left"
+                    android:text="Persons"
+                    android:textColor="@color/zhl_darkest"
+                    android:textSize="@dimen/size16"
+                    android:paddingLeft="@dimen/height32"
+                    android:paddingBottom="@dimen/size10"
+                    android:visibility="gone"/>
+            </FrameLayout>
 
             <com.application.splitc.utils.EditTextRegular
-                android:id="@+id/required_persons"
+                android:id="@+id/description_et"
                 android:layout_width="fill_parent"
-                android:layout_height="@dimen/height60"
-                android:gravity="bottom|left"
-                android:hint="@string/time_duration"
-                android:inputType="number"
-                android:maxLines="1"
-                android:singleLine="true"
+                android:layout_height="wrap_content"
+                android:background="@drawable/all_round_cornered_zhl_button"
+                android:gravity="top|left"
+                android:hint="@string/description_hint"
+                android:inputType="textMultiLine"
+                android:maxLines="5"
+                android:singleLine="false"
+                android:maxLength="200"
+                android:padding="@dimen/size30"
+                android:layout_marginTop="@dimen/size10"
                 android:textColor="@color/default_font_color"
                 android:textColorHint="@color/default_font_color"
-                android:textSize="@dimen/size16"
-                android:maxLength="2"/>
+                android:textSize="@dimen/size16" />
 
-            <com.application.splitc.utils.TextViewBold
-                android:id="@+id/required_persons_hint"
-                android:layout_width="fill_parent"
-                android:layout_height="@dimen/height60"
-                android:gravity="bottom|left"
-                android:text="Persons"
-                android:textColor="@color/zhl_darkest"
-                android:textSize="@dimen/size16"
-                android:paddingLeft="@dimen/height32"
-                android:paddingBottom="@dimen/size10"
-                android:visibility="gone"/>
-        </FrameLayout>
+        </LinearLayout>
+    </ScrollView>
 
-        <com.application.splitc.utils.EditTextRegular
-            android:id="@+id/description_et"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/all_round_cornered_zhl_button"
-            android:gravity="top|left"
-            android:hint="@string/description_hint"
-            android:inputType="textMultiLine"
-            android:maxLines="5"
-            android:singleLine="false"
-            android:maxLength="200"
-            android:padding="@dimen/size30"
-            android:layout_marginTop="@dimen/size10"
-            android:textColor="@color/default_font_color"
-            android:textColorHint="@color/default_font_color"
-            android:textSize="@dimen/size16" />
-
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>

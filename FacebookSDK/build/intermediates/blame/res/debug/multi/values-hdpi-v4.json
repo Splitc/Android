@@ -1,29 +1,5 @@
 [
     {
-        "outputFile": "/Users/apoorvarora/Documents/Zapplon/Android/FacebookSDK/build/intermediates/res/merged/debug/values-hdpi-v4/values-hdpi-v4.xml",
-        "map": [
-            {
-                "to": {
-                    "startLine": 2,
-                    "startColumn": 4,
-                    "startOffset": 55,
-                    "endColumn": 63,
-                    "endOffset": 114
-                },
-                "from": {
-                    "file": "/Users/apoorvarora/Documents/Zapplon/Android/FacebookSDK/res/values-hdpi/dimens.xml",
-                    "position": {
-                        "startLine": 2,
-                        "startColumn": 4,
-                        "startOffset": 55,
-                        "endColumn": 63,
-                        "endOffset": 114
-                    }
-                }
-            }
-        ]
-    },
-    {
         "outputFile": "/Users/neo/Documents/Splitc-Repos/Android/FacebookSDK/build/intermediates/res/merged/debug/values-hdpi-v4/values-hdpi-v4.xml",
         "map": [
             {
@@ -36,30 +12,6 @@
                 },
                 "from": {
                     "file": "/Users/neo/Documents/Splitc-Repos/Android/FacebookSDK/res/values-hdpi/dimens.xml",
-                    "position": {
-                        "startLine": 2,
-                        "startColumn": 4,
-                        "startOffset": 55,
-                        "endColumn": 63,
-                        "endOffset": 114
-                    }
-                }
-            }
-        ]
-    },
-    {
-        "outputFile": "/Users/apoorvarora/Documents/Rivigo/Splitc/FacebookSDK/build/intermediates/res/merged/debug/values-hdpi-v4/values-hdpi-v4.xml",
-        "map": [
-            {
-                "to": {
-                    "startLine": 2,
-                    "startColumn": 4,
-                    "startOffset": 55,
-                    "endColumn": 63,
-                    "endOffset": 114
-                },
-                "from": {
-                    "file": "/Users/apoorvarora/Documents/Rivigo/Splitc/FacebookSDK/res/values-hdpi/dimens.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,

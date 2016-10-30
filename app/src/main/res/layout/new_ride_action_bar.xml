@@ -1,35 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/height60"
+    android:layout_height="@dimen/action_bar_height"
     android:layout_gravity="fill_horizontal"
-    android:layout_marginBottom="10dp"
-    android:background="@color/action_bar_default">
+    android:background="@color/colorPrimary">
 
     <LinearLayout
         android:id="@+id/home_icon_container"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height60"
+        android:layout_height="@dimen/action_bar_height"
         android:onClick="actionBarSelected"
-        android:orientation="horizontal"
-    >
+        android:orientation="horizontal">
 
         <com.application.splitc.utils.IconView
             android:id="@+id/back_icon"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/height60"
+            android:layout_height="@dimen/action_bar_height"
             android:layout_alignParentLeft="true"
             android:gravity="center"
             android:text="H"
             android:textColor="@color/zhl"
             android:background="@drawable/splitc_dark_feedback"
-            android:textSize="@dimen/drawer_icon_size"
-        />
+            android:textSize="@dimen/drawer_icon_size" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="@dimen/height60"
+            android:layout_height="@dimen/action_bar_height"
             android:gravity="center_vertical"
             android:orientation="vertical" >
 
@@ -47,7 +44,7 @@
                 android:textSize="14dp"
                 android:letterSpacing="0.1"
 
-            />
+                />
 
             <com.application.splitc.utils.TextViewRegular
                 android:id="@+id/subtitle"
@@ -61,16 +58,17 @@
                 android:visibility="gone"
                 android:layout_gravity="center"/>
         </LinearLayout>
+
         <com.application.splitc.utils.IconView
             android:id="@+id/post_icon"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/height60"
+            android:layout_height="@dimen/action_bar_height"
             android:layout_alignParentRight="true"
             android:clickable="true"
             android:onClick="postRequest"
             android:gravity="center"
             android:text="G"
-            android:textColor="@color/baatna_primary_dark"
+            android:textColor="@color/white"
             android:textSize="@dimen/drawer_icon_size"
             android:background="@drawable/splitc_dark_feedback"/>
 

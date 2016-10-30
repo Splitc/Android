@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -99,14 +100,10 @@ public class NewRideActivity extends AppCompatActivity {
             }
         });
 
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setupActionBar();
         setListeners();
-
-
     }
 
     private void setListeners() {
@@ -146,7 +143,7 @@ public class NewRideActivity extends AppCompatActivity {
     }
 
     private void setupActionBar() {
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setHomeButtonEnabled(false);
