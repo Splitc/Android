@@ -38,6 +38,7 @@ public class UploadManager {
     public static final int UPDATE = 103;
     public static final int LOGOUT = 104;
     public static final int APP_CONFIG = 105;
+    public static final int NEW_RIDE = 106;
 
     public static final String HEADER_KEY_TOKEN = "accesstoken";
     public static final String HEADER_KEY_USERID = "userid";

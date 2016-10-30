@@ -21,6 +21,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.application.splitc.R;
 import com.application.splitc.ZApplication;
@@ -28,11 +29,14 @@ import com.application.splitc.adapters.GooglePlaceAutocompleteAdapter;
 import com.application.splitc.data.GooglePlaceAutocompleteObject;
 import com.application.splitc.utils.CommonLib;
 import com.application.splitc.utils.TypefaceSpan;
+import com.application.splitc.utils.UploadManager;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+
+import okhttp3.FormBody;
 
 /**
  * Created by apoorvarora on 10/10/16.
@@ -50,6 +54,8 @@ public class NewRideActivity extends AppCompatActivity {
     private AutoCompleteTextView startLocation, dropLocation;
 
     private int starthour, startmin, startDay, startMonth, startyear;
+
+    private Calendar tripStartdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +80,7 @@ public class NewRideActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 if (adapterView != null && adapterView.getAdapter() != null) {
                     final GooglePlaceAutocompleteObject item = (GooglePlaceAutocompleteObject) adapterView.getAdapter().getItem(position);
-                    startLocationObject.setId(item.getId());
-                    startLocationObject.setDisplayName(item.getDisplayName());
+                    startLocationObject = item;
                     startLocation.setText(item.getDisplayName());
                 }
             }
@@ -88,8 +93,7 @@ public class NewRideActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 if (adapterView != null && adapterView.getAdapter() != null) {
                     final GooglePlaceAutocompleteObject item = (GooglePlaceAutocompleteObject) adapterView.getAdapter().getItem(position);
-                    dropLocationObject.setId(item.getId());
-                    dropLocationObject.setDisplayName(item.getDisplayName());
+                    dropLocationObject = item;
                     dropLocation.setText(item.getDisplayName());
                 }
             }
@@ -127,12 +131,12 @@ public class NewRideActivity extends AppCompatActivity {
             }
         });
 
-//        findViewById(R.id.pickup_timer).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                showDateTimePicker(false);
-//            }
-//        });
+        findViewById(R.id.pickup_timer).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDateTimePicker();
+            }
+        });
     }
 
     @Override
@@ -196,33 +200,58 @@ public class NewRideActivity extends AppCompatActivity {
 
     }
 
-    public void postRequest(View v){
+    public void postRequest(View v) {
+        if (startLocationObject == null || startLocation.getText() == null || startLocation.getText().toString().length() < 1) {
+            Toast.makeText(mContext, "Invalid start location", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (dropLocationObject == null || dropLocation.getText() == null || dropLocation.getText().toString().length() < 1) {
+            Toast.makeText(mContext, "Invalid drop location", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (tripStartdate == null) {
+            Toast.makeText(mContext, "Pickup time", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        FormBody.Builder requestBuilder = new FormBody.Builder();
+        requestBuilder.add("access_token", prefs.getString("access_token", ""));
+        requestBuilder.add("client_id", CommonLib.CLIENT_ID);
+        requestBuilder.add("app_type", CommonLib.APP_TYPE);
+        requestBuilder.add("fromAddress", startLocation.getText().toString());
+        requestBuilder.add("startGooglePlaceId", startLocationObject.getId());
+        requestBuilder.add("toAddress", dropLocation.getText().toString());
+        requestBuilder.add("dropGooglePlaceId", dropLocationObject.getId());
+        requestBuilder.add("requiredPersons", ((TextView)findViewById(R.id.required_persons)).getText().toString());
+        requestBuilder.add("description", ((TextView)findViewById(R.id.description_et)).getText().toString());
+        requestBuilder.add("startTime", tripStartdate.getTimeInMillis()+"");
+
+        String url = CommonLib.SERVER_URL + "ride/add";
+        UploadManager.postDataToServer(UploadManager.NEW_RIDE, url, requestBuilder);
+
+
     }
 
-    public void showDateTimePicker(final boolean showTimePicker) {
+    public void showDateTimePicker() {
         final View customView = inflater.inflate(R.layout.date_time_picker, null);
 
         // Define your date pickers
         final DatePicker dpStartDate = (DatePicker) customView.findViewById(R.id.date_picker);
         final TimePicker dpStartTime = (TimePicker) customView.findViewById(R.id.time_picker);
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
+        tripStartdate = Calendar.getInstance();
+        tripStartdate.setTimeInMillis(System.currentTimeMillis());
+        tripStartdate.setTimeInMillis(System.currentTimeMillis());
 
-        if(showTimePicker && startDay == 0 && startMonth == 0 && startyear == 0) {
-            dpStartDate.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-            dpStartTime.setCurrentHour(calendar.get(Calendar.HOUR_OF_DAY));
-            dpStartTime.setCurrentMinute(calendar.get(Calendar.MINUTE));
-            ((TextView)customView.findViewById(R.id.dp_title)).setText(getResources().getString(R.string.pickup_date));
-        } else {
-            if(startDay != 0 && startMonth != 0 && startyear != 0) {
-                calendar.set(Calendar.DAY_OF_MONTH, startDay);
-                calendar.set(Calendar.MONTH, startMonth - 1);
-                calendar.set(Calendar.YEAR, startyear);
-                dpStartDate.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-            }
-            ((TextView)customView.findViewById(R.id.dp_title)).setText(getResources().getString(R.string.pickup_date));
+        if(startDay != 0 && startMonth != 0 && startyear != 0) {
+            tripStartdate.set(Calendar.DAY_OF_MONTH, startDay);
+            tripStartdate.set(Calendar.MONTH, startMonth - 1);
+            tripStartdate.set(Calendar.YEAR, startyear);
+            dpStartDate.updateDate(tripStartdate.get(Calendar.YEAR), tripStartdate.get(Calendar.MONTH), tripStartdate.get(Calendar.DAY_OF_MONTH));
         }
+        ((TextView)customView.findViewById(R.id.dp_title)).setText(getResources().getString(R.string.pickup_date));
 
         // Build the dialog
         final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
@@ -249,7 +278,9 @@ public class NewRideActivity extends AppCompatActivity {
                     startMonth = startMonthOfYear;
                     startyear = startYear;
 
-                    String date = startDayOfMonth + "/" + (startMonthOfYear) + "/" + startYear;
+                    tripStartdate.set(Calendar.DAY_OF_MONTH, startDay);
+                    tripStartdate.set(Calendar.MONTH, startMonth);
+                    tripStartdate.set(Calendar.YEAR, startyear);
 
                     //show time picker now
                     customView.findViewById(R.id.dp).setVisibility(View.GONE);
@@ -262,17 +293,16 @@ public class NewRideActivity extends AppCompatActivity {
                     starthour = startHour;
                     startmin = startMinute;
 
+                    tripStartdate.set(Calendar.HOUR_OF_DAY, starthour);
+                    tripStartdate.set(Calendar.MINUTE, startmin);
+
                     Time mTime = new Time();
                     mTime.set(0, startMinute, startHour, 1, 1, 1);
                     String startTime = mTime.format("%I:%M %P");
                     String date = startDay + "/" + (startMonth) + "/" + startyear;
 
-//                    fromDate.setText(date + " "+ startTime);
-//                    dialog.dismiss();
-//
-//                    if (type == ROUND_TRIP_FRAGMENT && toDate.getText().toString().length() < 1) {
-//                        dropTimerContainer.performClick();
-//                    }
+                    ((TextView)findViewById(R.id.pickup_timer)).setText(date + " "+ startTime);
+                    dialog.dismiss();
                 }
             }
         });

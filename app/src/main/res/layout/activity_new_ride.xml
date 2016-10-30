@@ -38,53 +38,53 @@
             android:layout_height="wrap_content"
             />
 
-        <!-- Travelling right now -->
-        <!--<com.application.splitc.utils.TextViewBold-->
-            <!--android:id="@+id/pickup_label"-->
-            <!--android:layout_width="fill_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:singleLine="true"-->
-            <!--android:textColor="@color/secondary_text_color"-->
-            <!--android:layout_marginLeft="@dimen/size30"-->
-            <!--android:paddingTop="@dimen/size5"-->
-            <!--android:paddingBottom="@dimen/size5"-->
-            <!--android:paddingRight="@dimen/size5"-->
-            <!--android:layout_marginTop="@dimen/size10"-->
-            <!--android:text="@string/when"-->
-            <!--android:gravity="center_vertical"-->
-            <!--android:textSize="@dimen/size14"/>-->
+         <!--Travelling right now -->
+        <com.application.splitc.utils.TextViewBold
+            android:id="@+id/pickup_label"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="@color/secondary_text_color"
+            android:layout_marginLeft="@dimen/size30"
+            android:paddingTop="@dimen/size5"
+            android:paddingBottom="@dimen/size5"
+            android:paddingRight="@dimen/size5"
+            android:layout_marginTop="@dimen/size10"
+            android:text="@string/when"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/size14"/>
 
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="@dimen/action_bar_height"-->
-            <!--android:orientation="horizontal"-->
-            <!--android:paddingLeft="@dimen/size10"-->
-            <!--android:background="@drawable/whitebuttoncustomback" >-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/action_bar_height"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/size10"
+            android:background="@drawable/whitebuttoncustomback" >
 
-            <!--<com.application.splitc.utils.IconView-->
-                <!--android:id="@+id/pickup_icon"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="fill_parent"-->
-                <!--android:gravity="center_vertical"-->
-                <!--android:textColor="@color/all_icon_color"-->
-                <!--android:text="@string/z_timer"-->
-                <!--android:paddingLeft="@dimen/size10"-->
-                <!--android:textSize="@dimen/drawer_iconview_size"/>-->
+            <com.application.splitc.utils.IconView
+                android:id="@+id/pickup_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical"
+                android:textColor="@color/all_icon_color"
+                android:text="@string/z_timer"
+                android:paddingLeft="@dimen/size10"
+                android:textSize="@dimen/drawer_iconview_size"/>
 
-            <!--<com.application.splitc.utils.TextViewLight-->
-                <!--android:id="@+id/pickup_timer"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_weight="1"-->
-                <!--android:layout_height="fill_parent"-->
-                <!--android:singleLine="true"-->
-                <!--android:textColor="@color/primary_text_color"-->
-                <!--android:textColorHint="@color/secondary_text_color"-->
-                <!--android:layout_marginLeft="@dimen/size25"-->
-                <!--android:hint="@string/pickup_time"-->
-                <!--android:gravity="center_vertical"-->
-                <!--android:textSize="@dimen/size14"/>-->
+            <com.application.splitc.utils.TextViewLight
+                android:id="@+id/pickup_timer"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="fill_parent"
+                android:singleLine="true"
+                android:textColor="@color/primary_text_color"
+                android:textColorHint="@color/secondary_text_color"
+                android:layout_marginLeft="@dimen/size25"
+                android:hint="@string/trip_start_time"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/size14"/>
 
-        <!--</LinearLayout>-->
+        </LinearLayout>
 
         <FrameLayout
             android:layout_width="fill_parent"
