@@ -1,6 +1,7 @@
 package com.application.splitc.views;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -31,6 +32,7 @@ import com.application.splitc.data.GooglePlaceAutocompleteObject;
 import com.application.splitc.utils.CommonLib;
 import com.application.splitc.utils.TypefaceSpan;
 import com.application.splitc.utils.UploadManager;
+import com.application.splitc.utils.UploadManagerCallback;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -42,7 +44,7 @@ import okhttp3.FormBody;
 /**
  * Created by apoorvarora on 10/10/16.
  */
-public class NewRideActivity extends AppCompatActivity {
+public class NewRideActivity extends AppCompatActivity implements UploadManagerCallback {
 
     private Activity mContext;
     private boolean destroyed = false;
@@ -57,6 +59,8 @@ public class NewRideActivity extends AppCompatActivity {
     private int starthour, startmin, startDay, startMonth, startyear;
 
     private Calendar tripStartdate;
+
+    private ProgressDialog zProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +78,9 @@ public class NewRideActivity extends AppCompatActivity {
         dropLocationObject = new GooglePlaceAutocompleteObject();
         inflater = LayoutInflater.from(mContext);
 
-        GooglePlaceAutocompleteAdapter adapter1 = new GooglePlaceAutocompleteAdapter(mContext, "cities", "AIzaSyC07KGQE5fTVM0z6G4Z_IgeR0Td0b1uCvI");//vapp.getAppConfig().getGoogleApiKey()
+        UploadManager.addCallback(this);
+
+        GooglePlaceAutocompleteAdapter adapter1 = new GooglePlaceAutocompleteAdapter(mContext, "regions", CommonLib.GOOGLE_PLACES_API_KEY);
         startLocation.setAdapter(adapter1);
         startLocation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -87,7 +93,7 @@ public class NewRideActivity extends AppCompatActivity {
             }
         });
 
-        GooglePlaceAutocompleteAdapter adapter2 = new GooglePlaceAutocompleteAdapter(mContext, "cities", "AIzaSyC07KGQE5fTVM0z6G4Z_IgeR0Td0b1uCvI");//vapp.getAppConfig().getGoogleApiKey()
+        GooglePlaceAutocompleteAdapter adapter2 = new GooglePlaceAutocompleteAdapter(mContext, "regions", CommonLib.GOOGLE_PLACES_API_KEY);
         dropLocation.setAdapter(adapter2);
         dropLocation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -139,6 +145,9 @@ public class NewRideActivity extends AppCompatActivity {
     @Override
     public void onDestroy(){
         destroyed = true;
+        if (zProgressDialog != null && zProgressDialog.isShowing())
+            zProgressDialog.dismiss();
+        UploadManager.removeCallback(this);
         super.onDestroy();
     }
 
@@ -228,7 +237,7 @@ public class NewRideActivity extends AppCompatActivity {
         String url = CommonLib.SERVER_URL + "ride/add";
         UploadManager.postDataToServer(UploadManager.NEW_RIDE, url, requestBuilder);
 
-
+        zProgressDialog = ProgressDialog.show(mContext, null, "Uploading your wish. Please wait!!!");
     }
 
     public void showDateTimePicker() {
@@ -310,5 +319,23 @@ public class NewRideActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
+    }
+
+    @Override
+    public void uploadStarted(int requestType, Object data) {
+
+    }
+
+    @Override
+    public void uploadFinished(int requestType, Object data, boolean status, String errorMessage) {
+        if(requestType == UploadManager.NEW_RIDE) {
+            if(!destroyed) {
+                if (zProgressDialog != null && zProgressDialog.isShowing())
+                    zProgressDialog.dismiss();
+                if (status) {
+                    finish();
+                }
+            }
+        }
     }
 }

@@ -44,6 +44,8 @@ public class CommonLib {
      */
     public static final String GCM_SENDER_ID = "996855199819";
 
+    public static final String GOOGLE_PLACES_API_KEY = "AIzaSyC07KGQE5fTVM0z6G4Z_IgeR0Td0b1uCvI";
+
     public static final String CLIENT_ID = "splitc_android_client";
     public static final String APP_TYPE = "splitc_android";
 

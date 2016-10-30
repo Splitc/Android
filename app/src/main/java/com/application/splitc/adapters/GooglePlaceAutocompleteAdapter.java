@@ -32,16 +32,6 @@ public class GooglePlaceAutocompleteAdapter extends BaseAdapter implements Filte
         inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.typeParam = typeParam;
         mPlaceAPI = new GooglePlaceAutocompleteApi(key);
-        /*String appdata = activity.getSharedPreferences(APP_PREFERENCE, 0).getString(APP_DATA, "");
-        if (appdata != null &&  !appdata.equals("")) {
-            try {
-                Gson gson = new Gson();
-                CityList cityList = gson.fromJson(appdata, CityList.class);
-                autocompleteStaticData = cityList.getObject().getExternalAddedPlaceDtoList();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }*/
     }
 
     @Override

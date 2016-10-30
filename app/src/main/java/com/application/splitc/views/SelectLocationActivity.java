@@ -13,6 +13,7 @@ import com.application.splitc.R;
 import com.application.splitc.ZApplication;
 import com.application.splitc.adapters.GooglePlaceAutocompleteAdapter;
 import com.application.splitc.data.GooglePlaceAutocompleteObject;
+import com.application.splitc.utils.CommonLib;
 
 /**
  * Created by apoorvarora on 12/10/16.
@@ -41,7 +42,7 @@ public class SelectLocationActivity extends AppCompatActivity {
 
         locationAutoComplete = (AutoCompleteTextView) findViewById(R.id.location);
         placeAutocompleteObject = new GooglePlaceAutocompleteObject();
-        GooglePlaceAutocompleteAdapter mAdapter = new GooglePlaceAutocompleteAdapter(mContext, "cities", "AIzaSyC07KGQE5fTVM0z6G4Z_IgeR0Td0b1uCvI");//vapp.getAppConfig().getGoogleApiKey()
+        GooglePlaceAutocompleteAdapter mAdapter = new GooglePlaceAutocompleteAdapter(mContext, "regions", CommonLib.GOOGLE_PLACES_API_KEY);
         locationAutoComplete.setAdapter(mAdapter);
         locationAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
