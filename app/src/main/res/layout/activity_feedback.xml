@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <com.application.splitc.utils.EditTextLight
+            <in.splitc.share.utils.EditTextLight
                 android:id="@+id/feedback_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
                 android:textColorHint="@color/zhl_darkest"
                 android:textSize="@dimen/size16" />
 
-            <com.application.splitc.utils.TextViewThin
+            <in.splitc.share.utils.TextViewThin
                 android:id="@+id/feedback_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
             android:onClick="submit"
             android:visibility="gone" >
 
-            <com.application.splitc.utils.TextViewBold
+            <in.splitc.share.utils.TextViewBold
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/feedback"

@@ -11,7 +11,6 @@
         android:elevation="@dimen/toolbar_elevation">
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/location_wrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/size35"
@@ -36,7 +35,7 @@
 
         </android.support.design.widget.TextInputLayout>
 
-        <com.application.splitc.utils.IconView
+        <in.splitc.share.utils.IconView
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:gravity="center_vertical"
@@ -47,7 +46,7 @@
             android:layout_marginTop="-7dp"
             android:textSize="@dimen/drawer_iconview_size" />
 
-        <com.application.splitc.utils.IconView
+        <in.splitc.share.utils.IconView
             android:id="@+id/search_close_btn"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"

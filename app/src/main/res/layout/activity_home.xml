@@ -11,7 +11,6 @@
         android:fitsSystemWindows="true">
 
         <android.support.design.widget.AppBarLayout
-            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -55,7 +54,7 @@
             android:layout_gravity="bottom"
             android:layout_marginLeft="@dimen/activity_horizontal_margin">
 
-            <com.application.splitc.utils.TextViewLight
+            <in.splitc.share.utils.TextViewLight
                 android:id="@+id/feedback"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -66,7 +65,7 @@
                 android:text="@string/feedback"
                 android:paddingBottom="@dimen/height5"/>
 
-            <com.application.splitc.utils.TextViewLight
+            <in.splitc.share.utils.TextViewLight
                 android:id="@+id/about"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -77,7 +76,7 @@
                 android:text="@string/about_us"
                 android:paddingBottom="@dimen/height5"/>
 
-            <com.application.splitc.utils.TextViewLight
+            <in.splitc.share.utils.TextViewLight
                 android:id="@+id/logoutTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

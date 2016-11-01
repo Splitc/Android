@@ -8,7 +8,6 @@
         layout="@layout/home_toolbar"/>
 
     <ScrollView
-        android:id="@+id/new_request_scroll_container"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:fillViewport="true"
@@ -16,14 +15,12 @@
         >
 
         <LinearLayout
-            android:id="@+id/new_request_container"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="vertical">
 
-            <com.application.splitc.utils.TextViewBold
-                android:id="@+id/location_label"
+            <in.splitc.share.utils.TextViewBold
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
@@ -38,15 +35,13 @@
                 android:textSize="@dimen/size14"/>
 
             <include
-                android:id="@+id/location_container"
                 layout="@layout/autocomplete_location_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
 
             <!--Travelling right now -->
-            <com.application.splitc.utils.TextViewBold
-                android:id="@+id/pickup_label"
+            <in.splitc.share.utils.TextViewBold
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
@@ -67,8 +62,7 @@
                 android:paddingLeft="@dimen/size10"
                 android:background="@drawable/whitebuttoncustomback" >
 
-                <com.application.splitc.utils.IconViewZ
-                    android:id="@+id/pickup_icon"
+                <in.splitc.share.utils.IconViewZ
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:gravity="center_vertical"
@@ -77,7 +71,7 @@
                     android:paddingLeft="@dimen/size10"
                     android:textSize="@dimen/drawer_iconview_size"/>
 
-                <com.application.splitc.utils.TextViewLight
+                <in.splitc.share.utils.TextViewLight
                     android:id="@+id/pickup_timer"
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -97,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/size10">
 
-                <com.application.splitc.utils.EditTextRegular
+                <in.splitc.share.utils.EditTextRegular
                     android:id="@+id/required_persons"
                     android:layout_width="fill_parent"
                     android:layout_height="@dimen/height60"
@@ -111,7 +105,7 @@
                     android:textSize="@dimen/size16"
                     android:maxLength="2"/>
 
-                <com.application.splitc.utils.TextViewBold
+                <in.splitc.share.utils.TextViewBold
                     android:id="@+id/required_persons_hint"
                     android:layout_width="fill_parent"
                     android:layout_height="@dimen/height60"
@@ -124,7 +118,7 @@
                     android:visibility="gone"/>
             </FrameLayout>
 
-            <com.application.splitc.utils.EditTextRegular
+            <in.splitc.share.utils.EditTextRegular
                 android:id="@+id/description_et"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"

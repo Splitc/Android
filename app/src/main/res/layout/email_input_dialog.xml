@@ -6,7 +6,7 @@
     android:paddingBottom="@dimen/size10"
     android:background="@color/android_light_background">
 
-    <com.application.splitc.utils.TextViewLight
+    <in.splitc.share.utils.TextViewLight
         android:id="@+id/email_input_message"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
         android:layout_below="@id/email_input_message"
         android:background="@color/zhl_darkest" />
 
-    <com.application.splitc.utils.EditTextLight
+    <in.splitc.share.utils.EditTextLight
         android:id="@+id/email_input"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -44,9 +44,9 @@
         android:textColor="@color/zhl_darkest"
         android:textSize="@dimen/size18" >
         <requestFocus />
-    </com.application.splitc.utils.EditTextLight>
+    </in.splitc.share.utils.EditTextLight>
 
-    <com.application.splitc.utils.TextViewLight
+    <in.splitc.share.utils.TextViewLight
         android:id="@+id/submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -9,7 +9,7 @@
         android:layout_height="fill_parent"
         android:orientation="vertical" >
 
-        <com.application.splitc.utils.TextViewLight
+        <in.splitc.share.utils.TextViewLight
             android:id="@+id/dp_title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -34,8 +34,7 @@
         android:visibility="gone"
         android:orientation="vertical" >
 
-        <com.application.splitc.utils.TextViewLight
-            android:id="@+id/tp_title"
+        <in.splitc.share.utils.TextViewLight
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/height15"

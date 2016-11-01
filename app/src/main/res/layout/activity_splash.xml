@@ -5,10 +5,17 @@
     android:orientation="vertical" >
 
     <ImageView
-        android:id="@+id/baatna_background"
+        android:id="@+id/baatna_background_img"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        android:visibility="gone"/>
+
+    <FrameLayout
+        android:id="@+id/baatna_background_frame"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        />
 
     <View
         android:layout_width="fill_parent"
@@ -17,7 +24,6 @@
         android:background="@color/black_trans_twenty" />
 
     <RelativeLayout
-        android:id="@+id/main_root"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"
@@ -39,7 +45,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true">
 
-            <com.application.splitc.utils.TextViewBold
+            <in.splitc.share.utils.TextViewBold
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -77,7 +83,7 @@
                 android:background="@drawable/textview_zhl_drawable"
                 android:layout_centerHorizontal="true">
 
-                <com.application.splitc.utils.TextViewBold
+                <in.splitc.share.utils.TextViewBold
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/z_white_feedback"

@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true">
 
-        <com.application.splitc.utils.TextViewLight
+        <in.splitc.share.utils.TextViewLight
             android:id="@+id/textview_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <com.application.splitc.utils.ZCircularImageView
+                <in.splitc.share.utils.ZCircularImageView
                     android:id="@+id/user_image"
                     android:layout_width="@dimen/height80"
                     android:layout_height="@dimen/height80"
@@ -50,9 +50,8 @@
 
     </RelativeLayout>
 
-    <com.application.splitc.utils.TextViewLight
+    <in.splitc.share.utils.TextViewLight
         android:layout_below="@+id/layout1"
-        android:id="@+id/textview_viewprofile"
         android:layout_width="@dimen/height80"
         android:layout_height="wrap_content"
         android:gravity="center"

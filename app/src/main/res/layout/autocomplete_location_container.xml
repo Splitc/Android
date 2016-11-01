@@ -44,7 +44,7 @@
             android:backgroundTint="@color/white"
             android:ellipsize="end"/>
 
-        <com.application.splitc.utils.IconView
+        <in.splitc.share.utils.IconView
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:gravity="center_vertical"
@@ -90,7 +90,7 @@
             android:backgroundTint="@color/white"
             android:textSize="@dimen/size14"/>
 
-        <com.application.splitc.utils.IconView
+        <in.splitc.share.utils.IconView
             android:id="@+id/search_close_btn"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"

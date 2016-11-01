@@ -12,7 +12,7 @@
         android:onClick="actionBarSelected"
         android:orientation="horizontal">
 
-        <com.application.splitc.utils.IconView
+        <in.splitc.share.utils.IconView
             android:id="@+id/back_icon"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/action_bar_height"
@@ -30,7 +30,7 @@
             android:gravity="center_vertical"
             android:orientation="vertical" >
 
-            <com.application.splitc.utils.TextViewBold
+            <in.splitc.share.utils.TextViewBold
                 android:id="@+id/title"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -46,8 +46,7 @@
 
                 />
 
-            <com.application.splitc.utils.TextViewRegular
-                android:id="@+id/subtitle"
+            <in.splitc.share.utils.TextViewRegular
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
@@ -59,7 +58,7 @@
                 android:layout_gravity="center"/>
         </LinearLayout>
 
-        <com.application.splitc.utils.IconView
+        <in.splitc.share.utils.IconView
             android:id="@+id/post_icon"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/action_bar_height"

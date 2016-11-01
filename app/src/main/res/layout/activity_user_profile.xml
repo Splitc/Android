@@ -5,13 +5,11 @@
     android:layout_height="match_parent">
 
     <FrameLayout
-        android:id="@+id/user_info_top_frame"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true" >
 
         <FrameLayout
-            android:id="@+id/user_info_frame"
             android:layout_width="fill_parent"
             android:layout_height="175dp"
             android:paddingBottom="30dp" >
@@ -23,13 +21,11 @@
                 android:scaleType="centerCrop" />
 
             <View
-                android:id="@+id/drawer_user_info_background_image_overlay"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/black_trans_twenty" />
 
             <View
-                android:id="@+id/drawer_user_gradient_bottom"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -37,7 +33,7 @@
 
         </FrameLayout>
 
-        <com.application.splitc.utils.ZCircularImageView
+        <in.splitc.share.utils.ZCircularImageView
             android:id="@+id/user_image"
             android:layout_width="90dp"
             android:layout_height="90dp"
