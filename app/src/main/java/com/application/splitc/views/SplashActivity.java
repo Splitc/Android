@@ -172,7 +172,10 @@ public class SplashActivity extends AppCompatActivity implements FacebookConnect
 
                 if (arg0 == 0 || arg0 == 1 || arg0 == 2) {
                     findViewById(R.id.signup_container).setVisibility(View.INVISIBLE);
-                    findViewById(R.id.skip_container).setVisibility(View.VISIBLE);
+                    if(prefs.getInt("userId", 0) == 0)
+                        findViewById(R.id.skip_container).setVisibility(View.VISIBLE);
+                    else
+                        findViewById(R.id.skip_container).setVisibility(View.GONE);
 
                     if(arg0 == 0 && !firstBackground) {
                         new Handler().postDelayed(new Runnable() {
@@ -274,6 +277,9 @@ public class SplashActivity extends AppCompatActivity implements FacebookConnect
                 }
             }
         });
+
+        if(prefs.getInt("userId", 0) == 0)
+            findViewById(R.id.skip_container).setVisibility(View.VISIBLE);
     }
     View description;
 
@@ -553,7 +559,7 @@ public class SplashActivity extends AppCompatActivity implements FacebookConnect
     private void fixSizes() {
 
         mViewPager.getLayoutParams().height = 2 * height / 3;
-        ((RelativeLayout.LayoutParams)mViewPager.getLayoutParams()).setMargins(0, height / 5, 0, width / 20);
+        ((RelativeLayout.LayoutParams)mViewPager.getLayoutParams()).setMargins(0, height / 7, 0, width / 20);
 //        mSignupContainer.getLayoutParams().height = height / 3 - width / 10 - width / 40;
     }
 
@@ -753,7 +759,7 @@ public class SplashActivity extends AppCompatActivity implements FacebookConnect
                 tour_logo.setVisibility(View.VISIBLE);
                 tour_text_logo.setVisibility(View.VISIBLE);
 
-                if (prefs.getInt("userId", 0) > 0) {
+                if (prefs.getInt("userId", 0) == 0) {
                     tour_text.setVisibility(View.VISIBLE);
                 } else {
                     tour_text.setVisibility(View.GONE);
