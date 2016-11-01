@@ -1,25 +1,37 @@
 package com.application.splitc.views;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.application.splitc.R;
 import com.application.splitc.ZApplication;
-import com.application.splitc.data.GooglePlaceAutocompleteObject;
+import com.application.splitc.adapters.MyRidesAdapter;
+import com.application.splitc.data.Ride;
 import com.application.splitc.utils.CommonLib;
+import com.application.splitc.utils.OnLoadMoreListener;
+import com.application.splitc.utils.UploadManager;
+import com.application.splitc.utils.UploadManagerCallback;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.FormBody;
 
 /**
  * Created by apoorvarora on 12/10/16.
  */
-public class MyRidesFragment extends Fragment {
+public class MyRidesFragment extends Fragment implements UploadManagerCallback {
 
     public static final  String TAG = MyRidesFragment.class.getSimpleName();
     private View mView;
@@ -29,10 +41,20 @@ public class MyRidesFragment extends Fragment {
     private Activity activity;
     private boolean destroyed = false;
     private View getView;
+    private RecyclerView recyclerView;
+    private MyRidesAdapter mAdapter;
+    List<Ride> rides = new ArrayList<>();
+
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+
+    private int mTotalRides = 0;
+    private int start = 0;
+    private int count = 10;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.fragment_home, container, false);
+        mView = inflater.inflate(R.layout.fragment_my_rides, container, false);
+        destroyed = false;
         return mView;
     }
 
@@ -44,43 +66,105 @@ public class MyRidesFragment extends Fragment {
         getView = getView();
         prefs = activity.getSharedPreferences("application_settings", 0);
         zapp = (ZApplication) getActivity().getApplication();
-        width = getActivity().getWindowManager().getDefaultDisplay().getWidth();
-        height = getActivity().getWindowManager().getDefaultDisplay().getHeight();
+        width = activity.getWindowManager().getDefaultDisplay().getWidth();
+        height = activity.getWindowManager().getDefaultDisplay().getHeight();
+        mSwipeRefreshLayout = (SwipeRefreshLayout) getView.findViewById(R.id.swiperefresh);
+
         destroyed = false;
-        setListeners();
+        UploadManager.addCallback(this);
+
+        recyclerView = (RecyclerView) getView.findViewById(R.id.recycler_view);
+//        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(activity.getApplicationContext());
+        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        mAdapter = new MyRidesAdapter(rides, recyclerView);
+        recyclerView.setAdapter(mAdapter);
+
+        mAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+
+                start = rides.size();
+
+                rides.add(null);
+                mAdapter.notifyItemInserted(rides.size() - 1);
+
+                String url = CommonLib.SERVER_URL + "ride/fetch?start=" + start + "&count=" + count;
+                FormBody.Builder requestBuilder = new FormBody.Builder();
+                requestBuilder.add("access_token", prefs.getString("access_token", ""));
+                requestBuilder.add("client_id", CommonLib.CLIENT_ID);
+                requestBuilder.add("app_type", CommonLib.APP_TYPE);
+                UploadManager.postDataToServer(UploadManager.FETCH_RIDES_LOAD_MORE, url, requestBuilder);
+            }
+        });
+
+        mSwipeRefreshLayout.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        refreshView();
+                    }
+                }
+        );
+
+        refreshView();
     }
 
-    private void setListeners(){
-        getView.findViewById(R.id.start_location_container).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(activity, SelectLocationActivity.class);
-                activity.startActivityForResult(intent, CommonLib.REQUEST_CODE_START_LOCATION);
-            }
-        });
-        getView.findViewById(R.id.dropLoc_container).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(activity, SelectLocationActivity.class);
-                activity.startActivityForResult(intent, CommonLib.REQUEST_CODE_DROP_LOCATION);
-            }
-        });
+    private void refreshView() {
+        String url = CommonLib.SERVER_URL + "ride/fetch?start=" + 0 + "&count=" + count;
+        FormBody.Builder requestBuilder = new FormBody.Builder();
+        requestBuilder.add("access_token", prefs.getString("access_token", ""));
+        requestBuilder.add("client_id", CommonLib.CLIENT_ID);
+        requestBuilder.add("app_type", CommonLib.APP_TYPE);
+        UploadManager.postDataToServer(UploadManager.FETCH_RIDES, url, requestBuilder);
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CommonLib.REQUEST_CODE_START_LOCATION && resultCode == Activity.RESULT_OK) {
-            if( data != null && data.hasExtra("location") ) {
-                GooglePlaceAutocompleteObject location = (GooglePlaceAutocompleteObject) data.getSerializableExtra("location");
-                ((TextView)getView.findViewById(R.id.start_location)).setText(location.getDisplayName());
+    public void uploadStarted(int requestType, Object data) {
+
+    }
+
+    @Override
+    public void uploadFinished(int requestType, Object data, boolean status, String errorMessage) {
+        if (requestType == UploadManager.FETCH_RIDES) {
+            if(!destroyed && status && data instanceof Object[] && ((Object[]) data).length == 3) {
+                Object[] output = (Object[]) ((Object[]) data)[0];
+
+                mTotalRides = (int) output[0];
+                rides.addAll((ArrayList<Ride>) output[1]);
+                mAdapter.notifyDataSetChanged();
+                if (mTotalRides <= rides.size()) {
+                    mAdapter.setLoaded();
+                }
             }
-        } else if (requestCode == CommonLib.REQUEST_CODE_DROP_LOCATION) {
-            if( data != null && data.hasExtra("location") ) {
-                GooglePlaceAutocompleteObject location = (GooglePlaceAutocompleteObject) data.getSerializableExtra("location");
-                ((TextView)getView.findViewById(R.id.drop_location)).setText(location.getDisplayName());
+        } else if (requestType == UploadManager.FETCH_RIDES_LOAD_MORE) {
+            if(!destroyed && status) {
+                Object[] output = (Object[]) ((Object[]) data)[0];
+                rides.remove(rides.size() - 1);
+                mAdapter.notifyItemRemoved(rides.size());
+
+                mTotalRides = (int) output[0];
+                rides.addAll((ArrayList<Ride>) output[1]);
+                mAdapter.notifyDataSetChanged();
+                if (mTotalRides <= rides.size()) {
+                    mAdapter.setLoaded();
+                }
             }
         }
-        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onDestroy() {
+        destroyed = true;
+        UploadManager.removeCallback(this);
+        super.onDestroy();
+    }
+
+    @Override
+    public void onDestroyView() {
+        destroyed = true;
+        super.onDestroyView();
     }
 
 }

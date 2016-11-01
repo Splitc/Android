@@ -19,6 +19,8 @@ public class ParserJson {
             return parse_LoginResponse(new JSONObject(responseJson));
         } else if(requestType == UploadManager.NEW_RIDE) {
             return parse_NewRideJson(new JSONObject(responseJson));
+        } else if(requestType == UploadManager.FETCH_RIDES || requestType == UploadManager.FETCH_RIDES_LOAD_MORE) {
+            return parse_MyRidesJson(new JSONObject(responseJson));
         } else
             return parse_GenericStringResponse(new JSONObject(responseJson));
     }
@@ -81,6 +83,50 @@ public class ParserJson {
                 response[1] = true;
                 if (responseJson.has("response") && responseJson.get("response") instanceof JSONObject) {
                     response[0] = parse_Ride(responseJson.getJSONObject("response"));
+                }
+            } else {
+                if (responseJson.has("errorMessage")) {
+                    response[2] = responseJson.getString("errorMessage");
+                }
+            }
+        }
+
+        return response;
+    }
+
+    public static final Object[] parse_MyRidesJson(JSONObject responseJson) throws JSONException {
+
+        Object[] response = new Object[] { null, false, "Something went wrong"};
+
+        if (responseJson == null)
+            return response;
+
+        if (responseJson.has("status")) {
+            if (responseJson.getString("status").equals("success")) {
+                response[1] = true;
+                if (responseJson.has("response") && responseJson.get("response") instanceof JSONObject) {
+                    JSONObject responseJSONObject = responseJson.getJSONObject("response");
+
+                    int size = 0;
+                    ArrayList<Ride> myRides = new ArrayList<Ride>();
+
+                    if(responseJSONObject.has("total") && responseJSONObject.get("total") instanceof Integer)
+                        size = responseJSONObject.getInt("total");
+
+                    if(responseJSONObject.has("rides") && responseJSONObject.get("rides") instanceof JSONArray) {
+                        JSONArray ridesJsonArray = responseJSONObject.getJSONArray("rides");
+
+                        for (int i=0; i<ridesJsonArray.length(); i++) {
+                            Ride ride = parse_Ride(ridesJsonArray.getJSONObject(i));
+                            myRides.add(ride);
+                        }
+                    }
+
+                    Object[] output = new Object[2];
+                    output[0] = size;
+                    output[1] = myRides;
+
+                    response[0] = output;
                 }
             } else {
                 if (responseJson.has("errorMessage")) {

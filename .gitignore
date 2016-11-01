@@ -32,17 +32,11 @@ proguard/
 *.settings
 lint.xml
 
-com_crashlytics_export_strings.xml
-
 *.project
 
 *.idea
 *.iml
 
-zapplon/app/gradlew
-zapplon/gradlew.bat
-
-.gradle
 /local.properties
 /.idea/workspace.xml
 /.idea/libraries
@@ -50,3 +44,4 @@ zapplon/gradlew.bat
 /build
 /captures
 
+.gradle
