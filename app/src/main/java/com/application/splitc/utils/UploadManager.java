@@ -41,6 +41,8 @@ public class UploadManager {
     public static final int NEW_RIDE = 106;
     public static final int FETCH_RIDES = 107;
     public static final int FETCH_RIDES_LOAD_MORE = 108;
+    public static final int FEED_RIDES = 108;
+    public static final int FEED_RIDES_LOAD_MORE = 109;
 
     public static final String HEADER_KEY_TOKEN = "accesstoken";
     public static final String HEADER_KEY_USERID = "userid";

@@ -20,7 +20,9 @@ public class ParserJson {
         } else if(requestType == UploadManager.NEW_RIDE) {
             return parse_NewRideJson(new JSONObject(responseJson));
         } else if(requestType == UploadManager.FETCH_RIDES || requestType == UploadManager.FETCH_RIDES_LOAD_MORE) {
-            return parse_MyRidesJson(new JSONObject(responseJson));
+            return parse_RidesJson(new JSONObject(responseJson));
+        } else if(requestType == UploadManager.FEED_RIDES || requestType == UploadManager.FEED_RIDES_LOAD_MORE) {
+            return parse_RidesJson(new JSONObject(responseJson));
         } else
             return parse_GenericStringResponse(new JSONObject(responseJson));
     }
@@ -94,7 +96,7 @@ public class ParserJson {
         return response;
     }
 
-    public static final Object[] parse_MyRidesJson(JSONObject responseJson) throws JSONException {
+    public static final Object[] parse_RidesJson(JSONObject responseJson) throws JSONException {
 
         Object[] response = new Object[] { null, false, "Something went wrong"};
 

@@ -14,6 +14,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +25,14 @@ import android.widget.TextView;
 
 import com.application.splitc.R;
 import com.application.splitc.ZApplication;
+import com.application.splitc.adapters.MyRidesAdapter;
 import com.application.splitc.data.GooglePlaceAutocompleteObject;
+import com.application.splitc.data.Ride;
 import com.application.splitc.utils.CommonLib;
+import com.application.splitc.utils.OnLoadMoreListener;
 import com.application.splitc.utils.ParserJson;
 import com.application.splitc.utils.UploadManager;
+import com.application.splitc.utils.UploadManagerCallback;
 import com.application.splitc.utils.ZLocationCallback;
 
 import org.json.JSONException;
@@ -32,10 +40,12 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import okhttp3.Call;
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -43,7 +53,7 @@ import okhttp3.Response;
 /**
  * Created by apoorvarora on 12/10/16.
  */
-public class HomeFragment extends Fragment implements ZLocationCallback {
+public class HomeFragment extends Fragment implements ZLocationCallback, UploadManagerCallback {
 
     public static final  String TAG = HomeFragment.class.getSimpleName();
     private View mView;
@@ -53,6 +63,15 @@ public class HomeFragment extends Fragment implements ZLocationCallback {
     private Activity activity;
     private boolean destroyed = false;
     private View getView;
+
+    private RecyclerView recyclerView;
+    private MyRidesAdapter mAdapter;
+    List<Ride> rides = new ArrayList<>();
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private int mTotalRides = 0;
+    private int start = 0;
+    private int count = 10;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -71,6 +90,15 @@ public class HomeFragment extends Fragment implements ZLocationCallback {
         width = getActivity().getWindowManager().getDefaultDisplay().getWidth();
         height = getActivity().getWindowManager().getDefaultDisplay().getHeight();
         destroyed = false;
+        mSwipeRefreshLayout = (SwipeRefreshLayout) getView.findViewById(R.id.swiperefresh);
+
+        UploadManager.addCallback(this);
+
+        recyclerView = (RecyclerView) getView.findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        refreshView();
         setListeners();
 
         zapp.zll.addCallback(this);
@@ -123,6 +151,46 @@ public class HomeFragment extends Fragment implements ZLocationCallback {
                 activity.startActivityForResult(intent, CommonLib.REQUEST_CODE_DROP_LOCATION);
             }
         });
+
+        mAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+
+                start = rides.size();
+
+                rides.add(null);
+                mAdapter.notifyItemInserted(rides.size() - 1);
+
+                String url = CommonLib.SERVER_URL + "ride/fetch?start=" + start + "&count=" + count;
+                FormBody.Builder requestBuilder = new FormBody.Builder();
+                requestBuilder.add("access_token", prefs.getString("access_token", ""));
+                requestBuilder.add("client_id", CommonLib.CLIENT_ID);
+                requestBuilder.add("app_type", CommonLib.APP_TYPE);
+                UploadManager.postDataToServer(UploadManager.FEED_RIDES_LOAD_MORE, url, requestBuilder);
+            }
+        });
+
+        mSwipeRefreshLayout.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        refreshView();
+                    }
+                }
+        );
+    }
+
+    private void refreshView() {
+        rides = new ArrayList<Ride>();
+        mAdapter = new MyRidesAdapter(rides, recyclerView);
+        recyclerView.setAdapter(mAdapter);
+
+        String url = CommonLib.SERVER_URL + "ride/feed?start=" + 0 + "&count=" + count;
+        FormBody.Builder requestBuilder = new FormBody.Builder();
+        requestBuilder.add("access_token", prefs.getString("access_token", ""));
+        requestBuilder.add("client_id", CommonLib.CLIENT_ID);
+        requestBuilder.add("app_type", CommonLib.APP_TYPE);
+        UploadManager.postDataToServer(UploadManager.FEED_RIDES, url, requestBuilder);
     }
 
     @Override
@@ -208,6 +276,42 @@ public class HomeFragment extends Fragment implements ZLocationCallback {
 
     }
 
+    @Override
+    public void uploadStarted(int requestType, Object data) {
+
+    }
+
+    @Override
+    public void uploadFinished(int requestType, Object data, boolean status, String errorMessage) {
+        if (requestType == UploadManager.FEED_RIDES) {
+            if(!destroyed && status && data instanceof Object[] && ((Object[]) data).length == 3) {
+                Object[] output = (Object[]) ((Object[]) data)[0];
+
+                mTotalRides = (int) output[0];
+                rides.addAll((ArrayList<Ride>) output[1]);
+                mAdapter.notifyDataSetChanged();
+                if (mTotalRides <= rides.size()) {
+                    mAdapter.setLoaded();
+                }
+
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        } else if (requestType == UploadManager.FEED_RIDES_LOAD_MORE) {
+            if(!destroyed && status) {
+                Object[] output = (Object[]) ((Object[]) data)[0];
+                rides.remove(rides.size() - 1);
+                mAdapter.notifyItemRemoved(rides.size());
+
+                mTotalRides = (int) output[0];
+                rides.addAll((ArrayList<Ride>) output[1]);
+                mAdapter.notifyDataSetChanged();
+                if (mTotalRides <= rides.size()) {
+                    mAdapter.setLoaded();
+                }
+            }
+        }
+    }
+
     private class GetLocationInfo extends AsyncTask<Object, Void, JSONObject> {
 
         private double lat;
@@ -259,6 +363,14 @@ public class HomeFragment extends Fragment implements ZLocationCallback {
     @Override
     public void onDestroy() {
         zapp.zll.removeCallback(this);
+        UploadManager.removeCallback(this);
         super.onDestroy();
     }
+
+    @Override
+    public void onDestroyView() {
+        destroyed = true;
+        super.onDestroyView();
+    }
+
 }
