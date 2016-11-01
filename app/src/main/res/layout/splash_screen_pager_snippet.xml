@@ -28,7 +28,6 @@
         android:gravity="center"
         android:padding="@dimen/size30"
         android:textColor="@color/white"
-        android:text="i am just saying some shit\nbooyah"
         android:textSize="@dimen/size16"/>
 
 </RelativeLayout>

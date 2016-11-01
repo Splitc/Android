@@ -749,16 +749,22 @@ public class SplashActivity extends AppCompatActivity implements FacebookConnect
                 ImageView tour_logo = (ImageView) layout.findViewById(R.id.baatna_logo);
                 ImageView tour_text_logo = (ImageView) layout.findViewById(R.id.baatna_text);
                 TextView tour_text= (TextView) layout.findViewById(R.id.description);
+
                 tour_logo.setVisibility(View.VISIBLE);
                 tour_text_logo.setVisibility(View.VISIBLE);
-                tour_text.setVisibility(View.VISIBLE);
+
+                if (prefs.getInt("userId", 0) > 0) {
+                    tour_text.setVisibility(View.VISIBLE);
+                } else {
+                    tour_text.setVisibility(View.GONE);
+                }
 
                 // setting image
                 try {
 
                     Bitmap logoBitmap = CommonLib.getBitmap(context, R.drawable.logo, width, width);
                     tour_logo.getLayoutParams().width = (int) ( 0.56 * width);
-                    tour_logo.getLayoutParams().height = (int) (0.43 * width);
+                    tour_logo.getLayoutParams().height = (int) (0.56 * width);
                     tour_logo.setImageBitmap(logoBitmap);
 
                     Bitmap splashTextBitmap = CommonLib.getBitmap(context, R.drawable.baatna_splash_text, width / 2, width / 10);
@@ -874,7 +880,7 @@ public class SplashActivity extends AppCompatActivity implements FacebookConnect
 
                     Bitmap logoBitmap = CommonLib.getBitmap(context, R.drawable.logo, width / 2, width / 2);
                     tour_logo.getLayoutParams().width = (int) ( 0.56 * width);
-                    tour_logo.getLayoutParams().height = (int) (0.43 * width);
+                    tour_logo.getLayoutParams().height = (int) (0.56 * width);
                     tour_logo.setImageBitmap(logoBitmap);
 
                     Bitmap splashTextBitmap = CommonLib.getBitmap(context, R.drawable.baatna_splash_text, width / 2, width / 10);

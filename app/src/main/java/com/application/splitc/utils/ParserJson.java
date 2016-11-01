@@ -17,7 +17,7 @@ public class ParserJson {
     public static final Object[] parseData (int requestType, String responseJson) throws JSONException {
         if(requestType == UploadManager.LOGIN) {
             return parse_LoginResponse(new JSONObject(responseJson));
-        } else if(requestType == UploadManager.NEW_RIDE) {
+        } else if(requestType == UploadManager.NEW_RIDE || requestType == UploadManager.FEED_RIDE_ACCEPT) {
             return parse_NewRideJson(new JSONObject(responseJson));
         } else if(requestType == UploadManager.FETCH_RIDES || requestType == UploadManager.FETCH_RIDES_LOAD_MORE) {
             return parse_RidesJson(new JSONObject(responseJson));

@@ -2,6 +2,7 @@ package com.application.splitc.views;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -25,12 +26,12 @@ import android.widget.TextView;
 
 import com.application.splitc.R;
 import com.application.splitc.ZApplication;
-import com.application.splitc.adapters.MyRidesAdapter;
+import com.application.splitc.adapters.FeedAdapter;
 import com.application.splitc.data.GooglePlaceAutocompleteObject;
 import com.application.splitc.data.Ride;
 import com.application.splitc.utils.CommonLib;
 import com.application.splitc.utils.OnLoadMoreListener;
-import com.application.splitc.utils.ParserJson;
+import com.application.splitc.utils.RandomCallback;
 import com.application.splitc.utils.UploadManager;
 import com.application.splitc.utils.UploadManagerCallback;
 import com.application.splitc.utils.ZLocationCallback;
@@ -39,7 +40,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -53,7 +53,7 @@ import okhttp3.Response;
 /**
  * Created by apoorvarora on 12/10/16.
  */
-public class HomeFragment extends Fragment implements ZLocationCallback, UploadManagerCallback {
+public class HomeFragment extends Fragment implements ZLocationCallback, UploadManagerCallback, RandomCallback {
 
     public static final  String TAG = HomeFragment.class.getSimpleName();
     private View mView;
@@ -65,13 +65,18 @@ public class HomeFragment extends Fragment implements ZLocationCallback, UploadM
     private View getView;
 
     private RecyclerView recyclerView;
-    private MyRidesAdapter mAdapter;
+    private FeedAdapter mAdapter;
     List<Ride> rides = new ArrayList<>();
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private int mTotalRides = 0;
     private int start = 0;
     private int count = 10;
 
+    private RandomCallback callback;
+
+    private com.application.splitc.data.Address startAddress, dropAddress;
+
+    private ProgressDialog zProgressDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -182,7 +187,7 @@ public class HomeFragment extends Fragment implements ZLocationCallback, UploadM
 
     private void refreshView() {
         rides = new ArrayList<Ride>();
-        mAdapter = new MyRidesAdapter(rides, recyclerView);
+        mAdapter = new FeedAdapter(rides, recyclerView, startAddress, activity, callback);
         recyclerView.setAdapter(mAdapter);
 
         String url = CommonLib.SERVER_URL + "ride/feed?start=" + 0 + "&count=" + count;
@@ -309,6 +314,36 @@ public class HomeFragment extends Fragment implements ZLocationCallback, UploadM
                     mAdapter.setLoaded();
                 }
             }
+        } else if (requestType == UploadManager.FEED_RIDE_ACCEPT) {
+            if(!destroyed && status) {
+                // fetch ride details and open chat if possible
+            }
+        }
+    }
+
+    @Override
+    public void randomMethod(Object[] data) {
+        if(data instanceof Object[]) {
+            zProgressDialog = ProgressDialog.show(activity, null, "Uploading your wish. Please wait!!!");
+
+            Ride ride = (Ride) data[0];
+            com.application.splitc.data.Address startAddress = (com.application.splitc.data.Address) data[1];
+            String description = (String) data[2];
+
+            String url = CommonLib.SERVER_URL + "ride/action?";
+            FormBody.Builder requestBuilder = new FormBody.Builder();
+            requestBuilder.add("access_token", prefs.getString("access_token", ""));
+            requestBuilder.add("client_id", CommonLib.CLIENT_ID);
+            requestBuilder.add("app_type", CommonLib.APP_TYPE);
+            requestBuilder.add("action", 1 + "");
+            requestBuilder.add("rideId", ride.getRideId() + "");
+            requestBuilder.add("fromAddress", startAddress.getDisplayName());
+            requestBuilder.add("startLat", startAddress.getLatitude() + "");
+            requestBuilder.add("startLon", startAddress.getLongitude() + "");
+            requestBuilder.add("startGooglePlaceId", startAddress.getPlaceId());
+            requestBuilder.add("description", description);
+
+            UploadManager.postDataToServer(UploadManager.FEED_RIDE_ACCEPT, url, requestBuilder);
         }
     }
 
@@ -364,12 +399,18 @@ public class HomeFragment extends Fragment implements ZLocationCallback, UploadM
     public void onDestroy() {
         zapp.zll.removeCallback(this);
         UploadManager.removeCallback(this);
+        if (zProgressDialog != null && zProgressDialog.isShowing())
+            zProgressDialog.dismiss();
+
         super.onDestroy();
     }
 
     @Override
     public void onDestroyView() {
         destroyed = true;
+        if (zProgressDialog != null && zProgressDialog.isShowing())
+            zProgressDialog.dismiss();
+
         super.onDestroyView();
     }
 

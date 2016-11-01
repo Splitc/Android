@@ -22,13 +22,16 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/tvEmailId"
-            android:layout_width="match_parent"
+            android:id="@+id/accept"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/title"
             android:layout_margin="5dp"
+            android:padding="@dimen/size10"
             android:text="Email Id"
-            android:textColor="@android:color/black"
+            android:clickable="true"
+            android:background="@drawable/splitc_dark_feedback"
+            android:textColor="@color/white"
             android:textSize="12sp" />
     </RelativeLayout>
 
