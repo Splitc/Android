@@ -74,12 +74,10 @@ public class MyRidesFragment extends Fragment implements UploadManagerCallback {
         UploadManager.addCallback(this);
 
         recyclerView = (RecyclerView) getView.findViewById(R.id.recycler_view);
-//        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(activity.getApplicationContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        mAdapter = new MyRidesAdapter(rides, recyclerView);
-        recyclerView.setAdapter(mAdapter);
+        refreshView();
 
         mAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
@@ -108,10 +106,13 @@ public class MyRidesFragment extends Fragment implements UploadManagerCallback {
                 }
         );
 
-        refreshView();
     }
 
     private void refreshView() {
+        rides = new ArrayList<Ride>();
+        mAdapter = new MyRidesAdapter(rides, recyclerView);
+        recyclerView.setAdapter(mAdapter);
+
         String url = CommonLib.SERVER_URL + "ride/fetch?start=" + 0 + "&count=" + count;
         FormBody.Builder requestBuilder = new FormBody.Builder();
         requestBuilder.add("access_token", prefs.getString("access_token", ""));
@@ -137,6 +138,8 @@ public class MyRidesFragment extends Fragment implements UploadManagerCallback {
                 if (mTotalRides <= rides.size()) {
                     mAdapter.setLoaded();
                 }
+
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         } else if (requestType == UploadManager.FETCH_RIDES_LOAD_MORE) {
             if(!destroyed && status) {
