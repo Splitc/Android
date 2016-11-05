@@ -102,6 +102,14 @@
             android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
 
+        <activity
+            android:name=".views.UserMapActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplitActionBarHomeTheme"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+
         <!-- Facebook Activity -->
         <activity
             android:name="com.facebook.LoginActivity"
