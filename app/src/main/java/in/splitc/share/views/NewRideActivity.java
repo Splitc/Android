@@ -276,9 +276,6 @@ public class NewRideActivity extends AppCompatActivity implements UploadManagerC
                     int startMonthOfYear = dpStartDate.getMonth() + 1;
                     int startDayOfMonth = dpStartDate.getDayOfMonth();
 
-                    SimpleDateFormat sdf = new SimpleDateFormat("EEE dd, MMM yy", Locale.getDefault());
-                    GregorianCalendar cal = new GregorianCalendar(Locale.getDefault());
-
                     startDay = startDayOfMonth;
                     startMonth = startMonthOfYear;
                     startyear = startYear;

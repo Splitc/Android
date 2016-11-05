@@ -129,14 +129,17 @@ public class MyRidesFragment extends Fragment implements UploadManagerCallback {
     @Override
     public void uploadFinished(int requestType, Object data, boolean status, String errorMessage) {
         if (requestType == UploadManager.FETCH_RIDES) {
-            if(!destroyed && status && data instanceof Object[] && ((Object[]) data).length == 3) {
-                Object[] output = (Object[]) ((Object[]) data)[0];
+            if(!destroyed) {
 
-                mTotalRides = (int) output[0];
-                rides.addAll((ArrayList<Ride>) output[1]);
-                mAdapter.notifyDataSetChanged();
-                if (mTotalRides <= rides.size()) {
-                    mAdapter.setLoaded();
+                if( status && data instanceof Object[] && ((Object[]) data).length == 3 ) {
+                    Object[] output = (Object[]) ((Object[]) data)[0];
+
+                    mTotalRides = (int) output[0];
+                    rides.addAll((ArrayList<Ride>) output[1]);
+                    mAdapter.notifyDataSetChanged();
+                    if (mTotalRides <= rides.size()) {
+                        mAdapter.setLoaded();
+                    }
                 }
 
                 mSwipeRefreshLayout.setRefreshing(false);

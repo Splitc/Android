@@ -11,6 +11,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
+import android.text.format.Time;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -24,7 +25,11 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Hashtable;
+import java.util.Locale;
 
 /**
  * Created by apoorvarora on 03/10/16.
@@ -33,7 +38,7 @@ public class CommonLib {
 
     public final static boolean ZLogger = false;
 
-    public static String SERVER_URL = "http://192.168.1.33:8080/SplitcServer/rest/";
+    public static String SERVER_URL = "http://192.168.1.35:8080/SplitcServer/rest/";
 
     // Login animation time
     public static final int ANIMATION_LOGIN = 200;
@@ -351,6 +356,16 @@ public class CommonLib {
         if (imeisv == null)
             imeisv = "Unknown";
         return imeisv;
+    }
+
+
+    public static String getTimeFormattedString(long timeInMillis) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(timeInMillis);
+
+        Time mTime = new Time();
+        mTime.set(0, calendar.get(Calendar.MINUTE), calendar.get(Calendar.HOUR_OF_DAY), 1, 1, 1);
+        return calendar.get(Calendar.DAY_OF_MONTH) + calendar.get(Calendar.MONTH) + calendar.get(Calendar.YEAR) + mTime.format("%I:%M %P");
     }
 
 

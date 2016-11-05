@@ -7,21 +7,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.List;
+
 import in.splitc.share.R;
+import in.splitc.share.ZApplication;
 import in.splitc.share.data.Address;
 import in.splitc.share.data.Ride;
 import in.splitc.share.utils.CommonLib;
+import in.splitc.share.utils.ImageLoader;
 import in.splitc.share.utils.OnLoadMoreListener;
 import in.splitc.share.utils.RandomCallback;
-import in.splitc.share.utils.UploadManager;
-import in.splitc.share.views.HomeFragment;
-
-import java.util.List;
-
-import okhttp3.FormBody;
 
 /**
  * Created by neo on 30/10/16.
@@ -42,13 +41,21 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
     private SharedPreferences prefs;
     private RandomCallback callback;
+    private ImageLoader loader;
+
+    private int width, height;
 
     public class RideViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, accept;
-
+        public TextView user_trip_title, start_location, drop_location, pickup_timer, description, accept;
+        public ImageView user_image;
         public RideViewHolder(View view) {
             super(view);
-            title = (TextView) view.findViewById(R.id.title);
+            user_trip_title = (TextView) view.findViewById(R.id.user_trip_title);
+            start_location = (TextView) view.findViewById(R.id.start_location);
+            drop_location = (TextView) view.findViewById(R.id.drop_location);
+            pickup_timer = (TextView) view.findViewById(R.id.pickup_timer);
+            description = (TextView) view.findViewById(R.id.description);
+            user_image = (ImageView) view.findViewById(R.id.user_image);
             accept = (TextView) view.findViewById(R.id.accept);
         }
 
@@ -67,12 +74,15 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.mOnLoadMoreListener = mOnLoadMoreListener;
     }
 
-    public FeedAdapter(List<Ride> moviesList, RecyclerView mRecyclerView, Address startAddress, Context context, RandomCallback callback) {
+    public FeedAdapter(List<Ride> moviesList, RecyclerView mRecyclerView, Address startAddress, Context context, RandomCallback callback, ZApplication zapp, int width, int height) {
         this.moviesList = moviesList;
         this.startAddress = startAddress;
         this.context = context;
         this.callback = callback;
         prefs = context.getSharedPreferences("application_settings", 0);
+        loader = new ImageLoader(context, zapp);
+        this.width = width;
+        this.height = height;
 
         final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -115,14 +125,20 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (holder instanceof RideViewHolder) {
             final Ride movie = moviesList.get(position);
             final RideViewHolder rideViewHolder = (RideViewHolder) holder;
-            rideViewHolder.title.setText(movie.getDescription()+"");
+            rideViewHolder.start_location.setText(movie.getFromAddress());
+            rideViewHolder.drop_location.setText(movie.getToAddress());
+            rideViewHolder.pickup_timer.setText(CommonLib.getTimeFormattedString(movie.getCreated()));
+            rideViewHolder.description.setText(movie.getDescription());
+            rideViewHolder.user_trip_title.setText(context.getResources().getString(R.string.travel_title_string, movie.getUser().getUserName()));
+            loader.setImageFromUrlOrDisk(movie.getUser().getProfilePic(), rideViewHolder.user_image, "", width, height, false);
+
             rideViewHolder.accept.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Object[] requestParams = new Object[3];
                     requestParams[0] = movie;
                     requestParams[1] = startAddress;
-                    requestParams[2] = rideViewHolder.title.getText().toString();
+//                    requestParams[2] = rideViewHolder.title.getText().toString();
                     callback.randomMethod(requestParams);
                 }
             });

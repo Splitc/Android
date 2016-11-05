@@ -12,23 +12,59 @@
         android:layout_height="match_parent"
         android:background="?android:selectableItemBackground">
 
-        <TextView
-            android:id="@+id/title"
+        <include
+            android:id="@+id/location_container"
+            layout="@layout/location_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="Name"
-            android:textColor="@android:color/black"
-            android:textSize="18sp" />
+            />
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/time_container"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/action_bar_height"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/size10"
+            android:layout_below="@id/location_container"
+            android:background="@drawable/whitebuttoncustomback" >
+
+            <in.splitc.share.utils.IconViewZ
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical"
+                android:textColor="@color/all_icon_color"
+                android:text="@string/z_timer"
+                android:paddingLeft="@dimen/size10"
+                android:textSize="@dimen/drawer_iconview_size"/>
+
+            <in.splitc.share.utils.TextViewLight
+                android:id="@+id/pickup_timer"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="fill_parent"
+                android:singleLine="true"
+                android:textColor="@color/primary_text_color"
+                android:textColorHint="@color/secondary_text_color"
+                android:layout_marginLeft="@dimen/size25"
+                android:hint="@string/trip_start_time"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/size14"/>
+
+        </LinearLayout>
+
+        <in.splitc.share.utils.TextViewLight
+            android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/title"
-            android:layout_margin="5dp"
-            android:text="Email Id"
-            android:textColor="@android:color/black"
-            android:textSize="12sp" />
+            android:textColor="@color/primary_text_color"
+            android:layout_below="@id/time_container"
+            android:textColorHint="@color/secondary_text_color"
+            android:layout_marginLeft="@dimen/size25"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/size14"
+            android:maxLines="2"
+            android:ellipsize="end"/>
+
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

@@ -186,7 +186,7 @@ public class HomeFragment extends Fragment implements ZLocationCallback, UploadM
 
     private void refreshView() {
         rides = new ArrayList<Ride>();
-        mAdapter = new FeedAdapter(rides, recyclerView, startAddress, activity, callback);
+        mAdapter = new FeedAdapter(rides, recyclerView, startAddress, activity, callback, zapp, width, height);
         recyclerView.setAdapter(mAdapter);
 
         String url = CommonLib.SERVER_URL + "ride/feed?start=" + 0 + "&count=" + count;

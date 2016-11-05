@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import in.splitc.share.R;
 import in.splitc.share.data.Ride;
+import in.splitc.share.utils.CommonLib;
 import in.splitc.share.utils.OnLoadMoreListener;
 
 import java.util.List;
@@ -30,11 +31,14 @@ public class MyRidesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private int lastVisibleItem, totalItemCount;
 
     public class RideViewHolder extends RecyclerView.ViewHolder {
-        public TextView title;
+        public TextView start_location, drop_location, pickup_timer, description;
 
         public RideViewHolder(View view) {
             super(view);
-            title = (TextView) view.findViewById(R.id.title);
+            start_location = (TextView) view.findViewById(R.id.start_location);
+            drop_location = (TextView) view.findViewById(R.id.drop_location);
+            pickup_timer = (TextView) view.findViewById(R.id.pickup_timer);
+            description = (TextView) view.findViewById(R.id.description);
         }
     }
 
@@ -95,7 +99,10 @@ public class MyRidesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         if (holder instanceof RideViewHolder) {
             Ride movie = moviesList.get(position);
             RideViewHolder rideViewHolder = (RideViewHolder) holder;
-            rideViewHolder.title.setText(movie.getDescription()+"");
+            rideViewHolder.start_location.setText(movie.getFromAddress());
+            rideViewHolder.drop_location.setText(movie.getToAddress());
+            rideViewHolder.pickup_timer.setText(CommonLib.getTimeFormattedString(movie.getCreated()));
+            rideViewHolder.description.setText(movie.getDescription());
         } else if (holder instanceof LoadingViewHolder) {
             LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;
             loadingViewHolder.progressBar.setIndeterminate(true);

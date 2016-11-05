@@ -44,6 +44,8 @@
     <string name="where">What\'s the plan?</string>
 
     <string name="pickup_date">Pick up Date</string>
+    <string name="accept">Accept</string>
+    <string name="travel_title_string">%1$s travelling</string>
 
 
 
