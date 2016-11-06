@@ -65,6 +65,6 @@
     <color name="all_icon_color">#BABCBE</color>
     <color name="primary_text_color">#212121</color>
     <color name="secondary_text_color">#808083</color>
-
+    <color name="separator_color">#e7e7e7</color>
 
 </resources>

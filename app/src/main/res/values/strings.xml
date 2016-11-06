@@ -49,6 +49,10 @@
 
     <string name="no_internet_message">Seems like you are not connected to the internet. Please try again later.</string>
 
+    <string name="about_version">v1.0</string>
+    <string name="about_text">Splitc offers you to share your ride space with fellow riders going on the same direction.</string>
+    <string name="about_us_terms_of_use">Terms of Service</string>
+    <string name="about_us_privacypolicy">Privacy Policy</string>
 
 
 

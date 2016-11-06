@@ -194,7 +194,8 @@ public class HomeActivity extends AppCompatActivity implements UploadManagerCall
         findViewById(R.id.about).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(HomeActivity.this, About);
+                Intent intent = new Intent(HomeActivity.this, AboutUs.class);
+                startActivity(intent);
             }
         });
 
