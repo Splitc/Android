@@ -1,12 +1,16 @@
 package in.splitc.share.views;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,6 +38,7 @@ import in.splitc.share.data.Address;
 import in.splitc.share.data.Ride;
 import in.splitc.share.db.RecentAddressDBWrapper;
 import in.splitc.share.utils.CommonLib;
+import in.splitc.share.utils.RandomCallback;
 import in.splitc.share.utils.TypefaceSpan;
 
 /**
@@ -54,6 +59,8 @@ public class SelectLocationActivity extends AppCompatActivity {
     private RecentAddressesAdapter mAdapter;
     ArrayList<Address> rides = new ArrayList<Address>();
 
+    RandomCallback callback;
+
     private AsyncTask mAsyncRunning;
 
     @Override
@@ -71,6 +78,25 @@ public class SelectLocationActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         setUpActionBar();
 
+        callback = new RandomCallback() {
+            @Override
+            public void randomMethod(Object[] data) {
+                if(data != null && data.length > 0) {
+                    final Address item = (Address) data[0];
+
+                    new AddAddress().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, new Object[]{item});
+
+                    placeAutocompleteObject.setPlaceId(item.getPlaceId());
+                    placeAutocompleteObject.setDisplayName(item.getDisplayName());
+                    locationAutoComplete.setText(item.getDisplayName());
+                    Intent intent = new Intent();
+                    intent.putExtra("location", placeAutocompleteObject);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
+            }
+        };
+
         locationAutoComplete = (AutoCompleteTextView) findViewById(R.id.location);
         placeAutocompleteObject = new Address();
         GooglePlaceAutocompleteAdapter mAdapter = new GooglePlaceAutocompleteAdapter(mContext, "regions", CommonLib.GOOGLE_PLACES_API_KEY);
@@ -79,7 +105,11 @@ public class SelectLocationActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 if (adapterView != null && adapterView.getAdapter() != null) {
+
                     final Address item = (Address) adapterView.getAdapter().getItem(position);
+
+                    new AddAddress().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, new Object[]{item});
+
                     placeAutocompleteObject.setPlaceId(item.getPlaceId());
                     placeAutocompleteObject.setDisplayName(item.getDisplayName());
                     locationAutoComplete.setText(item.getDisplayName());
@@ -95,7 +125,36 @@ public class SelectLocationActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(SelectLocationActivity.this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        refreshView();
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+                CommonLib.verifyPermissions(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, CommonLib.MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+            } else {
+                CommonLib.verifyPermissions(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, CommonLib.MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+            }
+        } else {
+            refreshView();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case CommonLib.MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    refreshView();
+                } else {
+                    CommonLib.verifyPermissions(SelectLocationActivity.this, Manifest.permission.ACCESS_FINE_LOCATION, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, CommonLib.MY_PERMISSIONS_REQUEST_FINE_LOCATION);
+                }
+                return;
+            }
+        }
     }
 
     private void refreshView() {
@@ -172,11 +231,7 @@ public class SelectLocationActivity extends AppCompatActivity {
             try {
                 ArrayList<Address> list = RecentAddressDBWrapper.getAddresses(prefs.getInt("uid", 0));
                 CommonLib.ZLog("API RESPONSER", "CALLING GET WRAPPER");
-                Object info = null;
-                int len = 0;
-                if(len > 0){
-                    return list;
-                }
+                return list;
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -189,13 +244,21 @@ public class SelectLocationActivity extends AppCompatActivity {
                 return;
 
             if (result != null) {
-                findViewById(R.id.content).setVisibility(View.VISIBLE);
                 if (result instanceof ArrayList<?>) {
                     rides = (ArrayList<Address>) result;
-                    mAdapter = new RecentAddressesAdapter(rides, SelectLocationActivity.this);
+                    mAdapter = new RecentAddressesAdapter(rides, SelectLocationActivity.this, callback);
                     recyclerView.setAdapter(mAdapter);
                 }
             }
+        }
+    }
+
+    private class AddAddress extends AsyncTask<Object, Void, Object> {
+        // execute the api
+        @Override
+        protected Object doInBackground(Object... params) {
+            RecentAddressDBWrapper.addAddress((Address) params[0], prefs.getInt("uid", 0), System.currentTimeMillis());
+            return null;
         }
     }
 }

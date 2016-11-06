@@ -113,7 +113,7 @@ public class RecentAddressDBManager extends SQLiteOpenHelper {
         ArrayList<Address> queries = new ArrayList<Address>();
 
         try {
-            db = ctx.openOrCreateDatabase("/data/data/com.application.zapplon/databases/" + DATABASE_NAME,
+            db = ctx.openOrCreateDatabase("/data/data/in.splitc.share/databases/" + DATABASE_NAME,
                     SQLiteDatabase.OPEN_READONLY, null);
 
             cursor = db.query(CACHE_TABLE_NAME, new String[] { ID, MESSAGEID, TIMESTAMP, TYPE, BUNDLE },
@@ -156,7 +156,7 @@ public class RecentAddressDBManager extends SQLiteOpenHelper {
         int result = -1;
         try{
             this.getReadableDatabase();
-            SQLiteDatabase db = ctx.openOrCreateDatabase("/data/data/com.application.zapplon/databases/" + DATABASE_NAME,
+            SQLiteDatabase db = ctx.openOrCreateDatabase("/data/data/in.splitc.share/databases/" + DATABASE_NAME,
                     SQLiteDatabase.OPEN_READWRITE, null);
 
             result = (int) db.delete(CACHE_TABLE_NAME, "",null);

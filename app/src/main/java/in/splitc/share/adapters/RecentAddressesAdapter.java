@@ -18,19 +18,32 @@ import in.splitc.share.data.Address;
 import in.splitc.share.data.Ride;
 import in.splitc.share.utils.CommonLib;
 import in.splitc.share.utils.GooglePlaceAutocompleteApi;
+import in.splitc.share.utils.RandomCallback;
 
 /**
  * Created by nik on 5/10/16.
  */
-public class RecentAddressesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RecentAddressesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
     ArrayList<Address> resultList;
     Context mContext;
     LayoutInflater inflater;
+    RandomCallback callback;
 
-    public RecentAddressesAdapter(ArrayList<Address> resultList, Context context) {
+    public RecentAddressesAdapter(ArrayList<Address> resultList, Context context, RandomCallback callback) {
         mContext = context;
         inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.resultList = resultList;
+        this.callback = callback;
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(view.findViewById(R.id.mainSuggestionText) != null ) {
+            int position = (Integer) view.findViewById(R.id.mainSuggestionText).getTag();
+            Object[] data = new Object[1];
+            data[0] = resultList.get(position);
+            callback.randomMethod(data);
+        }
     }
 
     public class RideViewHolder extends RecyclerView.ViewHolder {
@@ -46,6 +59,7 @@ public class RecentAddressesAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recent_address_snippet, parent, false);
+        view.setOnClickListener(this);
         return new RideViewHolder(view);
     }
 
@@ -63,6 +77,7 @@ public class RecentAddressesAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 }
                 rideViewHolder.secondarySuggestionText.setText(secondaryText);
             }
+            rideViewHolder.mainSuggestionText.setTag(position);
         }
     }
 

@@ -57,6 +57,7 @@ public class CommonLib {
     public static final String APP_TYPE = "splitc_android";
 
     public static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 201;
+    public static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 202;
 
     /**
      * Checks if the app has permission to write to device storage
