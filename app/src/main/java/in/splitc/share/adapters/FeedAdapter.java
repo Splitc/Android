@@ -2,6 +2,7 @@ package in.splitc.share.adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,7 +26,7 @@ import in.splitc.share.utils.RandomCallback;
 /**
  * Created by neo on 30/10/16.
  */
-public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener{
 
     private List<Ride> moviesList;
 
@@ -45,9 +46,22 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private int width, height;
 
+    @Override
+    public void onClick(View view) {
+        int position = (Integer) view.getTag();
+        Ride currentRide = moviesList.get(position);
+
+        Object[] requestParams = new Object[3];
+        requestParams[0] = currentRide;
+        requestParams[1] = startAddress;
+        requestParams[2] = currentRide.getDescription();
+        callback.randomMethod(requestParams);
+    }
+
     public class RideViewHolder extends RecyclerView.ViewHolder {
-        public TextView user_trip_title, start_location, drop_location, pickup_timer, description, accept;
+        public TextView user_trip_title, start_location, drop_location, pickup_timer, description;
         public ImageView user_image;
+        public CardView feed_snippet_container;
         public RideViewHolder(View view) {
             super(view);
             user_trip_title = (TextView) view.findViewById(R.id.user_trip_title);
@@ -56,7 +70,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             pickup_timer = (TextView) view.findViewById(R.id.pickup_timer);
             description = (TextView) view.findViewById(R.id.description);
             user_image = (ImageView) view.findViewById(R.id.user_image);
-            accept = (TextView) view.findViewById(R.id.accept);
+            feed_snippet_container = (CardView) view.findViewById(R.id.feed_snippet_container);
         }
 
     }
@@ -107,6 +121,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_ITEM) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.feed_snippet, parent, false);
+            view.setOnClickListener(this);
             return new RideViewHolder(view);
         } else if (viewType == VIEW_TYPE_LOADING) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.progress_layout, parent, false);
@@ -131,17 +146,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             rideViewHolder.description.setText(movie.getDescription());
             rideViewHolder.user_trip_title.setText(context.getResources().getString(R.string.travel_title_string, movie.getUser().getUserName()));
             loader.setImageFromUrlOrDisk(movie.getUser().getProfilePic(), rideViewHolder.user_image, "", width, height, false);
-
-            rideViewHolder.accept.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Object[] requestParams = new Object[3];
-                    requestParams[0] = movie;
-                    requestParams[1] = startAddress;
-//                    requestParams[2] = rideViewHolder.title.getText().toString();
-                    callback.randomMethod(requestParams);
-                }
-            });
+            rideViewHolder.feed_snippet_container.setTag(position);
         } else if (holder instanceof LoadingViewHolder) {
             LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;
             loadingViewHolder.progressBar.setIndeterminate(true);

@@ -325,26 +325,19 @@ public class HomeFragment extends Fragment implements ZLocationCallback, UploadM
     @Override
     public void randomMethod(Object[] data) {
         if(data instanceof Object[]) {
+
+            Intent intent = new Intent(activity, AcceptRideActivity.class);
+            intent.putExtra("ride", (Ride) data[0]);
+            intent.putExtra("startAddress", (in.splitc.share.data.Address) data[1]);
+            activity.startActivity(intent);
+
             zProgressDialog = ProgressDialog.show(activity, null, "Uploading your wish. Please wait!!!");
 
             Ride ride = (Ride) data[0];
             in.splitc.share.data.Address startAddress = (in.splitc.share.data.Address) data[1];
             String description = (String) data[2];
 
-            String url = CommonLib.SERVER_URL + "ride/action?";
-            FormBody.Builder requestBuilder = new FormBody.Builder();
-            requestBuilder.add("access_token", prefs.getString("access_token", ""));
-            requestBuilder.add("client_id", CommonLib.CLIENT_ID);
-            requestBuilder.add("app_type", CommonLib.APP_TYPE);
-            requestBuilder.add("action", 1 + "");
-            requestBuilder.add("rideId", ride.getRideId() + "");
-            requestBuilder.add("fromAddress", startAddress.getDisplayName());
-            requestBuilder.add("startLat", startAddress.getLatitude() + "");
-            requestBuilder.add("startLon", startAddress.getLongitude() + "");
-            requestBuilder.add("startGooglePlaceId", startAddress.getPlaceId());
-            requestBuilder.add("description", description);
 
-            UploadManager.postDataToServer(UploadManager.FEED_RIDE_ACCEPT, url, requestBuilder);
         }
     }
 
