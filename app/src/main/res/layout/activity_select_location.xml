@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <include
+        layout="@layout/home_toolbar"/>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/white"
-        android:elevation="@dimen/toolbar_elevation">
+        android:background="@color/white">
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -22,16 +25,14 @@
                 android:id="@+id/location"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/action_bar_height"
-                android:hint="@string/place_autocomplete_search_hint"
+                android:hint="@string/start_typing"
                 android:textSize="@dimen/size14"
-                android:textStyle="normal"
                 android:singleLine="true"
                 android:maxLines="1"
-                android:textColorHint="@color/zhl_light"
+                android:textColorHint="@color/default_font_color"
                 android:layout_margin="@dimen/size10"
-                android:backgroundTint="@color/white"
                 android:ellipsize="end"
-                android:textColor="@color/white" />
+                android:textColor="@color/textColorPrimary" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -41,10 +42,10 @@
             android:gravity="center_vertical"
             android:paddingLeft="20dp"
             android:text="@string/z_search"
-            android:textColor="@color/all_icon_color"
+            android:textColor="@color/default_font_color"
             android:layout_gravity="left"
             android:layout_marginTop="-7dp"
-            android:textSize="@dimen/drawer_iconview_size" />
+            android:textSize="@dimen/font_size45" />
 
         <in.splitc.share.utils.IconView
             android:id="@+id/search_close_btn"
@@ -55,9 +56,22 @@
             android:padding="@dimen/size10"
             android:text="@string/z_cross"
             android:layout_marginTop="-7dp"
-            android:textColor="@color/all_icon_color"
-            android:textSize="@dimen/drawer_iconview_size" />
+            android:textColor="@color/default_font_color"
+            android:textSize="@dimen/font_size45" />
     </FrameLayout>
 
+    <in.splitc.share.utils.TextViewRegular
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/size10"
+        android:text="@string/recent_searches"
+        android:textColor="@color/default_font_color"
+        android:textSize="@dimen/size16" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical" />
 
 </LinearLayout>

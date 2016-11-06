@@ -19,17 +19,19 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.Hashtable;
-import java.util.Locale;
 
 /**
  * Created by apoorvarora on 03/10/16.
@@ -366,6 +368,31 @@ public class CommonLib {
         Time mTime = new Time();
         mTime.set(0, calendar.get(Calendar.MINUTE), calendar.get(Calendar.HOUR_OF_DAY), 1, 1, 1);
         return calendar.get(Calendar.DAY_OF_MONTH) + calendar.get(Calendar.MONTH) + calendar.get(Calendar.YEAR) + mTime.format("%I:%M %P");
+    }
+
+    public static byte[] Serialize_Object(Object O) throws IOException {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutputStream out = new ObjectOutputStream(bos);
+        out.writeObject(O);
+        out.close();
+
+        // Get the bytes of the serialized object
+        byte[] buf = bos.toByteArray();
+        return buf;
+    }
+
+    public static Object Deserialize_Object(byte[] input, String Type) throws IOException, ClassNotFoundException {
+        ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(input));
+
+        if (Type.equals("")) {
+            Object o = in.readObject();
+            in.close();
+            return o;
+        } else {
+            in.close();
+            return null;
+        }
+
     }
 
 

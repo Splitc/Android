@@ -191,10 +191,6 @@ public class AboutUs extends AppCompatActivity {
         });
     }
 
-    public void goBack(View view) {
-        onBackPressed();
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

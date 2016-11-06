@@ -54,6 +54,12 @@
     <string name="about_us_terms_of_use">Terms of Service</string>
     <string name="about_us_privacypolicy">Privacy Policy</string>
 
+    <string name="pick_location">Pick your location</string>
+    <string name="start_typing">Start typing...</string>
+
+
+    <string name="recent_searches">Recent searches</string>
+
 
 
 </resources>

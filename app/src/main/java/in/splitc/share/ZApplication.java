@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 
+import in.splitc.share.db.RecentAddressDBWrapper;
 import in.splitc.share.services.CacheCleanerService;
 import in.splitc.share.utils.CommonLib;
 import in.splitc.share.utils.LruCache;
@@ -105,6 +106,7 @@ public class ZApplication extends Application {
         // Initialize DB and Network wrappers
         cache = new LruCache<String, Bitmap>(30);
         UploadManager.Initialize(this);
+        RecentAddressDBWrapper.Initialize(this);
 
         new ThirdPartyInitAsync().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
