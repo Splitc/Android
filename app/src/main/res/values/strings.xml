@@ -9,7 +9,7 @@
     <string name="submit">SUBMIT</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="feedback_hint">Write something...</string>
-    <string name="feedback_email">If you have something to say that doesn\'t fit here, please shoot us an email at android@baatna.com</string>
+    <string name="feedback_email">If you have something to say that doesn\'t fit here, please shoot us an email at atnak.inar@gmail.com</string>
     <string name="feedback_email_subject">Zomato Android App Feedback</string>
     <string name="send_mail">Send Mail</string>
     <string name="no_email_clients">There are no email clients installed.</string>

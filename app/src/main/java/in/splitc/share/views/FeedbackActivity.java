@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -16,11 +17,13 @@ import android.text.TextPaint;
 import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +33,7 @@ import in.splitc.share.utils.CommonLib;
 import in.splitc.share.utils.TypefaceSpan;
 import in.splitc.share.utils.UploadManager;
 import in.splitc.share.utils.UploadManagerCallback;
+import okhttp3.FormBody;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -66,13 +70,15 @@ public class FeedbackActivity extends AppCompatActivity implements UploadManager
         feedbackEmailText.setTextColor(getResources().getColor(R.color.black));
         feedbackEmailText.setText(getFeedbackEmailSpannableText(), TextView.BufferType.SPANNABLE);
         feedbackEmailText.setMovementMethod(LinkMovementMethod.getInstance());
-        feedbackEmailText.setPadding(0, screenWidth / 20, 0, 0);
 
         zapp = (ZApplication) getApplication();
         prefs = getSharedPreferences("application_settings", 0);
 
         screenWidth = getWindowManager().getDefaultDisplay().getWidth();
         screenHeight = getWindowManager().getDefaultDisplay().getHeight();
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         setUpActionBar();
         fixSizes();
     }
@@ -98,6 +104,9 @@ public class FeedbackActivity extends AppCompatActivity implements UploadManager
         TextView title = (TextView) actionBarCustomView.findViewById(R.id.title);
 
         actionBarCustomView.findViewById(R.id.title).setPadding(screenWidth / 40, 0, screenWidth / 40, 0);
+
+        ((RelativeLayout.LayoutParams)actionBarCustomView.findViewById(R.id.home_icon_container).getLayoutParams()).setMargins(screenWidth / 20, 0, 0, 0);
+
         title.setText(s);
     }
 
@@ -201,10 +210,6 @@ public class FeedbackActivity extends AppCompatActivity implements UploadManager
             actionBarCustomView.findViewById(R.id.tick_container).setVisibility(View.GONE);
         }
 
-        findViewById(R.id.submit_button).getLayoutParams().height = screenWidth / 10;
-        findViewById(R.id.submit_button).setEnabled(false);
-        findViewById(R.id.submit_button).setClickable(false);
-
         findViewById(R.id.feedback_content).getLayoutParams().height = screenHeight / 2;
         EditText feedbackContent = (EditText) findViewById(R.id.feedback_content);
         feedbackContent.addTextChangedListener(new TextWatcher() {
@@ -239,8 +244,6 @@ public class FeedbackActivity extends AppCompatActivity implements UploadManager
         });
 
         feedbackContent.setPadding(screenWidth / 40, screenWidth / 40, screenWidth / 40, 0);
-        findViewById(R.id.feedback_container).setPadding(screenWidth / 20, screenWidth / 20, screenWidth / 20,
-                screenWidth / 20);
     }
 
     private String getLogString() {
@@ -271,7 +274,15 @@ public class FeedbackActivity extends AppCompatActivity implements UploadManager
                     + prefs.getInt("uid", 0) + "\n" + "User Agent   : "
                     + "&device=" + Build.MANUFACTURER + ","
                     + Build.BRAND + "," + Build.MODEL);
-//            UploadManager.sendFeedback(message, LogString);
+
+            FormBody.Builder requestBuilder = new FormBody.Builder();
+            requestBuilder.add("access_token", prefs.getString("access_token", ""));
+            requestBuilder.add("client_id", CommonLib.CLIENT_ID);
+            requestBuilder.add("app_type", CommonLib.APP_TYPE);
+            requestBuilder.add("log", LogString);
+            requestBuilder.add("message", message);
+            String url = CommonLib.SERVER_URL + "user/feedback";
+            UploadManager.postDataToServer(UploadManager.SEND_FEEDBACK, url, requestBuilder);
         }
     }
 
@@ -285,8 +296,14 @@ public class FeedbackActivity extends AppCompatActivity implements UploadManager
                     + prefs.getInt("uid", 0) + "\n" + "User Agent   : "
                     + "&device=" + Build.MANUFACTURER + ","
                     + Build.BRAND + "," + Build.MODEL);
-
-//            UploadManager.sendFeedback(message, LogString);
+            FormBody.Builder requestBuilder = new FormBody.Builder();
+            requestBuilder.add("access_token", prefs.getString("access_token", ""));
+            requestBuilder.add("client_id", CommonLib.CLIENT_ID);
+            requestBuilder.add("app_type", CommonLib.APP_TYPE);
+            requestBuilder.add("log", LogString);
+            requestBuilder.add("message", message);
+            String url = CommonLib.SERVER_URL + "user/feedback";
+            UploadManager.postDataToServer(UploadManager.SEND_FEEDBACK, url, requestBuilder);
         }
     }
 
@@ -301,12 +318,12 @@ public class FeedbackActivity extends AppCompatActivity implements UploadManager
 
     @Override
     public void uploadFinished(int requestType, Object data, boolean status, String errorMessage) {
-//        if (requestType == CommonLib.SEND_FEEDBACK) {
-//            if (!destroyed && status) {
-//                Toast.makeText(FeedbackActivity.this, "Hey! Thanks for your feeback, means a lot to us!",
-//                        Toast.LENGTH_LONG).show();
-//                onBackPressed();
-//            }
-//        }
+        if (requestType == UploadManager.SEND_FEEDBACK) {
+            if (!destroyed && status) {
+                Toast.makeText(FeedbackActivity.this, "Hey! Thanks for your feeback, means a lot to us!",
+                        Toast.LENGTH_LONG).show();
+                onBackPressed();
+            }
+        }
     }
 }

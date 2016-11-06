@@ -42,14 +42,14 @@
         android:orientation="vertical"
         android:visibility="gone" >
 
-        <com.application.baatna.utils.IconView
+        <in.splitc.share.utils.IconView
             android:id="@+id/empty_view_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="k"
-            android:textColor="@color/dark_grey"
-            android:textSize="@dimen/height150" />
+            android:textColor="@color/zhl_darkest"
+            android:textSize="@dimen/height160" />
 
         <TextView
             android:id="@+id/empty_view_text"
@@ -68,12 +68,12 @@
             android:clickable="true"
             android:gravity="center" >
 
-            <com.application.baatna.utils.IconView
+            <in.splitc.share.utils.IconView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="e"
-                android:textColor="@color/z_grey_font_color"
-                android:textSize="@dimen/size22" />
+                android:textColor="@color/zhl_darkest"
+                android:textSize="@dimen/size18" />
         </LinearLayout>
     </LinearLayout>
 

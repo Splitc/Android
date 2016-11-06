@@ -46,5 +46,13 @@
 
     <dimen name="drawer_iconview_size">25dp</dimen>
     <item name="toolbar_height" type="dimen">@dimen/height46</item>
+
+    <dimen name="font_size40">40dp</dimen>
+    <dimen name="font_size45">45dp</dimen>
+    <dimen name="font_size50">50dp</dimen>
+    <dimen name="font_size55">55dp</dimen>
+    <dimen name="font_size60">60dp</dimen>
+    <dimen name="font_size65">65dp</dimen>
+
     <!-- Crop dimensions -->
 </resources>
