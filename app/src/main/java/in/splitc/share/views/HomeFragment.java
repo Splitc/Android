@@ -203,11 +203,13 @@ public class HomeFragment extends Fragment implements ZLocationCallback, UploadM
             if( data != null && data.hasExtra("location") ) {
                 in.splitc.share.data.Address location = (in.splitc.share.data.Address) data.getSerializableExtra("location");
                 ((TextView)getView.findViewById(R.id.start_location)).setText(location.getDisplayName());
+                refreshView();
             }
         } else if (requestCode == CommonLib.REQUEST_CODE_DROP_LOCATION) {
             if( data != null && data.hasExtra("location") ) {
                 in.splitc.share.data.Address location = (in.splitc.share.data.Address) data.getSerializableExtra("location");
                 ((TextView)getView.findViewById(R.id.drop_location)).setText(location.getDisplayName());
+                refreshView();
             }
         }
         super.onActivityResult(requestCode, resultCode, data);

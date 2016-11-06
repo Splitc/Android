@@ -326,13 +326,7 @@ public class HomeActivity extends AppCompatActivity implements UploadManagerCall
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CommonLib.REQUEST_CODE_START_LOCATION) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            Fragment fragment = fragmentManager.findFragmentByTag("homeFragment");
-            if (fragment != null) {
-                fragment.onActivityResult(requestCode, resultCode, data);
-            }
-        } else if (requestCode == CommonLib.REQUEST_CODE_DROP_LOCATION) {
+        if (requestCode == CommonLib.REQUEST_CODE_START_LOCATION || requestCode == CommonLib.REQUEST_CODE_DROP_LOCATION) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             Fragment fragment = fragmentManager.findFragmentByTag("homeFragment");
             if (fragment != null) {
