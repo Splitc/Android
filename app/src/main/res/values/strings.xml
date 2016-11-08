@@ -3,6 +3,7 @@
     <string name="app_id">1142326379184126</string>
     <string name="logout">Sign out</string>
     <string name="logout_confirm">Are you sure?</string>
+    <string name="confirm_booking">Confirm Booking?</string>
     <string name="feedback">Send feedback</string>
     <string name="about_us">About</string>
     <string name="login_via_facebook">Login with Facebook</string>

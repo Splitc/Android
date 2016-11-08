@@ -5,7 +5,9 @@ import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import in.splitc.share.R;
@@ -44,6 +46,11 @@ public class AcceptRideActivity extends AppCompatActivity implements UploadManag
         width = getWindowManager().getDefaultDisplay().getWidth();
         height = getWindowManager().getDefaultDisplay().getHeight();
         inflater = LayoutInflater.from(mContext);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(getResources().getString(R.string.confirm_booking));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         UploadManager.addCallback(this);
 
@@ -94,6 +101,19 @@ public class AcceptRideActivity extends AppCompatActivity implements UploadManag
         super.onDestroy();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Override
     public void uploadStarted(int requestType, Object data) {

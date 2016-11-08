@@ -554,19 +554,16 @@ public class FacebookConnect {
                         uid = res.getInt("user_id");
                         if(res.has("user")) {
                             res = res.getJSONObject("user");
-                            if(res.has("user")) {
-                                res = res.getJSONObject("user");
-                                if(res.has("profile_pic")) {
-                                    profile_pic = String.valueOf(res.get("profile_pic"));
-                                }
-                                if(res.has("email")) {
-                                    email = String.valueOf(res.get("email"));
-                                }
-                                if(res.has("username")) {
-                                    uname = String.valueOf(res.get("username"));
-                                } else if(res.has("user_name")) {
-                                    uname = String.valueOf(res.get("user_name"));
-                                }
+                            if(res.has("profile_pic")) {
+                                profile_pic = String.valueOf(res.get("profile_pic"));
+                            }
+                            if(res.has("email")) {
+                                email = String.valueOf(res.get("email"));
+                            }
+                            if(res.has("username")) {
+                                uname = String.valueOf(res.get("username"));
+                            } else if(res.has("user_name")) {
+                                uname = String.valueOf(res.get("user_name"));
                             }
                         }
                     } else {

@@ -71,8 +71,6 @@ public class HomeFragment extends Fragment implements ZLocationCallback, UploadM
     private int start = 0;
     private int count = 10;
 
-    private RandomCallback callback;
-
     private in.splitc.share.data.Address startAddress, dropAddress;
 
     private ProgressDialog zProgressDialog;
@@ -165,7 +163,7 @@ public class HomeFragment extends Fragment implements ZLocationCallback, UploadM
                 rides.add(null);
                 mAdapter.notifyItemInserted(rides.size() - 1);
 
-                String url = CommonLib.SERVER_URL + "ride/fetch?start=" + start + "&count=" + count;
+                String url = CommonLib.SERVER_URL + "ride/feed?start=" + start + "&count=" + count;
                 FormBody.Builder requestBuilder = new FormBody.Builder();
                 requestBuilder.add("access_token", prefs.getString("access_token", ""));
                 requestBuilder.add("client_id", CommonLib.CLIENT_ID);
@@ -186,7 +184,7 @@ public class HomeFragment extends Fragment implements ZLocationCallback, UploadM
 
     private void refreshView() {
         rides = new ArrayList<Ride>();
-        mAdapter = new FeedAdapter(rides, recyclerView, startAddress, activity, callback, zapp, width, height);
+        mAdapter = new FeedAdapter(rides, recyclerView, startAddress, activity, this, zapp, width, height);
         recyclerView.setAdapter(mAdapter);
 
         String url = CommonLib.SERVER_URL + "ride/feed?start=" + 0 + "&count=" + count;
