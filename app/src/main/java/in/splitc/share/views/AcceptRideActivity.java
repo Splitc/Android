@@ -9,9 +9,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import in.splitc.share.R;
 import in.splitc.share.ZApplication;
+import in.splitc.share.adapters.GooglePlaceAutocompleteAdapter;
 import in.splitc.share.data.Address;
 import in.splitc.share.data.Ride;
 import in.splitc.share.utils.CommonLib;
@@ -33,7 +38,8 @@ public class AcceptRideActivity extends AppCompatActivity implements UploadManag
     private ProgressDialog zProgressDialog;
 
     private Ride ride;
-    private Address startAddress;
+    private Address startLocationObject;
+    private AutoCompleteTextView startLocation, dropLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,13 +61,29 @@ public class AcceptRideActivity extends AppCompatActivity implements UploadManag
         UploadManager.addCallback(this);
 
         if (getIntent() != null) {
-
             if (getIntent().hasExtra("ride"))
                 ride = (Ride) getIntent().getSerializableExtra("ride");
-
-            if (getIntent().hasExtra("startAddress"))
-                startAddress = (Address) getIntent().getSerializableExtra("startAddress");
         }
+
+        View yourLocationContainer = findViewById(R.id.your_location_container);
+
+        startLocation = (AutoCompleteTextView) yourLocationContainer.findViewById(R.id.start_location);
+        yourLocationContainer.findViewById(R.id.dropLoc_container).setVisibility(View.GONE);
+
+        startLocationObject = new Address();
+
+        GooglePlaceAutocompleteAdapter adapter1 = new GooglePlaceAutocompleteAdapter(mContext, "regions", CommonLib.GOOGLE_PLACES_API_KEY);
+        startLocation.setAdapter(adapter1);
+        startLocation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                if (adapterView != null && adapterView.getAdapter() != null) {
+                    final Address item = (Address) adapterView.getAdapter().getItem(position);
+                    startLocationObject = item;
+                    startLocation.setText(item.getDisplayName());
+                }
+            }
+        });
 
         setListeners();
     }
@@ -71,6 +93,13 @@ public class AcceptRideActivity extends AppCompatActivity implements UploadManag
         findViewById(R.id.accept).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+                if (startLocationObject == null || startLocation.getText() == null || startLocation.getText().toString().length() < 1) {
+                    Toast.makeText(mContext, "Invalid start location", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 zProgressDialog = ProgressDialog.show(AcceptRideActivity.this, null, "Uploading your wish. Please wait!!!");
 
                 String url = CommonLib.SERVER_URL + "ride/action?";
@@ -80,12 +109,11 @@ public class AcceptRideActivity extends AppCompatActivity implements UploadManag
                 requestBuilder.add("app_type", CommonLib.APP_TYPE);
                 requestBuilder.add("action", 1 + "");
                 requestBuilder.add("rideId", ride.getRideId() + "");
-                requestBuilder.add("fromAddress", startAddress.getDisplayName());
-                requestBuilder.add("startLat", startAddress.getLatitude() + "");
-                requestBuilder.add("startLon", startAddress.getLongitude() + "");
-                requestBuilder.add("startGooglePlaceId", startAddress.getPlaceId());
-                // Todo: this is the input the user inputs
-                requestBuilder.add("description", "");
+                requestBuilder.add("fromAddress", startLocationObject.getDisplayName());
+                requestBuilder.add("startLat", startLocationObject.getLatitude() + "");
+                requestBuilder.add("startLon", startLocationObject.getLongitude() + "");
+                requestBuilder.add("startGooglePlaceId", startLocationObject.getPlaceId());
+                requestBuilder.add("description", ((TextView)findViewById(R.id.your_description)).getText().toString());
 
                 UploadManager.postDataToServer(UploadManager.FEED_RIDE_ACCEPT, url, requestBuilder);
             }

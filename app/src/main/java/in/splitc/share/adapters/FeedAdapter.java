@@ -88,9 +88,8 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         this.mOnLoadMoreListener = mOnLoadMoreListener;
     }
 
-    public FeedAdapter(List<Ride> moviesList, RecyclerView mRecyclerView, Address startAddress, Context context, RandomCallback callback, ZApplication zapp, int width, int height) {
+    public FeedAdapter(List<Ride> moviesList, RecyclerView mRecyclerView, Context context, RandomCallback callback, ZApplication zapp, int width, int height) {
         this.moviesList = moviesList;
-        this.startAddress = startAddress;
         this.context = context;
         this.callback = callback;
         prefs = context.getSharedPreferences("application_settings", 0);
