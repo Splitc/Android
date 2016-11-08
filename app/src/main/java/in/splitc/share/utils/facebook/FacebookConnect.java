@@ -439,6 +439,8 @@ public class FacebookConnect {
                     String emailStr = String.valueOf(object.get("email"));
                     if (emailStr != null)
                         requestBuilder.add("email", emailStr);
+                    else if (params[2] != null)
+                        requestBuilder.add("email", params[2]);
                     else {
                         try {
                             AccountManager am = AccountManager.get(((Context) callback).getApplicationContext());
@@ -456,7 +458,9 @@ public class FacebookConnect {
                         }
                         requestBuilder.add("email", emailStr);
                     }
-                } else {
+                } else if (params[2] != null)
+                    requestBuilder.add("email", params[2]);
+                else {
                     //Pre-fill of sign-up credentials
                     String emailStr = null;
                     try {

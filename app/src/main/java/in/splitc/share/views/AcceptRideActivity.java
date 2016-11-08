@@ -105,6 +105,7 @@ public class AcceptRideActivity extends AppCompatActivity implements UploadManag
         if (requestType == UploadManager.FEED_RIDE_ACCEPT) {
             if(!destroyed && status) {
                 // fetch ride details and open chat if possible
+                finish();
             }
         }
     }

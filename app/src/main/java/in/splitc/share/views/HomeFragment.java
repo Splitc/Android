@@ -331,13 +331,6 @@ public class HomeFragment extends Fragment implements ZLocationCallback, UploadM
             intent.putExtra("startAddress", (in.splitc.share.data.Address) data[1]);
             activity.startActivity(intent);
 
-            zProgressDialog = ProgressDialog.show(activity, null, "Uploading your wish. Please wait!!!");
-
-            Ride ride = (Ride) data[0];
-            in.splitc.share.data.Address startAddress = (in.splitc.share.data.Address) data[1];
-            String description = (String) data[2];
-
-
         }
     }
 
