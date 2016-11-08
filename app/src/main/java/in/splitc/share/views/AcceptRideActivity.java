@@ -151,9 +151,13 @@ public class AcceptRideActivity extends AppCompatActivity implements UploadManag
     @Override
     public void uploadFinished(int requestType, Object data, boolean status, String errorMessage) {
         if (requestType == UploadManager.FEED_RIDE_ACCEPT) {
-            if(!destroyed && status) {
-                // fetch ride details and open chat if possible
-                finish();
+            if(!destroyed) {
+                if(zProgressDialog != null && zProgressDialog.isShowing())
+                    zProgressDialog.dismiss();
+                if(status) {
+                    // fetch ride details and open chat if possible
+                    finish();
+                }
             }
         }
     }

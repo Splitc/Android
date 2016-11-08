@@ -150,6 +150,10 @@ public class ParserJson {
             ride.setFromAddress(String.valueOf(rideJson.get("fromAddress")));
         }
 
+        if (rideJson.has("rideId") && rideJson.get("rideId") instanceof Integer) {
+            ride.setRideId(rideJson.getInt("rideId"));
+        }
+
         if (rideJson.has("startLat") && rideJson.get("startLat") instanceof Double) {
             ride.setStartLat(rideJson.getDouble("startLat"));
         }
