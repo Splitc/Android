@@ -3,6 +3,8 @@ package in.splitc.share.views;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -234,6 +236,40 @@ public class NewRideActivity extends AppCompatActivity implements UploadManagerC
 
     @Override
     public void onBackPressed() {
+        boolean showGoBack = true;
+        if (((TextView)findViewById(R.id.required_persons)).getText().toString().length() > 0
+                || ((TextView)findViewById(R.id.pickup_timer)).getText().toString().length() > 0
+                || startLocation.length() > 0
+                || dropLocation.length() > 0
+                || ((TextView)findViewById(R.id.description_et)).getText().toString().length() > 0
+                )
+            showGoBack = false;
+
+        if (!showGoBack) {
+            final AlertDialog backPressedDialog;
+            backPressedDialog = new AlertDialog.Builder(mContext).setTitle(getResources().getString(R.string.unfilled_details))
+                    .setMessage(getResources().getString(R.string.go_back))
+                    .setPositiveButton(getResources().getString(android.R.string.yes), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            try {
+                                CommonLib.hideKeyboard(NewRideActivity.this);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            finish();
+                        }
+                    }).setNegativeButton(getResources().getString(R.string.dialog_cancel),
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                    .create();
+            backPressedDialog.show();
+        }
+
         try {
             CommonLib.hideKeyboard(this);
         } catch (Exception e) {
