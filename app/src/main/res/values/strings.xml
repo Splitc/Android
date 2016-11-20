@@ -70,5 +70,7 @@
     <string name="persons">persons</string>
     <string name="person">person</string>
 
+    <string name="go_back">You have unfilled details</string>
+    <string name="unfilled_details">Exit?</string>
 
 </resources>
