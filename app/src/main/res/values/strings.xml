@@ -41,7 +41,7 @@
 
     <string name="pickup_time">Pickup time</string>
     <string name="trip_start_time">Trip starting at...</string>
-    <string name="when">on</string>
+    <string name="when">On</string>
     <string name="where">What\'s the plan?</string>
 
     <string name="pickup_date">Pick up Date</string>

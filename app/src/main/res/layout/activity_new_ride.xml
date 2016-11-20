@@ -26,9 +26,6 @@
                 android:singleLine="true"
                 android:textColor="@color/secondary_text_color"
                 android:layout_marginLeft="@dimen/size30"
-                android:paddingTop="@dimen/size5"
-                android:paddingBottom="@dimen/size5"
-                android:paddingRight="@dimen/size5"
                 android:layout_marginTop="@dimen/size10"
                 android:text="@string/where"
                 android:gravity="center_vertical"
@@ -38,27 +35,29 @@
                 android:id="@+id/group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginLeft="@dimen/size30"
+                android:padding="@dimen/size5">
 
-                <RadioButton
+                <android.support.v7.widget.AppCompatRadioButton
                     android:id="@+id/need_ride"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/size14"
                     android:textColor="@color/secondary_text_color"
                     android:padding="@dimen/size10"
-                    android:gravity="left"
+                    android:gravity="left|center_vertical"
                     android:checked="true"
                     android:text="@string/need_ride"/>
 
-                <RadioButton
+                <android.support.v7.widget.AppCompatRadioButton
                     android:id="@+id/driving"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/size14"
                     android:textColor="@color/secondary_text_color"
                     android:padding="@dimen/size10"
-                    android:gravity="left"
+                    android:gravity="left|center_vertical"
                     android:checked="false"
                     android:text="@string/i_am_driving"/>
 
@@ -71,24 +70,21 @@
                 android:singleLine="true"
                 android:textColor="@color/secondary_text_color"
                 android:layout_marginLeft="@dimen/size30"
-                android:paddingTop="@dimen/size5"
-                android:paddingBottom="@dimen/size5"
-                android:paddingRight="@dimen/size5"
                 android:layout_marginTop="@dimen/size10"
                 android:text="@string/for_str"
                 android:gravity="center_vertical"
                 android:textSize="@dimen/size14"/>
 
-            <FrameLayout
+            <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/size10">
+                android:layout_marginLeft="@dimen/size30">
 
                 <in.splitc.share.utils.EditTextRegular
                     android:id="@+id/required_persons"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/height60"
-                    android:gravity="bottom|left"
+                    android:gravity="center_vertical|left"
                     android:inputType="number"
                     android:maxLines="1"
                     android:singleLine="true"
@@ -97,17 +93,16 @@
                     android:textSize="@dimen/size16"
                     android:maxLength="2"/>
 
-                <in.splitc.share.utils.TextViewBold
+                <in.splitc.share.utils.TextViewLight
                     android:id="@+id/required_persons_hint"
                     android:layout_width="fill_parent"
                     android:layout_height="@dimen/height60"
-                    android:gravity="bottom|left"
+                    android:layout_toRightOf="@id/required_persons"
+                    android:gravity="center_vertical|left"
                     android:text="Persons"
                     android:textColor="@color/zhl_darkest"
-                    android:textSize="@dimen/size16"
-                    android:paddingLeft="@dimen/height32"
-                    android:paddingBottom="@dimen/size10"/>
-            </FrameLayout>
+                    android:textSize="@dimen/size16"/>
+            </RelativeLayout>
 
             <in.splitc.share.utils.TextViewBold
                 android:layout_width="fill_parent"
@@ -115,9 +110,6 @@
                 android:singleLine="true"
                 android:textColor="@color/secondary_text_color"
                 android:layout_marginLeft="@dimen/size30"
-                android:paddingTop="@dimen/size5"
-                android:paddingBottom="@dimen/size5"
-                android:paddingRight="@dimen/size5"
                 android:layout_marginTop="@dimen/size10"
                 android:text="@string/travelling"
                 android:gravity="center_vertical"
@@ -127,6 +119,8 @@
                 layout="@layout/autocomplete_location_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="@dimen/size5"
+                android:layout_marginLeft="@dimen/size30"
                 />
 
             <!--Travelling right now -->
@@ -136,9 +130,6 @@
                 android:singleLine="true"
                 android:textColor="@color/secondary_text_color"
                 android:layout_marginLeft="@dimen/size30"
-                android:paddingTop="@dimen/size5"
-                android:paddingBottom="@dimen/size5"
-                android:paddingRight="@dimen/size5"
                 android:layout_marginTop="@dimen/size10"
                 android:text="@string/when"
                 android:gravity="center_vertical"
@@ -149,6 +140,8 @@
                 android:layout_height="@dimen/action_bar_height"
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/size10"
+                android:padding="@dimen/size10"
+                android:layout_marginLeft="@dimen/size30"
                 android:background="@drawable/whitebuttoncustomback" >
 
                 <in.splitc.share.utils.IconViewZ

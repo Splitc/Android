@@ -146,7 +146,7 @@ public class NewRideActivity extends AppCompatActivity implements UploadManagerC
         ((RadioGroup) findViewById(R.id.group)).setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch (((CheckBox)radioGroup.getChildAt(i)).getId()) {
+                switch (i) {
                     case R.id.need_ride:
                         ((TextView)findViewById(R.id.persons_label)).setText(getResources().getString(R.string.for_str));
                         break;
@@ -227,6 +227,16 @@ public class NewRideActivity extends AppCompatActivity implements UploadManagerC
                 break;
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        try {
+            CommonLib.hideKeyboard(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        super.onBackPressed();
     }
 
     public void postRequest(View v) {
