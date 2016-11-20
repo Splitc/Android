@@ -34,6 +34,95 @@
                 android:gravity="center_vertical"
                 android:textSize="@dimen/size14"/>
 
+            <RadioGroup
+                android:id="@+id/group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/need_ride"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/size14"
+                    android:textColor="@color/secondary_text_color"
+                    android:padding="@dimen/size10"
+                    android:gravity="left"
+                    android:checked="true"
+                    android:text="@string/need_ride"/>
+
+                <RadioButton
+                    android:id="@+id/driving"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/size14"
+                    android:textColor="@color/secondary_text_color"
+                    android:padding="@dimen/size10"
+                    android:gravity="left"
+                    android:checked="false"
+                    android:text="@string/i_am_driving"/>
+
+            </RadioGroup>
+
+            <in.splitc.share.utils.TextViewBold
+                android:id="@+id/persons_label"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="@color/secondary_text_color"
+                android:layout_marginLeft="@dimen/size30"
+                android:paddingTop="@dimen/size5"
+                android:paddingBottom="@dimen/size5"
+                android:paddingRight="@dimen/size5"
+                android:layout_marginTop="@dimen/size10"
+                android:text="@string/for_str"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/size14"/>
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/size10">
+
+                <in.splitc.share.utils.EditTextRegular
+                    android:id="@+id/required_persons"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/height60"
+                    android:gravity="bottom|left"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/default_font_color"
+                    android:textColorHint="@color/default_font_color"
+                    android:textSize="@dimen/size16"
+                    android:maxLength="2"/>
+
+                <in.splitc.share.utils.TextViewBold
+                    android:id="@+id/required_persons_hint"
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/height60"
+                    android:gravity="bottom|left"
+                    android:text="Persons"
+                    android:textColor="@color/zhl_darkest"
+                    android:textSize="@dimen/size16"
+                    android:paddingLeft="@dimen/height32"
+                    android:paddingBottom="@dimen/size10"/>
+            </FrameLayout>
+
+            <in.splitc.share.utils.TextViewBold
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="@color/secondary_text_color"
+                android:layout_marginLeft="@dimen/size30"
+                android:paddingTop="@dimen/size5"
+                android:paddingBottom="@dimen/size5"
+                android:paddingRight="@dimen/size5"
+                android:layout_marginTop="@dimen/size10"
+                android:text="@string/travelling"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/size14"/>
+
             <include
                 layout="@layout/autocomplete_location_container"
                 android:layout_width="match_parent"
@@ -85,38 +174,6 @@
                     android:textSize="@dimen/size14"/>
 
             </LinearLayout>
-
-            <FrameLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/size10">
-
-                <in.splitc.share.utils.EditTextRegular
-                    android:id="@+id/required_persons"
-                    android:layout_width="fill_parent"
-                    android:layout_height="@dimen/height60"
-                    android:gravity="bottom|left"
-                    android:hint="@string/time_duration"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:textColor="@color/default_font_color"
-                    android:textColorHint="@color/default_font_color"
-                    android:textSize="@dimen/size16"
-                    android:maxLength="2"/>
-
-                <in.splitc.share.utils.TextViewBold
-                    android:id="@+id/required_persons_hint"
-                    android:layout_width="fill_parent"
-                    android:layout_height="@dimen/height60"
-                    android:gravity="bottom|left"
-                    android:text="Persons"
-                    android:textColor="@color/zhl_darkest"
-                    android:textSize="@dimen/size16"
-                    android:paddingLeft="@dimen/height32"
-                    android:paddingBottom="@dimen/size10"
-                    android:visibility="gone"/>
-            </FrameLayout>
 
             <in.splitc.share.utils.EditTextRegular
                 android:id="@+id/description_et"

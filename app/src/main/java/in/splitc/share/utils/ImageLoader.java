@@ -82,7 +82,7 @@ public class ImageLoader {
 
         if (bitmapWorkerTask != null) {
             final String bitmapData = bitmapWorkerTask.url;
-            if (!bitmapData.equals(data)) {
+            if (bitmapData != null && data != null && !bitmapData.equals(data)) {
                 // Cancel previous task
                 bitmapWorkerTask.cancel(true);
             } else {

@@ -41,7 +41,7 @@
 
     <string name="pickup_time">Pickup time</string>
     <string name="trip_start_time">Trip starting at...</string>
-    <string name="when">When?</string>
+    <string name="when">on</string>
     <string name="where">What\'s the plan?</string>
 
     <string name="pickup_date">Pick up Date</string>
@@ -61,6 +61,14 @@
 
     <string name="recent_searches">Recent searches</string>
 
+    <string name="need_ride">I need a ride</string>
+    <string name="i_am_driving">I am driving</string>
+    <string name="for_str">For</string>
+    <string name="need">and Need</string>
+    <string name="travelling">Travelling</string>
+
+    <string name="persons">persons</string>
+    <string name="person">person</string>
 
 
 </resources>

@@ -10,16 +10,20 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.TextWatcher;
 import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -79,6 +83,13 @@ public class NewRideActivity extends AppCompatActivity implements UploadManagerC
 
         UploadManager.addCallback(this);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        setupActionBar();
+        setListeners();
+    }
+
+    private void setListeners() {
         GooglePlaceAutocompleteAdapter adapter1 = new GooglePlaceAutocompleteAdapter(mContext, "regions", CommonLib.GOOGLE_PLACES_API_KEY);
         startLocation.setAdapter(adapter1);
         startLocation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -105,30 +116,43 @@ public class NewRideActivity extends AppCompatActivity implements UploadManagerC
             }
         });
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        setupActionBar();
-        setListeners();
-    }
-
-    private void setListeners() {
-        final EditText et= (EditText) findViewById(R.id.required_persons);
-        et.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        ((EditText) findViewById(R.id.required_persons)).addTextChangedListener(new TextWatcher() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    findViewById(R.id.required_persons_hint).setVisibility(View.VISIBLE);
-                    et.setHint("");
-                } else{
-                    if(et.getText().toString().equals("")){
-                        et.setHint(R.string.time_duration);
-                        findViewById(R.id.required_persons_hint).setVisibility(View.GONE);
-                    }
-                    if(et.getText().toString().equals("1")){
-                        ((TextView)findViewById(R.id.required_persons_hint)).setText("Person");
-                    }
-                    else
-                        ((TextView)findViewById(R.id.required_persons_hint)).setText("Persons");
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String value = editable.toString();
+                int persons = 0;
+                try {
+                    persons = Integer.parseInt(value);
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+                if (persons > 1) {
+                    ((TextView)findViewById(R.id.required_persons_hint)).setText(getResources().getString(R.string.persons));
+                } else
+                    ((TextView)findViewById(R.id.required_persons_hint)).setText(getResources().getString(R.string.person));
+            }
+        });
+
+        ((RadioGroup) findViewById(R.id.group)).setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (((CheckBox)radioGroup.getChildAt(i)).getId()) {
+                    case R.id.need_ride:
+                        ((TextView)findViewById(R.id.persons_label)).setText(getResources().getString(R.string.for_str));
+                        break;
+                    case R.id.driving:
+                        ((TextView)findViewById(R.id.persons_label)).setText(getResources().getString(R.string.need));
+                        break;
                 }
             }
         });
