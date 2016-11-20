@@ -24,17 +24,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import in.splitc.share.R;
-import in.splitc.share.ZApplication;
-import in.splitc.share.adapters.FeedAdapter;
-import in.splitc.share.data.Ride;
-import in.splitc.share.utils.CommonLib;
-import in.splitc.share.utils.OnLoadMoreListener;
-import in.splitc.share.utils.RandomCallback;
-import in.splitc.share.utils.UploadManager;
-import in.splitc.share.utils.UploadManagerCallback;
-import in.splitc.share.utils.ZLocationCallback;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -43,6 +32,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import in.splitc.share.R;
+import in.splitc.share.ZApplication;
+import in.splitc.share.adapters.FeedAdapter;
+import in.splitc.share.data.Feed;
+import in.splitc.share.data.Ride;
+import in.splitc.share.utils.CommonLib;
+import in.splitc.share.utils.OnLoadMoreListener;
+import in.splitc.share.utils.RandomCallback;
+import in.splitc.share.utils.UploadManager;
+import in.splitc.share.utils.UploadManagerCallback;
+import in.splitc.share.utils.ZLocationCallback;
 import okhttp3.Call;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -65,7 +65,7 @@ public class HomeFragment extends Fragment implements ZLocationCallback, UploadM
 
     private RecyclerView recyclerView;
     private FeedAdapter mAdapter;
-    List<Ride> rides = new ArrayList<>();
+    List<Feed> rides = new ArrayList<Feed>();
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private int mTotalRides = 0;
     private int start = 0;
@@ -163,7 +163,7 @@ public class HomeFragment extends Fragment implements ZLocationCallback, UploadM
                 rides.add(null);
                 mAdapter.notifyItemInserted(rides.size() - 1);
 
-                String url = CommonLib.SERVER_URL + "ride/feed?start=" + start + "&count=" + count;
+                String url = CommonLib.SERVER_URL + "feed/fetch?start=" + start + "&count=" + count;
                 FormBody.Builder requestBuilder = new FormBody.Builder();
                 requestBuilder.add("access_token", prefs.getString("access_token", ""));
                 requestBuilder.add("client_id", CommonLib.CLIENT_ID);
@@ -183,11 +183,11 @@ public class HomeFragment extends Fragment implements ZLocationCallback, UploadM
     }
 
     private void refreshView() {
-        rides = new ArrayList<Ride>();
+        rides = new ArrayList<Feed>();
         mAdapter = new FeedAdapter(rides, recyclerView, activity, this, zapp, width, height);
         recyclerView.setAdapter(mAdapter);
 
-        String url = CommonLib.SERVER_URL + "ride/feed?start=" + 0 + "&count=" + count;
+        String url = CommonLib.SERVER_URL + "feed/fetch?start=" + 0 + "&count=" + count;
         FormBody.Builder requestBuilder = new FormBody.Builder();
         requestBuilder.add("access_token", prefs.getString("access_token", ""));
         requestBuilder.add("client_id", CommonLib.CLIENT_ID);
@@ -292,7 +292,7 @@ public class HomeFragment extends Fragment implements ZLocationCallback, UploadM
                 Object[] output = (Object[]) ((Object[]) data)[0];
 
                 mTotalRides = (int) output[0];
-                rides.addAll((ArrayList<Ride>) output[1]);
+                rides.addAll((ArrayList<Feed>) output[1]);
                 mAdapter.notifyDataSetChanged();
                 if (mTotalRides <= rides.size()) {
                     mAdapter.setLoaded();
@@ -307,7 +307,7 @@ public class HomeFragment extends Fragment implements ZLocationCallback, UploadM
                 mAdapter.notifyItemRemoved(rides.size());
 
                 mTotalRides = (int) output[0];
-                rides.addAll((ArrayList<Ride>) output[1]);
+                rides.addAll((ArrayList<Feed>) output[1]);
                 mAdapter.notifyDataSetChanged();
                 if (mTotalRides <= rides.size()) {
                     mAdapter.setLoaded();
@@ -324,7 +324,7 @@ public class HomeFragment extends Fragment implements ZLocationCallback, UploadM
     public void randomMethod(Object[] data) {
         if(data instanceof Object[]) {
 
-            Intent intent = new Intent(activity, AcceptRideActivity.class);
+            Intent intent = new Intent(activity, FeedItemDetailActivity.class);
             intent.putExtra("ride", (Ride) data[0]);
             activity.startActivity(intent);
 

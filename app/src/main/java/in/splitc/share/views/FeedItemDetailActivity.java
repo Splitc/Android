@@ -27,7 +27,7 @@ import okhttp3.FormBody;
 /**
  * Created by neo on 06/11/16.
  */
-public class AcceptRideActivity extends AppCompatActivity implements UploadManagerCallback {
+public class FeedItemDetailActivity extends AppCompatActivity  {
 
     private Activity mContext;
     private boolean destroyed = false;
@@ -57,8 +57,6 @@ public class AcceptRideActivity extends AppCompatActivity implements UploadManag
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(getResources().getString(R.string.confirm_booking));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        UploadManager.addCallback(this);
 
         if (getIntent() != null) {
             if (getIntent().hasExtra("ride"))
@@ -90,40 +88,11 @@ public class AcceptRideActivity extends AppCompatActivity implements UploadManag
 
     private void setListeners() {
 
-        findViewById(R.id.accept).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                if (startLocationObject == null || startLocation.getText() == null || startLocation.getText().toString().length() < 1) {
-                    Toast.makeText(mContext, "Invalid start location", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                zProgressDialog = ProgressDialog.show(AcceptRideActivity.this, null, "Uploading your wish. Please wait!!!");
-
-                String url = CommonLib.SERVER_URL + "ride/action?";
-                FormBody.Builder requestBuilder = new FormBody.Builder();
-                requestBuilder.add("access_token", prefs.getString("access_token", ""));
-                requestBuilder.add("client_id", CommonLib.CLIENT_ID);
-                requestBuilder.add("app_type", CommonLib.APP_TYPE);
-                requestBuilder.add("action", 1 + "");
-                requestBuilder.add("rideId", ride.getRideId() + "");
-                requestBuilder.add("fromAddress", startLocationObject.getDisplayName());
-                requestBuilder.add("startLat", startLocationObject.getLatitude() + "");
-                requestBuilder.add("startLon", startLocationObject.getLongitude() + "");
-                requestBuilder.add("startGooglePlaceId", startLocationObject.getPlaceId());
-                requestBuilder.add("description", ((TextView)findViewById(R.id.your_description)).getText().toString());
-
-                UploadManager.postDataToServer(UploadManager.FEED_RIDE_ACCEPT, url, requestBuilder);
-            }
-        });
     }
 
     @Override
     public void onDestroy() {
         destroyed = true;
-        UploadManager.removeCallback(this);
         if (zProgressDialog != null && zProgressDialog.isShowing())
             zProgressDialog.dismiss();
         super.onDestroy();
@@ -143,22 +112,4 @@ public class AcceptRideActivity extends AppCompatActivity implements UploadManag
         }
     }
 
-    @Override
-    public void uploadStarted(int requestType, Object data) {
-
-    }
-
-    @Override
-    public void uploadFinished(int requestType, Object data, boolean status, String errorMessage) {
-        if (requestType == UploadManager.FEED_RIDE_ACCEPT) {
-            if(!destroyed) {
-                if(zProgressDialog != null && zProgressDialog.isShowing())
-                    zProgressDialog.dismiss();
-                if(status) {
-                    // fetch ride details and open chat if possible
-                    finish();
-                }
-            }
-        }
-    }
 }

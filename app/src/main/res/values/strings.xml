@@ -41,12 +41,14 @@
 
     <string name="pickup_time">Pickup time</string>
     <string name="trip_start_time">Trip starting at...</string>
+    <string name="leaving_at">Leaving at...</string>
     <string name="when">On</string>
     <string name="where">What\'s the plan?</string>
 
     <string name="pickup_date">Pick up Date</string>
     <string name="accept">Accept</string>
-    <string name="travel_title_string">%1$s travelling</string>
+    <string name="travel_title_string">%1$s needs some passengers</string>
+    <string name="need_ride_string">%1$s need a ride</string>
 
     <string name="no_internet_message">Seems like you are not connected to the internet. Please try again later.</string>
 

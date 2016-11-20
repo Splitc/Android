@@ -17,6 +17,7 @@ import java.util.List;
 import in.splitc.share.R;
 import in.splitc.share.ZApplication;
 import in.splitc.share.data.Address;
+import in.splitc.share.data.Feed;
 import in.splitc.share.data.Ride;
 import in.splitc.share.utils.CommonLib;
 import in.splitc.share.utils.ImageLoader;
@@ -28,7 +29,7 @@ import in.splitc.share.utils.RandomCallback;
  */
 public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener{
 
-    private List<Ride> moviesList;
+    private List<Feed> moviesList;
 
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
@@ -38,7 +39,6 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     private int visibleThreshold = 5;
     private int lastVisibleItem, totalItemCount;
 
-    private Address startAddress;
     private Context context;
     private SharedPreferences prefs;
     private RandomCallback callback;
@@ -49,26 +49,24 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     @Override
     public void onClick(View view) {
         int position = (Integer) view.getTag();
-        Ride currentRide = moviesList.get(position);
+        Feed currentRide = moviesList.get(position);
 
         Object[] requestParams = new Object[3];
         requestParams[0] = currentRide;
-        requestParams[1] = startAddress;
-        requestParams[2] = currentRide.getDescription();
         callback.randomMethod(requestParams);
     }
 
     public class RideViewHolder extends RecyclerView.ViewHolder {
-        public TextView user_trip_title, start_location, drop_location, pickup_timer, description;
+        public TextView user_trip_title, start_location, drop_location, pickup_timer;
         public ImageView user_image;
         public CardView feed_snippet_container;
+
         public RideViewHolder(View view) {
             super(view);
             user_trip_title = (TextView) view.findViewById(R.id.user_trip_title);
             start_location = (TextView) view.findViewById(R.id.start_location);
             drop_location = (TextView) view.findViewById(R.id.drop_location);
             pickup_timer = (TextView) view.findViewById(R.id.pickup_timer);
-            description = (TextView) view.findViewById(R.id.description);
             user_image = (ImageView) view.findViewById(R.id.user_image);
             feed_snippet_container = (CardView) view.findViewById(R.id.feed_snippet_container);
         }
@@ -88,7 +86,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         this.mOnLoadMoreListener = mOnLoadMoreListener;
     }
 
-    public FeedAdapter(List<Ride> moviesList, RecyclerView mRecyclerView, Context context, RandomCallback callback, ZApplication zapp, int width, int height) {
+    public FeedAdapter(List<Feed> moviesList, RecyclerView mRecyclerView, Context context, RandomCallback callback, ZApplication zapp, int width, int height) {
         this.moviesList = moviesList;
         this.context = context;
         this.callback = callback;
@@ -137,13 +135,15 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof RideViewHolder) {
-            final Ride movie = moviesList.get(position);
+            final Feed movie = moviesList.get(position);
             final RideViewHolder rideViewHolder = (RideViewHolder) holder;
             rideViewHolder.start_location.setText(movie.getFromAddress());
             rideViewHolder.drop_location.setText(movie.getToAddress());
             rideViewHolder.pickup_timer.setText(CommonLib.getTimeFormattedString(movie.getCreated()));
-            rideViewHolder.description.setText(movie.getDescription());
-            rideViewHolder.user_trip_title.setText(context.getResources().getString(R.string.travel_title_string, movie.getUser().getUserName()));
+            if (movie.getFeedType() == CommonLib.FEED_TYPE_RIDE) {
+                rideViewHolder.user_trip_title.setText(context.getResources().getString(R.string.travel_title_string, movie.getUser().getUserName()));
+            } else
+                rideViewHolder.user_trip_title.setText(context.getResources().getString(R.string.need_ride_string, movie.getUser().getUserName()));
             loader.setImageFromUrlOrDisk(movie.getUser().getProfilePic(), rideViewHolder.user_image, "", width, height, false);
             rideViewHolder.feed_snippet_container.setTag(position);
         } else if (holder instanceof LoadingViewHolder) {

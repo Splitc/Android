@@ -104,7 +104,7 @@
 
         <!-- Accept ride -->
         <activity
-            android:name=".views.AcceptRideActivity"
+            android:name=".views.FeedItemDetailActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/SplitActionBarHomeTheme"
