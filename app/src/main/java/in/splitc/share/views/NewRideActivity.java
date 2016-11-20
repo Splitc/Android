@@ -65,6 +65,8 @@ public class NewRideActivity extends AppCompatActivity implements UploadManagerC
 
     private ProgressDialog zProgressDialog;
 
+    private int checkedId = R.id.need_ride;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,6 +148,7 @@ public class NewRideActivity extends AppCompatActivity implements UploadManagerC
         ((RadioGroup) findViewById(R.id.group)).setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                checkedId = i;
                 switch (i) {
                     case R.id.need_ride:
                         ((TextView)findViewById(R.id.persons_label)).setText(getResources().getString(R.string.for_str));
@@ -263,12 +266,17 @@ public class NewRideActivity extends AppCompatActivity implements UploadManagerC
         requestBuilder.add("startGooglePlaceId", startLocationObject.getPlaceId());
         requestBuilder.add("toAddress", dropLocation.getText().toString());
         requestBuilder.add("dropGooglePlaceId", dropLocationObject.getPlaceId());
-        requestBuilder.add("requiredPersons", ((TextView)findViewById(R.id.required_persons)).getText().toString());
+        requestBuilder.add("persons", ((TextView)findViewById(R.id.required_persons)).getText().toString());
         requestBuilder.add("description", ((TextView)findViewById(R.id.description_et)).getText().toString());
         requestBuilder.add("startTime", tripStartdate.getTimeInMillis()+"");
 
-        String url = CommonLib.SERVER_URL + "ride/add";
-        UploadManager.postDataToServer(UploadManager.NEW_RIDE, url, requestBuilder);
+        StringBuilder url = new StringBuilder();
+        url.append(CommonLib.SERVER_URL);
+        if (checkedId == R.id.need_ride)
+            url.append("rideRequest/add");
+        else
+            url.append("ride/add");
+        UploadManager.postDataToServer(UploadManager.NEW_RIDE, url.toString(), requestBuilder);
 
         zProgressDialog = ProgressDialog.show(mContext, null, "Uploading your wish. Please wait!!!");
     }
