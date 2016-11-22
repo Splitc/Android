@@ -1,6 +1,8 @@
 package in.splitc.share.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,6 +24,7 @@ import in.splitc.share.utils.CommonLib;
 import in.splitc.share.utils.ImageLoader;
 import in.splitc.share.utils.OnLoadMoreListener;
 import in.splitc.share.utils.RandomCallback;
+import in.splitc.share.views.FeedItemDetailActivity;
 
 /**
  * Created by neo on 30/10/16.
@@ -38,9 +41,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     private int visibleThreshold = 5;
     private int lastVisibleItem, totalItemCount;
 
-    private Context context;
-    private SharedPreferences prefs;
-    private RandomCallback callback;
+    private Activity context;
     private ImageLoader loader;
 
     private int width, height;
@@ -50,9 +51,9 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         int position = (Integer) view.getTag();
         Feed currentRide = feedItems.get(position);
 
-        Object[] requestParams = new Object[3];
-        requestParams[0] = currentRide;
-        callback.randomMethod(requestParams);
+        Intent intent = new Intent(context, FeedItemDetailActivity.class);
+        intent.putExtra("ride", currentRide);
+        context.startActivity(intent);
     }
 
     public class RideViewHolder extends RecyclerView.ViewHolder {
@@ -85,14 +86,12 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         this.mOnLoadMoreListener = mOnLoadMoreListener;
     }
 
-    public FeedAdapter(List<Feed> feedItems, RecyclerView mRecyclerView, Context context, RandomCallback callback, ZApplication zapp, int width, int height) {
+    public FeedAdapter(List<Feed> feedItems, RecyclerView mRecyclerView, Activity context) {
         this.feedItems = feedItems;
         this.context = context;
-        this.callback = callback;
-        prefs = context.getSharedPreferences("application_settings", 0);
-        loader = new ImageLoader(context, zapp);
-        this.width = width;
-        this.height = height;
+        loader = new ImageLoader(context, (ZApplication) context.getApplication());
+        this.width = context.getWindowManager().getDefaultDisplay().getWidth();
+        this.height = context.getWindowManager().getDefaultDisplay().getHeight();
 
         this.filteredList = new ArrayList<Feed>();
         this.filteredList.addAll(feedItems);

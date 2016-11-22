@@ -60,7 +60,7 @@ import okhttp3.Response;
 /**
  * Created by apoorvarora on 12/10/16.
  */
-public class HomeFragment extends Fragment implements ZLocationCallback, UploadManagerCallback, RandomCallback {
+public class HomeFragment extends Fragment implements ZLocationCallback, UploadManagerCallback {
 
     public static final  String TAG = HomeFragment.class.getSimpleName();
     private View mView;
@@ -302,7 +302,7 @@ public class HomeFragment extends Fragment implements ZLocationCallback, UploadM
 
     private void refreshView() {
         rides = new ArrayList<Feed>();
-        mAdapter = new FeedAdapter(rides, recyclerView, activity, this, zapp, width, height);
+        mAdapter = new FeedAdapter(rides, recyclerView, activity);
         recyclerView.setAdapter(mAdapter);
 
         String url = CommonLib.SERVER_URL + "feed/fetch?start=" + 0 + "&count=" + count;
@@ -438,17 +438,6 @@ public class HomeFragment extends Fragment implements ZLocationCallback, UploadM
             if(!destroyed && status) {
                 // fetch ride details and open chat if possible
             }
-        }
-    }
-
-    @Override
-    public void randomMethod(Object[] data) {
-        if(data instanceof Object[]) {
-
-            Intent intent = new Intent(activity, FeedItemDetailActivity.class);
-            intent.putExtra("ride", (Ride) data[0]);
-            activity.startActivity(intent);
-
         }
     }
 
