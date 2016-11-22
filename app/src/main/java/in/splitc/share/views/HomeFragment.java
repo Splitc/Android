@@ -239,44 +239,48 @@ public class HomeFragment extends Fragment implements ZLocationCallback, UploadM
                         getView.findViewById(R.id.arrow).setVisibility(View.GONE);
                         (getView.findViewById(R.id.arrow_close)).animate().rotationX((float) -180);
 
-                        final TextView ola = (TextView) getView.findViewById(R.id.driving);
-                        final TextView mega = (TextView) getView.findViewById(R.id.passenger);
+                        final TextView ride = (TextView) getView.findViewById(R.id.driving);
+                        final TextView rideRequest = (TextView) getView.findViewById(R.id.passenger);
 
                         if (olaCheck) {
-                            ola.setTextColor(getResources().getColor(R.color.textColorPrimary));
+                            ride.setTextColor(getResources().getColor(R.color.textColorPrimary));
 
                         } else {
-                            ola.setTextColor(getResources().getColor(R.color.zhl_darkest));
+                            ride.setTextColor(getResources().getColor(R.color.zhl_darkest));
 
                         }
 
                         if (megaCheck) {
-                            mega.setTextColor(getResources().getColor(R.color.textColorPrimary));
+                            rideRequest.setTextColor(getResources().getColor(R.color.textColorPrimary));
                         } else {
-                            mega.setTextColor(getResources().getColor(R.color.zhl_darkest));
+                            rideRequest.setTextColor(getResources().getColor(R.color.zhl_darkest));
                         }
 
-                        ola.setOnClickListener(new View.OnClickListener() {
+                        ride.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 if (!olaCheck) {
-                                    ola.setTextColor(getResources().getColor(R.color.textColorPrimary));
+                                    ride.setTextColor(getResources().getColor(R.color.textColorPrimary));
                                     olaCheck = true;
+                                    mAdapter.filter(CommonLib.FEED_TYPE_RIDE);
                                 } else {
                                     olaCheck = false;
-                                    ola.setTextColor(getResources().getColor(R.color.zhl_darkest));
+                                    ride.setTextColor(getResources().getColor(R.color.zhl_darkest));
+                                    mAdapter.filter(-1);
                                 }
                             }
                         });
-                        mega.setOnClickListener(new View.OnClickListener() {
+                        rideRequest.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 if (!megaCheck) {
-                                    mega.setTextColor(getResources().getColor(R.color.textColorPrimary));
+                                    rideRequest.setTextColor(getResources().getColor(R.color.textColorPrimary));
                                     megaCheck = true;
+                                    mAdapter.filter(CommonLib.FEED_TYPE_RIDE_REQUEST);
                                 } else {
                                     megaCheck = false;
-                                    mega.setTextColor(getResources().getColor(R.color.zhl_darkest));
+                                    rideRequest.setTextColor(getResources().getColor(R.color.zhl_darkest));
+                                    mAdapter.filter(-1);
                                 }
                             }
                         });
@@ -532,10 +536,6 @@ public class HomeFragment extends Fragment implements ZLocationCallback, UploadM
 
             }
         }, 300);
-    }
-
-    private void updateFilterWishes(ArrayList<Feed> wishes) {
-
     }
 
 }

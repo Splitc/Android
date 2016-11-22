@@ -12,13 +12,12 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import in.splitc.share.R;
 import in.splitc.share.ZApplication;
-import in.splitc.share.data.Address;
 import in.splitc.share.data.Feed;
-import in.splitc.share.data.Ride;
 import in.splitc.share.utils.CommonLib;
 import in.splitc.share.utils.ImageLoader;
 import in.splitc.share.utils.OnLoadMoreListener;
@@ -29,7 +28,7 @@ import in.splitc.share.utils.RandomCallback;
  */
 public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener{
 
-    private List<Feed> moviesList;
+    private List<Feed> feedItems, filteredList;
 
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
@@ -49,7 +48,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     @Override
     public void onClick(View view) {
         int position = (Integer) view.getTag();
-        Feed currentRide = moviesList.get(position);
+        Feed currentRide = feedItems.get(position);
 
         Object[] requestParams = new Object[3];
         requestParams[0] = currentRide;
@@ -86,14 +85,17 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         this.mOnLoadMoreListener = mOnLoadMoreListener;
     }
 
-    public FeedAdapter(List<Feed> moviesList, RecyclerView mRecyclerView, Context context, RandomCallback callback, ZApplication zapp, int width, int height) {
-        this.moviesList = moviesList;
+    public FeedAdapter(List<Feed> feedItems, RecyclerView mRecyclerView, Context context, RandomCallback callback, ZApplication zapp, int width, int height) {
+        this.feedItems = feedItems;
         this.context = context;
         this.callback = callback;
         prefs = context.getSharedPreferences("application_settings", 0);
         loader = new ImageLoader(context, zapp);
         this.width = width;
         this.height = height;
+
+        this.filteredList = new ArrayList<Feed>();
+        this.filteredList.addAll(feedItems);
 
         final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -114,6 +116,25 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         });
     }
 
+    public void filter(final int type) {
+        // Clear the filter list
+        filteredList.clear();
+
+        if (type == -1) {
+            filteredList.addAll(feedItems);
+            notifyDataSetChanged();
+            return;
+        }
+
+        for (Feed feedItem : feedItems) {
+            if(feedItem.getFeedType() == type)
+                filteredList.add(feedItem);
+        }
+
+        // change the data set
+        notifyDataSetChanged();
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_ITEM) {
@@ -129,22 +150,22 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
     @Override
     public int getItemViewType(int position) {
-        return moviesList.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
+        return feedItems.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof RideViewHolder) {
-            final Feed movie = moviesList.get(position);
+            final Feed feedItem = feedItems.get(position);
             final RideViewHolder rideViewHolder = (RideViewHolder) holder;
-            rideViewHolder.start_location.setText(movie.getFromAddress());
-            rideViewHolder.drop_location.setText(movie.getToAddress());
-            rideViewHolder.pickup_timer.setText(CommonLib.getTimeFormattedString(movie.getCreated()));
-            if (movie.getFeedType() == CommonLib.FEED_TYPE_RIDE) {
-                rideViewHolder.user_trip_title.setText(context.getResources().getString(R.string.travel_title_string, movie.getUser().getUserName()));
+            rideViewHolder.start_location.setText(feedItem.getFromAddress());
+            rideViewHolder.drop_location.setText(feedItem.getToAddress());
+            rideViewHolder.pickup_timer.setText(CommonLib.getTimeFormattedString(feedItem.getCreated()));
+            if (feedItem.getFeedType() == CommonLib.FEED_TYPE_RIDE) {
+                rideViewHolder.user_trip_title.setText(context.getResources().getString(R.string.travel_title_string, feedItem.getUser().getUserName()));
             } else
-                rideViewHolder.user_trip_title.setText(context.getResources().getString(R.string.need_ride_string, movie.getUser().getUserName()));
-            loader.setImageFromUrlOrDisk(movie.getUser().getProfilePic(), rideViewHolder.user_image, "", width, height, false);
+                rideViewHolder.user_trip_title.setText(context.getResources().getString(R.string.need_ride_string, feedItem.getUser().getUserName()));
+            loader.setImageFromUrlOrDisk(feedItem.getUser().getProfilePic(), rideViewHolder.user_image, "", width, height, false);
             rideViewHolder.feed_snippet_container.setTag(position);
         } else if (holder instanceof LoadingViewHolder) {
             LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;
@@ -154,7 +175,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
     @Override
     public int getItemCount() {
-        return moviesList == null ? 0 : moviesList.size();
+        return feedItems == null ? 0 : feedItems.size();
     }
 
     public void setLoaded() {
