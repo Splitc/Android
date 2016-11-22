@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingBottom="12dp"
+    android:background="#ffffffff">
+
+    <in.splitc.share.utils.IconView
+        android:id="@+id/driving"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_margin="12dp"
+        android:text="s"
+        android:textSize="@dimen/drawer_icon_size"/>
+
+    <in.splitc.share.utils.IconView
+        android:id="@+id/passenger"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_margin="12dp"
+        android:text="s"
+        android:textSize="@dimen/drawer_icon_size"/>
+
+</LinearLayout>

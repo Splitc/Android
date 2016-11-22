@@ -37,9 +37,10 @@
     <color name="white_trans_forty">#5cffffff</color>
     <color name="white_trans_twenty">#33ffffff</color>
     <color name="fb_background_pressed">#2d477e</color>
-
+    <color name="icon_color">#BABCBE</color>
     <!-- crop colors -->
     <color name="android_light_background">#F5F5F5</color>
+    <color name="white_trans_seventy">#a3ffffff</color>
 
     <!-- journey story colors -->
 

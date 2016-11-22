@@ -6,11 +6,14 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -22,6 +25,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -38,6 +45,7 @@ import in.splitc.share.adapters.FeedAdapter;
 import in.splitc.share.data.Feed;
 import in.splitc.share.data.Ride;
 import in.splitc.share.utils.CommonLib;
+import in.splitc.share.utils.IconView;
 import in.splitc.share.utils.OnLoadMoreListener;
 import in.splitc.share.utils.RandomCallback;
 import in.splitc.share.utils.UploadManager;
@@ -75,6 +83,13 @@ public class HomeFragment extends Fragment implements ZLocationCallback, UploadM
 
     private ProgressDialog zProgressDialog;
 
+    // filter options
+    private LinearLayout absoluteLayout;
+    private View drawerView;
+    private Animation animation;
+    LayoutInflater inflater;
+    private boolean olaCheck, megaCheck, isOpened;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_home, container, false);
@@ -87,14 +102,25 @@ public class HomeFragment extends Fragment implements ZLocationCallback, UploadM
 
         activity = getActivity();
         getView = getView();
+        inflater = LayoutInflater.from(activity);
+        isOpened = false;
+
         prefs = activity.getSharedPreferences("application_settings", 0);
         zapp = (ZApplication) getActivity().getApplication();
         width = getActivity().getWindowManager().getDefaultDisplay().getWidth();
         height = getActivity().getWindowManager().getDefaultDisplay().getHeight();
         destroyed = false;
         mSwipeRefreshLayout = (SwipeRefreshLayout) getView.findViewById(R.id.swiperefresh);
+        absoluteLayout = (LinearLayout) getView.findViewById(R.id.arrow_sec);
 
         UploadManager.addCallback(this);
+
+        try {
+            drawerView = inflater.inflate(R.layout.filter_drawer_layout, absoluteLayout, false);
+            drawerView.setVisibility(View.GONE);
+        } catch (OutOfMemoryError e) {
+            e.printStackTrace();
+        }
 
         recyclerView = (RecyclerView) getView.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
@@ -180,6 +206,94 @@ public class HomeFragment extends Fragment implements ZLocationCallback, UploadM
                     }
                 }
         );
+
+        getView.findViewById(R.id.overlay).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isOpened = false;
+                drawerView.animate().translationYBy(60).translationY(0).alpha(0.0f);
+                absoluteLayout.removeViewInLayout(drawerView);
+                (getView.findViewById(R.id.arrow_close)).animate().rotationX((float) -180);
+                getView.findViewById(R.id.arrow).setVisibility(View.VISIBLE);
+                getView.findViewById(R.id.arrow_close).setVisibility(View.GONE);
+
+                getView.findViewById(R.id.overlay).setVisibility(View.GONE);
+
+            }
+        });
+
+        getView.findViewById(R.id.arrow_container).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!isOpened){
+                    isOpened = true;
+                    if (drawerView != null) {
+
+                        getView.findViewById(R.id.overlay).setVisibility(View.VISIBLE);
+
+                        drawerView.setVisibility(View.VISIBLE);
+                        drawerView.animate().translationYBy(0).translationY(60).alpha(1.0f);
+                        absoluteLayout.addView(drawerView, 0);
+
+                        getView.findViewById(R.id.arrow_close).setVisibility(View.VISIBLE);
+                        getView.findViewById(R.id.arrow).setVisibility(View.GONE);
+                        (getView.findViewById(R.id.arrow_close)).animate().rotationX((float) -180);
+
+                        final TextView ola = (TextView) getView.findViewById(R.id.driving);
+                        final TextView mega = (TextView) getView.findViewById(R.id.passenger);
+
+                        if (olaCheck) {
+                            ola.setTextColor(getResources().getColor(R.color.textColorPrimary));
+
+                        } else {
+                            ola.setTextColor(getResources().getColor(R.color.zhl_darkest));
+
+                        }
+
+                        if (megaCheck) {
+                            mega.setTextColor(getResources().getColor(R.color.textColorPrimary));
+                        } else {
+                            mega.setTextColor(getResources().getColor(R.color.zhl_darkest));
+                        }
+
+                        ola.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (!olaCheck) {
+                                    ola.setTextColor(getResources().getColor(R.color.textColorPrimary));
+                                    olaCheck = true;
+                                } else {
+                                    olaCheck = false;
+                                    ola.setTextColor(getResources().getColor(R.color.zhl_darkest));
+                                }
+                            }
+                        });
+                        mega.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (!megaCheck) {
+                                    mega.setTextColor(getResources().getColor(R.color.textColorPrimary));
+                                    megaCheck = true;
+                                } else {
+                                    megaCheck = false;
+                                    mega.setTextColor(getResources().getColor(R.color.zhl_darkest));
+                                }
+                            }
+                        });
+                    }
+
+                } else {
+                    isOpened = false;
+                    drawerView.animate().translationYBy(60).translationY(0).alpha(0.0f);
+                    absoluteLayout.removeViewInLayout(drawerView);
+                    (getView.findViewById(R.id.arrow_close)).animate().rotationX((float) -180);
+                    getView.findViewById(R.id.arrow).setVisibility(View.VISIBLE);
+                    getView.findViewById(R.id.arrow_close).setVisibility(View.GONE);
+
+                    getView.findViewById(R.id.overlay).setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
     private void refreshView() {
@@ -288,17 +402,20 @@ public class HomeFragment extends Fragment implements ZLocationCallback, UploadM
     @Override
     public void uploadFinished(int requestType, Object data, boolean status, String errorMessage) {
         if (requestType == UploadManager.FEED_RIDES) {
-            if(!destroyed && status && data instanceof Object[] && ((Object[]) data).length == 3) {
-                Object[] output = (Object[]) ((Object[]) data)[0];
-
-                mTotalRides = (int) output[0];
-                rides.addAll((ArrayList<Feed>) output[1]);
-                mAdapter.notifyDataSetChanged();
-                if (mTotalRides <= rides.size()) {
-                    mAdapter.setLoaded();
-                }
-
+            if(!destroyed) {
                 mSwipeRefreshLayout.setRefreshing(false);
+                if( status && data instanceof Object[] && ((Object[]) data).length == 3) {
+                    Object[] output = (Object[]) ((Object[]) data)[0];
+
+                    mTotalRides = (int) output[0];
+                    rides.addAll((ArrayList<Feed>) output[1]);
+                    mAdapter.notifyDataSetChanged();
+                    if (mTotalRides <= rides.size()) {
+                        mAdapter.setLoaded();
+                    }
+
+                    animateFilterView();
+                }
             }
         } else if (requestType == UploadManager.FEED_RIDES_LOAD_MORE) {
             if(!destroyed && status) {
@@ -396,6 +513,29 @@ public class HomeFragment extends Fragment implements ZLocationCallback, UploadM
             zProgressDialog.dismiss();
 
         super.onDestroyView();
+    }
+
+
+    private void animateFilterView() {
+        final LinearLayout layout = ((LinearLayout)getView.findViewById(R.id.arrow_container));
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (!destroyed){
+                    animation = AnimationUtils.loadAnimation(activity, R.anim.slide_in_left);
+                    animation.setDuration(500);
+                    animation.restrictDuration(700);
+                    animation.scaleCurrentDuration(1);
+                    layout.setVisibility(View.VISIBLE);
+                    layout.startAnimation(animation);
+                }
+
+            }
+        }, 300);
+    }
+
+    private void updateFilterWishes(ArrayList<Feed> wishes) {
+
     }
 
 }
