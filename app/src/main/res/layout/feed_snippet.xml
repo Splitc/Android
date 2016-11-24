@@ -7,7 +7,7 @@
     android:orientation="horizontal"
     android:background="@drawable/whitebuttoncustomback"
     android:clickable="true"
-    card_view:cardCornerRadius="5dp"
+    card_view:cardCornerRadius="@dimen/size5"
     card_view:cardUseCompatPadding="true">
 
     <RelativeLayout
@@ -76,6 +76,7 @@
             android:gravity="center_vertical"
             android:textColor="@color/primary_text_color"
             android:singleLine="true"
+            android:layout_marginLeft="@dimen/size25"
             android:textSize="@dimen/size14"
             android:layout_weight="1"
             android:layout_below="@id/user_trip_title"
@@ -90,6 +91,7 @@
             android:gravity="center_vertical"
             android:textColor="@color/primary_text_color"
             android:singleLine="true"
+            android:layout_marginLeft="@dimen/size25"
             android:textSize="@dimen/size14"
             android:layout_weight="1"
             android:layout_below="@id/start_location"

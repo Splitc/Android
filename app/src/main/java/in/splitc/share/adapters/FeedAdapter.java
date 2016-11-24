@@ -164,8 +164,13 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                 rideViewHolder.user_trip_title.setText(context.getResources().getString(R.string.travel_title_string, feedItem.getUser().getUserName()));
             } else
                 rideViewHolder.user_trip_title.setText(context.getResources().getString(R.string.need_ride_string, feedItem.getUser().getUserName()));
-            loader.setImageFromUrlOrDisk(feedItem.getUser().getProfilePic(), rideViewHolder.user_image, "", width, height, false);
+
+            if (feedItem.getUser().getProfilePic() != null)
+                loader.setImageFromUrlOrDisk(feedItem.getUser().getProfilePic(), rideViewHolder.user_image, "", width, height, false);
+            else
+                rideViewHolder.user_image.setImageBitmap(CommonLib.getBitmap(context, R.drawable.user, width, height));
             rideViewHolder.feed_snippet_container.setTag(position);
+            rideViewHolder.user_image.setTag(position);
         } else if (holder instanceof LoadingViewHolder) {
             LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;
             loadingViewHolder.progressBar.setIndeterminate(true);

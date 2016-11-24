@@ -343,12 +343,8 @@ public class ParserJson {
             user.setUserId(userJson.getInt("userId"));
         }
 
-        if (userJson.has("userName")) {
-            user.setUserName(String.valueOf(userJson.get("userName")));
-        }
-
-        if (userJson.has("userName")) {
-            user.setUserName(String.valueOf(userJson.get("userName")));
+        if (userJson.has("user_name")) {
+            user.setUserName(String.valueOf(userJson.get("user_name")));
         }
 
         if (userJson.has("profilePic")) {

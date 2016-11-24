@@ -30,7 +30,10 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Hashtable;
 
 /**
@@ -40,7 +43,7 @@ public class CommonLib {
 
     public final static boolean ZLogger = false;
 
-    public static String SERVER_URL = "http://192.168.0.101:8080/SplitcServer/rest/";
+    public static String SERVER_URL = "http://192.168.0.103:8080/SplitcServer/rest/";
 
     // Login animation time
     public static final int ANIMATION_LOGIN = 200;
@@ -366,12 +369,10 @@ public class CommonLib {
 
 
     public static String getTimeFormattedString(long timeInMillis) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(timeInMillis);
-
-        Time mTime = new Time();
-        mTime.set(0, calendar.get(Calendar.MINUTE), calendar.get(Calendar.HOUR_OF_DAY), 1, 1, 1);
-        return calendar.get(Calendar.DAY_OF_MONTH) + calendar.get(Calendar.MONTH) + calendar.get(Calendar.YEAR) + mTime.format("%I:%M %P");
+        DateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+        Date date = new Date();
+        date.setTime(timeInMillis);
+        return dateFormat.format(date);
     }
 
     public static byte[] Serialize_Object(Object O) throws IOException {
