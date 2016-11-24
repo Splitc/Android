@@ -7,8 +7,7 @@
     android:background="@color/colorPrimary"
     android:elevation="@dimen/toolbar_elevation"
     android:minHeight="@dimen/action_bar_height"
-    android:popupTheme="@android:style/ThemeOverlay.Material.Dark.ActionBar"
-    android:theme="@style/ToolbarBaseTheme"
+    app:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:layout_alignParentTop="true"
     app:contentInsetLeft="0dp"
     app:contentInsetStart="0dp" />
