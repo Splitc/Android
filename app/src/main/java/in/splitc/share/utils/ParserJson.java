@@ -339,16 +339,16 @@ public class ParserJson {
 
         User user = new User();
 
-        if (userJson.has("userId") && userJson.get("userId") instanceof Integer) {
-            user.setUserId(userJson.getInt("userId"));
+        if (userJson.has("user_id") && userJson.get("user_id") instanceof Integer) {
+            user.setUserId(userJson.getInt("user_id"));
         }
 
         if (userJson.has("user_name")) {
             user.setUserName(String.valueOf(userJson.get("user_name")));
         }
 
-        if (userJson.has("profilePic")) {
-            user.setProfilePic(String.valueOf(userJson.get("profilePic")));
+        if (userJson.has("profile_pic")) {
+            user.setProfilePic(String.valueOf(userJson.get("profile_pic")));
         }
 
         return user;

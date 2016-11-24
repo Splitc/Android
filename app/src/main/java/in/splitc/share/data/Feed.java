@@ -28,7 +28,6 @@ public class Feed implements Serializable {
     private int requiredPersons;
     private String description;
 
-    private int userId; // wish posting user
     private User user;
 
     public Feed(){}
@@ -151,14 +150,6 @@ public class Feed implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     public User getUser() {

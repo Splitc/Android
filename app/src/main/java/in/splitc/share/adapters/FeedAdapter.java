@@ -50,10 +50,19 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     public void onClick(View view) {
         int position = (Integer) view.getTag();
         Feed currentRide = feedItems.get(position);
+        switch (view.getId()) {
+            case R.id.user_image:
+                Intent userProfileIntent = new Intent(context, FeedItemDetailActivity.class);
+                userProfileIntent.putExtra("userId", currentRide.getUser().getUserId());
+                context.startActivity(userProfileIntent);
+                break;
+            case R.id.feed_snippet_container:
+                Intent intent = new Intent(context, FeedItemDetailActivity.class);
+                intent.putExtra("feedItem", currentRide);
+                context.startActivity(intent);
+                break;
+        }
 
-        Intent intent = new Intent(context, FeedItemDetailActivity.class);
-        intent.putExtra("ride", currentRide);
-        context.startActivity(intent);
     }
 
     public class RideViewHolder extends RecyclerView.ViewHolder {
@@ -139,6 +148,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         if (viewType == VIEW_TYPE_ITEM) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.feed_snippet, parent, false);
             view.setOnClickListener(this);
+            view.findViewById(R.id.user_image).setOnClickListener(this);
             return new RideViewHolder(view);
         } else if (viewType == VIEW_TYPE_LOADING) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.progress_layout, parent, false);
