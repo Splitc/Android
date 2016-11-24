@@ -74,5 +74,6 @@
 
     <string name="go_back">You have unfilled details</string>
     <string name="unfilled_details">Exit?</string>
+    <string name="ping_me">Ping me!</string>
 
 </resources>
