@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -8,148 +7,41 @@
         android:id="@+id/toolbar"
         layout="@layout/home_toolbar"/>
 
-    <in.splitc.share.utils.TextViewRegular
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:padding="@dimen/size10"
-        android:background="@drawable/splitc_dark_feedback"
-        android:textColor="@color/white"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/size10"
-        android:layout_marginBottom="@dimen/size10"
-        android:text="@string/ping_me"/>
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/pickup_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"
-        android:orientation="horizontal"
-        card_view:cardCornerRadius="5dp"
-        android:visibility="gone"
-        card_view:cardUseCompatPadding="true">
+        android:orientation="horizontal">
 
         <in.splitc.share.utils.TextViewRegular
-            android:id="@+id/pick_up_label"
+            android:id="@+id/messageEditText"
             android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:gravity="center_vertical"
-            android:textColor="@color/primary_text_color"
-            android:singleLine="true"
-            android:textColorHint="@color/secondary_text_color"
-            android:hint=""
-            android:textSize="@dimen/size14"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:backgroundTint="@color/white"
-            android:ellipsize="end"/>
+            android:textColor="@color/colorPrimary"
+            android:padding="@dimen/size10"
+            android:background="@color/zhl"
+            android:textColorHint="@color/zhl_darkest"
+            android:hint="@string/write"/>
 
         <in.splitc.share.utils.TextViewLight
-            android:id="@+id/start_location"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:gravity="center_vertical"
-            android:textColor="@color/primary_text_color"
-            android:singleLine="true"
-            android:textColorHint="@color/secondary_text_color"
-            android:textSize="@dimen/size14"
-            android:layout_weight="1"
-            android:backgroundTint="@color/white"
-            android:ellipsize="end"/>
+            android:id="@+id/sendButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/size10"
+            android:background="@drawable/splitc_dark_feedback"
+            android:textColor="@color/white"
+            android:text="@string/ping"/>
 
-    </android.support.v7.widget.CardView>
+    </LinearLayout>
 
-    <android.support.v7.widget.CardView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/messageRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/pickup_container"
-        android:orientation="horizontal"
-        card_view:cardCornerRadius="5dp"
-        card_view:cardUseCompatPadding="true">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <in.splitc.share.utils.ZCircularImageView
-                android:id="@+id/user_image"
-                android:layout_width="@dimen/height60"
-                android:layout_height="@dimen/height60"
-                android:scaleType="fitXY"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"/>
-
-            <in.splitc.share.utils.TextViewLight
-                android:id="@+id/user_trip_title"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:textColor="@color/primary_text_color"
-                android:textColorHint="@color/secondary_text_color"
-                android:layout_marginLeft="@dimen/size25"
-                android:textSize="@dimen/size14"
-                android:layout_alignTop="@id/user_image"
-                android:layout_alignBottom="@id/user_image"
-                android:gravity="left|center_vertical"
-                android:layout_toRightOf="@id/user_image"
-                android:ellipsize="end"/>
-
-            <include
-                android:id="@+id/location_container"
-                layout="@layout/location_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/user_image"
-                />
-
-            <LinearLayout
-                android:id="@+id/time_container"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/action_bar_height"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/size10"
-                android:layout_below="@id/location_container">
-
-                <in.splitc.share.utils.IconViewZ
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/all_icon_color"
-                    android:text="@string/z_timer"
-                    android:paddingLeft="@dimen/size10"
-                    android:textSize="@dimen/drawer_iconview_size"/>
-
-                <in.splitc.share.utils.TextViewLight
-                    android:id="@+id/pickup_timer"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="fill_parent"
-                    android:singleLine="true"
-                    android:textColor="@color/primary_text_color"
-                    android:textColorHint="@color/secondary_text_color"
-                    android:layout_marginLeft="@dimen/size25"
-                    android:hint="@string/trip_start_time"
-                    android:gravity="center_vertical"
-                    android:textSize="@dimen/size14"/>
-
-            </LinearLayout>
-
-            <in.splitc.share.utils.TextViewLight
-                android:id="@+id/description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/primary_text_color"
-                android:layout_below="@id/time_container"
-                android:textColorHint="@color/secondary_text_color"
-                android:layout_marginLeft="@dimen/size25"
-                android:gravity="center_vertical"
-                android:textSize="@dimen/size14"
-                android:maxLines="2"
-                android:ellipsize="end"/>
-
-
-        </RelativeLayout>
-
-    </android.support.v7.widget.CardView>
+        android:layout_height="match_parent"
+        android:layout_above="@id/linearLayout"
+        android:layout_below="@id/toolbar"/>
 
 </RelativeLayout>

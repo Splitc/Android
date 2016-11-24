@@ -39,7 +39,7 @@ public class ChatActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.accept_ride);
+        setContentView(R.layout.activity_chat);
 
         prefs = getSharedPreferences("application_settings", 0);
         zapp = (ZApplication) getApplication();

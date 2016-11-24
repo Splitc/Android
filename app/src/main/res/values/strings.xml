@@ -76,4 +76,8 @@
     <string name="unfilled_details">Exit?</string>
     <string name="ping_me">Ping me!</string>
 
+
+    <string name="ping">Ping</string>
+    <string name="write">Write Something...</string>
+
 </resources>
