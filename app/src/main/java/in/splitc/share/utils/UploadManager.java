@@ -46,6 +46,7 @@ public class UploadManager {
     public static final int FEED_RIDE_ACCEPT = 111;
     public static final int RIDE_CANCEL = 112;
     public static final int SEND_FEEDBACK = 113;
+    public static final int UPDATE_REG_ID = 114;
 
     public static final String HEADER_KEY_TOKEN = "accesstoken";
     public static final String HEADER_KEY_USERID = "userid";

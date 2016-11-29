@@ -11,6 +11,13 @@ import android.graphics.Bitmap;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.firebase.iid.FirebaseInstanceId;
+
+import java.util.Calendar;
+import java.util.List;
+
 import in.splitc.share.db.ChatDBWrapper;
 import in.splitc.share.db.RecentAddressDBWrapper;
 import in.splitc.share.db.UserDBWrapper;
@@ -19,11 +26,6 @@ import in.splitc.share.utils.CommonLib;
 import in.splitc.share.utils.LruCache;
 import in.splitc.share.utils.UploadManager;
 import in.splitc.share.utils.ZLocationListener;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-
-import java.util.Calendar;
-import java.util.List;
 
 /**
  * Created by apoorvarora on 10/10/16.
@@ -132,6 +134,22 @@ public class ZApplication extends Application {
 
         @Override
         protected void onPostExecute(Void arg) {
+        }
+    }
+
+    private class DeleteTokenAsync extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected Void doInBackground(String... params) {
+
+            try {
+
+                FirebaseInstanceId.getInstance().deleteInstanceId();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
         }
     }
 
@@ -270,22 +288,8 @@ public class ZApplication extends Application {
 
     public void logout() {
         SharedPreferences prefs = getSharedPreferences("application_settings", 0);
-
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.remove("email");
-        editor.remove("userId");
-        editor.remove("access_token");
-        editor.remove("username");
-        editor.remove("profile_pic");
-        editor.remove("thumbUrl");
-        editor.remove("description");
-        editor.remove("verified");
-        editor.remove("phone");
-        editor.putBoolean("facebook_post_permission", false);
-        editor.putBoolean("post_to_facebook_flag", false);
-        editor.putBoolean("facebook_connect_flag", false);
-
-        editor.commit();
+        prefs.edit().clear().commit();
+        new DeleteTokenAsync().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     public void setAddressString(String lstr) {

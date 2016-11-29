@@ -26,22 +26,31 @@
             android:textColorHint="@color/zhl_darkest"
             android:hint="@string/write"/>
 
-        <in.splitc.share.utils.TextViewLight
+        <in.splitc.share.utils.IconViewV
             android:id="@+id/sendButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:padding="@dimen/size10"
-            android:background="@drawable/splitc_dark_feedback"
-            android:textColor="@color/white"
-            android:text="@string/ping"/>
+            android:textColor="@color/color_blue"
+            android:textSize="@dimen/size14"
+            android:enabled="false"
+            android:text="@string/message_send"/>
 
     </LinearLayout>
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="match_parent"
+        android:layout_height=".5dp"
+        android:layout_above="@id/linearLayout"
+        android:background="@color/zhl_dark" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/messageRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/linearLayout"
+        android:layout_above="@id/separator"
         android:layout_below="@id/toolbar"/>
 
 </RelativeLayout>

@@ -1,56 +1,50 @@
 package in.splitc.share.views;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.BounceInterpolator;
-import android.view.animation.DecelerateInterpolator;
-import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import in.splitc.share.R;
-import in.splitc.share.ZApplication;
-import in.splitc.share.utils.CommonLib;
-import in.splitc.share.utils.UploadManager;
-import in.splitc.share.utils.UploadManagerCallback;
-import in.splitc.share.utils.ZLocationCallback;
-import in.splitc.share.utils.facebook.FacebookConnect;
-import in.splitc.share.utils.facebook.FacebookConnectCallback;
 import com.facebook.Session;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.atomic.AtomicInteger;
+
+import in.splitc.share.R;
+import in.splitc.share.ZApplication;
+import in.splitc.share.services.FirebaseMessageService;
+import in.splitc.share.services.FirebaseTokenService;
+import in.splitc.share.utils.CommonLib;
+import in.splitc.share.utils.UploadManager;
+import in.splitc.share.utils.UploadManagerCallback;
+import in.splitc.share.utils.facebook.FacebookConnect;
+import in.splitc.share.utils.facebook.FacebookConnectCallback;
+import okhttp3.FormBody;
 
 /**
  * Created by apoorvarora on 10/10/16.
@@ -71,10 +65,6 @@ public class SplashActivity extends AppCompatActivity implements FacebookConnect
     private ZApplication zapp;
     private Activity context;
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
-    private GoogleCloudMessaging gcm;
-    private AtomicInteger msgId = new AtomicInteger();
-    private String regId;
-    private int hardwareRegistered = 0;
     private ImageView imgBg;
     private View background;
     private ViewPager mViewPager;
@@ -126,6 +116,31 @@ public class SplashActivity extends AppCompatActivity implements FacebookConnect
             findViewById(R.id.skip_container).setVisibility(View.VISIBLE);
 
         startTimer();
+    }
+
+    /**
+     * Fetch the FCM registration ID and send it to the server
+     * */
+    private void registerInBackground() {
+        // ID to be sent only when the user is logged in
+        if (prefs.getInt("userId", 0) > 0) {
+            String regId = prefs.getString("regId", "");
+            // ID is already present
+            if (!regId.isEmpty()) {
+                String requestUrl = CommonLib.SERVER_URL + "user/registrationId";
+                FormBody.Builder requestBuilder = new FormBody.Builder();
+                requestBuilder.add("access_token", prefs.getString("access_token", ""));
+                requestBuilder.add("client_id", CommonLib.CLIENT_ID);
+                requestBuilder.add("app_type", CommonLib.APP_TYPE);
+                requestBuilder.add("pushId", regId);
+                UploadManager.postDataToServer(UploadManager.UPDATE_REG_ID, requestUrl, requestBuilder);
+            } else {
+                // User logged out or onTokenRefresh not called, initiate the service
+                CommonLib.ZLog("token", "registration false");
+                Intent intent = new Intent(SplashActivity.this, FirebaseTokenService.class);
+                startService(intent);
+            }
+        }
     }
 
     private void setListeners() {
@@ -298,145 +313,12 @@ public class SplashActivity extends AppCompatActivity implements FacebookConnect
                     tourDots.setVisibility(View.VISIBLE);
                     tourDots.startAnimation(animation2);
                 } else {
-                    if(CommonLib.isNetworkAvailable(SplashActivity.this))
-                        checkPlayServices();
-                    else
-                        navigateToHome();
+                    navigateToHome();
                 }
             }
         });
         animation1.scaleCurrentDuration(1);
         mViewPager.startAnimation(animation1);
-    }
-
-    private void checkPlayServices() {
-        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
-
-        if (resultCode != ConnectionResult.SUCCESS) {
-            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
-                CommonLib.ZLog("google-play-resultcode", resultCode);
-                if (resultCode == 2 && !isFinishing()) {
-                    showDialog(PLAY_SERVICES_RESOLUTION_REQUEST);
-                } else {
-                    navigateToHome();
-                }
-            } else {
-                navigateToHome();
-            }
-        } else {
-
-            gcm = GoogleCloudMessaging.getInstance(getApplicationContext());
-
-            regId = getRegistrationId(context);
-
-            if (hardwareRegistered == 0) {
-                // Call
-                if (prefs.getInt("userId", 0) != 0 && !regId.equals("")) {
-                    sendRegistrationIdToBackend();
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putInt("HARDWARE_REGISTERED", 1);
-                    editor.commit();
-                    hardwareRegistered=1;
-                }
-            }
-
-            if (regId.isEmpty()) {
-                CommonLib.ZLog("GCM", "RegID is empty");
-                registerInBackground();
-            } else {
-                CommonLib.ZLog("GCM", "already registered : " + regId);
-            }
-            navigateToHome();
-        }
-    }
-
-    /**
-     * Gets the current registration ID for application on GCM service.
-     * <p/>
-     * If result is empty, the app needs to register.
-     *
-     * @return registration ID, or empty string if there is no existing
-     *         registration ID.
-     */
-    private String getRegistrationId(Context context) {
-
-        final SharedPreferences prefs = getSharedPreferences("application_settings", 0);
-        String registrationId = prefs.getString(CommonLib.PROPERTY_REG_ID, "");
-
-        if (registrationId.isEmpty()) {
-            CommonLib.ZLog("GCM", "Registration not found.");
-            return "";
-        }
-        return registrationId;
-    }
-
-    /**
-     * @return Application's version code from the {@code PackageManager}.
-     */
-    private static int getAppVersion(Context context) {
-        try {
-            PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 1);
-            return packageInfo.versionCode;
-
-        } catch (Exception e) {
-            CommonLib.ZLog("GCM", "EXCEPTION OCCURED" + e.getMessage());
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
-    /**
-     * Registers the application with GCM servers asynchronously.
-     * <p/>
-     * Stores the registration ID and app versionCode in the application's
-     * shared preferences.
-     */
-    private void registerInBackground() {
-
-        new AsyncTask<Void, Void, String>() {
-
-            @Override
-            protected String doInBackground(Void... params) {
-
-                String msg = "";
-                try {
-                    if (gcm == null) {
-                        gcm = GoogleCloudMessaging.getInstance(context);
-                    }
-
-                    regId = gcm.register(CommonLib.GCM_SENDER_ID);
-                    msg = "Device registered, registration ID=" + regId;
-                    storeRegistrationId(context, regId);
-
-                    if (prefs.getInt("userId", 0) != 0 && !regId.equals(""))
-                        sendRegistrationIdToBackend();
-
-                } catch (IOException ex) {
-                    msg = "Error :" + ex.getMessage();
-                }
-                return msg;
-            }
-
-            @Override
-            protected void onPostExecute(String msg) {
-                CommonLib.ZLog("GCM msg", msg);
-            }
-        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-    }
-
-    private void storeRegistrationId(Context context, String regId) {
-
-        prefs = getSharedPreferences("application_settings", 0);
-        int appVersion = getAppVersion(context);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(CommonLib.PROPERTY_REG_ID, regId);
-        editor.putInt(CommonLib.PROPERTY_APP_VERSION, appVersion);
-        editor.commit();
-    }
-
-    private void sendRegistrationIdToBackend() {
-        // new registerDeviceAtZomato().execute();
-//        UploadManager.updateRegistrationId(prefs.getString("access_token", ""), regId);
     }
 
     private void fixSizes() {
@@ -502,11 +384,9 @@ public class SplashActivity extends AppCompatActivity implements FacebookConnect
 
                 CommonLib.ZLog("login", "FACEBOOK");
 
-                checkPlayServices();
-
                 if (z_ProgressDialog != null && z_ProgressDialog.isShowing())
                     z_ProgressDialog.dismiss();
-
+                navigateToHome();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -524,7 +404,7 @@ public class SplashActivity extends AppCompatActivity implements FacebookConnect
         String regId = prefs.getString("registration_id", "");
         FacebookConnect facebookConnect = new FacebookConnect(SplashActivity.this, 1, APPLICATION_ID, true, regId, "");
         facebookConnect.execute();
-        checkPlayServices();
+        navigateToHome();
     }
 
     @Override
@@ -582,8 +462,6 @@ public class SplashActivity extends AppCompatActivity implements FacebookConnect
             if (destroyed)
                 return;
             if (status) {
-                // save the access token.
-                // {"access_token":"532460","user":{"user_id":0,"is_verified":0}}
                 JSONObject responseJSON = null;
                 try {
                     responseJSON = new JSONObject(String.valueOf(data));
@@ -591,20 +469,11 @@ public class SplashActivity extends AppCompatActivity implements FacebookConnect
                     if (responseJSON.has("access_token")) {
                         editor.putString("access_token", responseJSON.getString("access_token"));
                     }
-                    if (responseJSON.has("HSLogin") && responseJSON.get("HSLogin") instanceof Boolean) {
-                        editor.putBoolean("HSLogin", responseJSON.getBoolean("HSLogin"));
-                    }
-                    if (responseJSON.has("INSTITUTION_NAME")) {
-                        editor.putString("INSTITUTION_NAME", responseJSON.getString("INSTITUTION_NAME"));
-                    }
-                    if (responseJSON.has("STUDENT_ID")) {
-                        editor.putString("STUDENT_ID", responseJSON.getString("STUDENT_ID"));
-                    }
                     if (responseJSON.has("user_id") && responseJSON.get("user_id") instanceof Integer) {
                         editor.putInt("userId", responseJSON.getInt("userId"));
                     }
                     editor.commit();
-                    checkPlayServices();
+                    navigateToHome();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -851,10 +720,31 @@ public class SplashActivity extends AppCompatActivity implements FacebookConnect
     }
 
     public void navigateToHome() {
-        if (prefs.getInt("userId", 0) != 0) {
-            Intent intent = new Intent(this, HomeActivity.class);
-            startActivity(intent);
-            finish();
+        if (prefs.getBoolean("play_service_check", true)) {
+            Integer resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+            if (resultCode == ConnectionResult.SUCCESS) {
+                prefs.edit().putBoolean("play_service_check", false).commit();
+                if (prefs.getInt("userId", 0) != 0) {
+                    registerInBackground();
+                    Intent intent = new Intent(this, HomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            } else {
+                Dialog dialog = GooglePlayServicesUtil.getErrorDialog(resultCode, this, 0);
+                dialog.setCancelable(false);
+                if (dialog != null) {
+                    //This dialog will help the user update to the latest GooglePlayServices
+                    dialog.show();
+                }
+            }
+        } else {
+            if (prefs.getInt("userId", 0) != 0) {
+                registerInBackground();
+                Intent intent = new Intent(this, HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
         }
     }
 

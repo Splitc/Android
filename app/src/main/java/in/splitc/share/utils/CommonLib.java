@@ -11,13 +11,18 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
-import android.text.format.Time;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.RemoteMessage;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -32,9 +37,11 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Created by apoorvarora on 03/10/16.
@@ -53,6 +60,7 @@ public class CommonLib {
      * GCM Sender ID
      */
     public static final String GCM_SENDER_ID = "996855199819";
+    public static final String FIREBASE_MAILER = "@gcm.googleapis.com";
 
     public static final String GOOGLE_PLACES_API_KEY = "AIzaSyC07KGQE5fTVM0z6G4Z_IgeR0Td0b1uCvI";
 
@@ -93,6 +101,11 @@ public class CommonLib {
     public static String FONT_BOLD = "fonts/transporter_Bold.ttf";
     public static String Icons = "fonts/splitc_Icon.ttf";
     public static String IconsZ = "fonts/zapp_Icon.ttf";
+    public static String IconsV = "fonts/v_Icons.ttf";
+
+    // Broadcasts generated after gcm messages are recieved.
+    public static final String LOCAL_SMS_BROADCAST = "sms-phone-verification-message";
+    public static final String LOCAL_CHAT_BROADCAST = "local_chat_broadcast";
 
     public static final int REQUEST_CODE_START_LOCATION = 101;
     public static final int REQUEST_CODE_DROP_LOCATION = 102;
@@ -356,6 +369,31 @@ public class CommonLib {
 
         return result[0];
 
+    }
+
+    public static void sendMessage(JSONObject message, String msgId, int ttl) {
+        try {
+
+            // convert to hashmap for firebase messaging
+            Map<String, String> hashMap = new HashMap<String, String>();
+            for (Iterator iterator = message.keys(); iterator.hasNext(); ) {
+                String key = (String) iterator.next();
+                String value = String.valueOf(message.get(key));
+                hashMap.put(key, value);
+            }
+
+            FirebaseMessaging fm = FirebaseMessaging.getInstance();
+            fm.send(new RemoteMessage.Builder(CommonLib.GCM_SENDER_ID + CommonLib.FIREBASE_MAILER)
+                    .setMessageId(msgId)
+                    .setData(hashMap)
+                    .setTtl(ttl)
+                    .build());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     //IMEISV

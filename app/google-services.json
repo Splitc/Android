@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "996855199819",
+    "firebase_url": "https://splitc-146608.firebaseio.com",
+    "project_id": "splitc-146608",
+    "storage_bucket": "splitc-146608.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:996855199819:android:186bdba5291c5e8f",
+        "android_client_info": {
+          "package_name": "in.splitc.share"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "996855199819-4e17av7sp059p6lbg13oedlcjq978iil.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDH03Bz2zkt6KUxd3YOtiZ4Umpn_y1ZCDE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
