@@ -38,7 +38,6 @@ public class FeedItemDetailActivity extends AppCompatActivity  {
 
     private Feed ride;
     private ImageLoader loader;
-    private String startAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +55,6 @@ public class FeedItemDetailActivity extends AppCompatActivity  {
         if (getIntent() != null ) {
             if (getIntent().hasExtra("feedItem"))
                 ride = (Feed) getIntent().getSerializableExtra("feedItem");
-            if (getIntent().hasExtra("startAddress"))
-                startAddress = getIntent().getStringExtra("startAddress");
         } else
             finish();
 

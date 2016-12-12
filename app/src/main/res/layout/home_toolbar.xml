@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/toolbar"
@@ -6,8 +5,37 @@
     android:layout_height="@dimen/action_bar_height"
     android:background="@color/colorPrimary"
     android:elevation="@dimen/toolbar_elevation"
-    android:minHeight="@dimen/action_bar_height"
     app:theme="@style/ThemeOverlay.AppCompat.Dark"
-    android:layout_alignParentTop="true"
-    app:contentInsetLeft="0dp"
-    app:contentInsetStart="0dp" />
+    app:contentInsetRight="0dp"
+    app:contentInsetEnd="0dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <in.splitc.share.utils.TextViewLight
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/size14"
+            android:textColor="@color/white"/>
+
+        <in.splitc.share.utils.IconView
+            android:id="@+id/open_messages"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/splitc_dark_feedback"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/size10"
+            android:paddingRight="@dimen/size10"
+            android:text="A"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size45" />
+
+    </LinearLayout>
+
+</android.support.v7.widget.Toolbar>

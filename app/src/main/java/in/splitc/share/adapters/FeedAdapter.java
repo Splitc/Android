@@ -26,6 +26,7 @@ import in.splitc.share.utils.OnLoadMoreListener;
 import in.splitc.share.utils.RandomCallback;
 import in.splitc.share.views.ChatActivity;
 import in.splitc.share.views.FeedItemDetailActivity;
+import in.splitc.share.views.UserProfileActivity;
 
 /**
  * Created by neo on 30/10/16.
@@ -53,7 +54,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         Feed currentRide = feedItems.get(position);
         switch (view.getId()) {
             case R.id.user_image:
-                Intent userProfileIntent = new Intent(context, FeedItemDetailActivity.class);
+                Intent userProfileIntent = new Intent(context, UserProfileActivity.class);
                 userProfileIntent.putExtra("userId", currentRide.getUser().getUserId());
                 context.startActivity(userProfileIntent);
                 break;

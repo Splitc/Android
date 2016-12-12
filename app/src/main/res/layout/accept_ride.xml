@@ -6,7 +6,7 @@
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/home_toolbar"/>
+        layout="@layout/share_toolbar"/>
 
     <in.splitc.share.utils.TextViewRegular
         android:layout_width="wrap_content"

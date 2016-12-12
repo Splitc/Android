@@ -12,7 +12,7 @@
         android:orientation="vertical" >
 
         <include
-            layout="@layout/home_toolbar"/>
+            layout="@layout/share_toolbar"/>
 
         <in.splitc.share.utils.EditTextLight
             android:id="@+id/feedback_content"

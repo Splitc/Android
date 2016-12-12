@@ -19,8 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.plus.PlusOneButton;
-
 import in.splitc.share.R;
 import in.splitc.share.utils.CommonLib;
 import in.splitc.share.utils.TypefaceSpan;
@@ -32,7 +30,6 @@ import in.splitc.share.utils.ZWebView;
 public class AboutUs extends AppCompatActivity {
 
     private int width;
-    PlusOneButton mPlusOneButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +44,6 @@ public class AboutUs extends AppCompatActivity {
         fixsizes();
         setListeners();
 
-        mPlusOneButton = (PlusOneButton) findViewById(R.id.plus_one_button);
         ImageView img = (ImageView) findViewById(R.id.zomato_logo);
         img.getLayoutParams().width = width / 3;
         img.getLayoutParams().height = width / 3;
@@ -73,19 +69,6 @@ public class AboutUs extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
             img.setBackgroundColor(getResources().getColor(R.color.black));
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        try {
-            if (mPlusOneButton != null)
-                mPlusOneButton.initialize(
-                        "https://market.android.com/details?id="
-                                + getPackageName(), 0);
-        } catch (Exception d) {
-
         }
     }
 
@@ -133,9 +116,6 @@ public class AboutUs extends AppCompatActivity {
                 width / 20, width / 20, width / 20);
         findViewById(R.id.about_us_body).setPadding(width / 20, 0, width / 20,
                 width / 20);
-        ((LinearLayout.LayoutParams) findViewById(R.id.plus_one_button)
-                .getLayoutParams()).setMargins(width / 20, width / 20,
-                width / 20, width / 20);
 
         RelativeLayout.LayoutParams relativeParams2 = new RelativeLayout.LayoutParams(
                 width, 9 * width / 80);

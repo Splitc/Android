@@ -37,12 +37,6 @@ import in.splitc.share.utils.CommonLib;
 import in.splitc.share.utils.ImageLoader;
 import in.splitc.share.utils.UploadManager;
 import in.splitc.share.utils.UploadManagerCallback;
-import in.splitc.share.utils.ZLocationCallback;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
 
 import okhttp3.FormBody;
 
@@ -62,7 +56,6 @@ public class HomeActivity extends AppCompatActivity implements UploadManagerCall
     private boolean destroyed = false;
     private SharedPreferences prefs;
     private ZApplication vapp;
-    private GoogleCloudMessaging gcm;
     private int width, height;
 
     private final int NEW_LOAD_CODE = 121;
@@ -119,6 +112,16 @@ public class HomeActivity extends AppCompatActivity implements UploadManagerCall
         });
 
         setSupportActionBar(toolbar);
+        ((TextView)findViewById(R.id.title)).setText(getResources().getString(R.string.hey));
+
+        findViewById(R.id.open_messages).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, UsersActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -305,6 +308,16 @@ public class HomeActivity extends AppCompatActivity implements UploadManagerCall
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(getString(R.string.drawer_menu_my_loads_string));
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(findViewById(R.id.navigationView))) {
+            drawerLayout.closeDrawers();
+            return;
+        }
+
+        super.onBackPressed();
     }
 
     private void setupMyRidesFragment() {

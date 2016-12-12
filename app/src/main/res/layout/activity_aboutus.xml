@@ -19,7 +19,7 @@
             android:orientation="vertical" >
 
             <include
-                layout="@layout/home_toolbar"
+                layout="@layout/share_toolbar"
                 />
 
             <LinearLayout
@@ -54,13 +54,6 @@
                 android:textColor="@color/font_color"
                 android:textSize="@dimen/size18" />
 
-            <com.google.android.gms.plus.PlusOneButton
-                xmlns:plus="http://schemas.android.com/apk/lib/com.google.android.gms.plus"
-                android:id="@+id/plus_one_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                plus:annotation="inline"
-                plus:size="standard" />
         </LinearLayout>
     </ScrollView>
 

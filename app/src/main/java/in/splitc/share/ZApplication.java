@@ -19,6 +19,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import in.splitc.share.db.ChatDBWrapper;
+import in.splitc.share.db.MessagesDBWrapper;
 import in.splitc.share.db.RecentAddressDBWrapper;
 import in.splitc.share.db.UserDBWrapper;
 import in.splitc.share.services.CacheCleanerService;
@@ -87,6 +88,7 @@ public class ZApplication extends Application {
             edit.commit();
 
             deleteDatabase("CACHE");
+            deleteDatabase("CHATSDB");
             deleteDatabase("MESSAGESDB");
             deleteDatabase("USERSDB");
 
@@ -113,6 +115,7 @@ public class ZApplication extends Application {
         UploadManager.Initialize(this);
         RecentAddressDBWrapper.Initialize(this);
         UserDBWrapper.Initialize(this);
+        MessagesDBWrapper.Initialize(this);
         ChatDBWrapper.Initialize(this);
 
         new ThirdPartyInitAsync().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

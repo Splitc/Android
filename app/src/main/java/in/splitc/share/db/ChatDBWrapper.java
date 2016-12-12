@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import in.splitc.share.data.Message;
 
 /**
- * Created by neo on 24/11/16.
+ * Created by neo on 03/12/16.
  */
 public class ChatDBWrapper {
     public static ChatDBManager helper;
@@ -16,11 +16,11 @@ public class ChatDBWrapper {
         helper = new ChatDBManager(context);
     }
 
-    public static int addMessage(Message user, long timestamp) {
-        return helper.addMessage(user, timestamp);
+    public static int addChat(Message chat, long timestamp) {
+        return helper.addChat(chat, timestamp);
     }
 
-    public static ArrayList<Message> getMessages(int type, int typeId) {
-        return helper.getMessages(type, typeId);
+    public static ArrayList<Message> getAllChats() {
+        return helper.getAllChats();
     }
 }

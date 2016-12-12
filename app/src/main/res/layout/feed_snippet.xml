@@ -7,51 +7,32 @@
     android:orientation="horizontal"
     android:background="@drawable/whitebuttoncustomback"
     android:clickable="true"
+    android:layout_margin="@dimen/size10"
     card_view:cardCornerRadius="@dimen/size5"
     card_view:cardUseCompatPadding="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="@dimen/size5">
 
         <in.splitc.share.utils.ZCircularImageView
             android:id="@+id/user_image"
             android:layout_width="@dimen/height60"
             android:layout_height="@dimen/height60"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"/>
 
-        <LinearLayout
-            android:id="@+id/time_container"
+        <in.splitc.share.utils.TextViewRegular
+            android:id="@+id/pickup_timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:singleLine="true"
+            android:textColor="@color/secondary_text_color"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true">
-
-            <in.splitc.share.utils.IconViewZ
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:gravity="center_vertical"
-                android:textColor="@color/all_icon_color"
-                android:text="@string/z_timer"
-                android:textSize="@dimen/drawer_iconview_size"/>
-
-            <in.splitc.share.utils.TextViewRegular
-                android:id="@+id/pickup_timer"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="fill_parent"
-                android:singleLine="true"
-                android:textColor="@color/primary_text_color"
-                android:textColorHint="@color/secondary_text_color"
-                android:hint="@string/trip_start_time"
-                android:paddingLeft="@dimen/size5"
-                android:gravity="center_vertical"
-                android:textSize="@dimen/size14"/>
-
-        </LinearLayout>
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/size12"/>
 
         <in.splitc.share.utils.TextViewRegular
             android:id="@+id/user_trip_title"

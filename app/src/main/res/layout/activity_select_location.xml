@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <include
-        layout="@layout/home_toolbar"/>
+        layout="@layout/share_toolbar"/>
 
     <FrameLayout
         android:layout_width="match_parent"

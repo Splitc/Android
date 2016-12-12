@@ -24,6 +24,8 @@ public class ParserJson {
             return parse_RidesJson(new JSONObject(responseJson));
         } else if(requestType == UploadManager.FEED_RIDES || requestType == UploadManager.FEED_RIDES_LOAD_MORE) {
             return parse_FeedJson(new JSONObject(responseJson));
+        } else if(requestType == UploadManager.USER_DETAILS) {
+            return parse_UserJson(new JSONObject(responseJson));
         } else
             return parse_GenericStringResponse(new JSONObject(responseJson));
     }
@@ -174,6 +176,31 @@ public class ParserJson {
                     output[1] = myRides;
 
                     response[0] = output;
+                }
+            } else {
+                if (responseJson.has("errorMessage")) {
+                    response[2] = responseJson.getString("errorMessage");
+                }
+            }
+        }
+
+        return response;
+    }
+
+
+    public static final Object[] parse_UserJson(JSONObject responseJson) throws JSONException {
+
+        Object[] response = new Object[] { null, false, "Something went wrong"};
+
+        if (responseJson == null)
+            return response;
+
+        if (responseJson.has("status")) {
+            if (responseJson.getString("status").equals("success")) {
+                response[1] = true;
+                if (responseJson.has("response") && responseJson.get("response") instanceof JSONObject) {
+                    JSONObject responseJSONObject = responseJson.getJSONObject("response");
+                    response[0] = parse_User(responseJSONObject);
                 }
             } else {
                 if (responseJson.has("errorMessage")) {

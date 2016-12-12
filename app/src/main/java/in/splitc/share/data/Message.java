@@ -15,6 +15,20 @@ public class Message implements Serializable {
     private String message;
     private long timestamp;
 
+    // feed details, available in the first message only
+    private int feedId;
+    private int feedType;
+    private String sourceAddress;
+    private String destinationAddress;
+    private long startTime;
+    private int requiredPersons;
+    private String description;
+
+    // user details, available in the first message only
+    private int userId;
+    private String userName;
+    private String profilePic;
+
     public Message(){}
 
     public int getChatId() {
@@ -71,5 +85,85 @@ public class Message implements Serializable {
 
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getSourceAddress() {
+        return sourceAddress;
+    }
+
+    public void setSourceAddress(String sourceAddress) {
+        this.sourceAddress = sourceAddress;
+    }
+
+    public String getDestinationAddress() {
+        return destinationAddress;
+    }
+
+    public void setDestinationAddress(String destinationAddress) {
+        this.destinationAddress = destinationAddress;
+    }
+
+    public long getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(long startTime) {
+        this.startTime = startTime;
+    }
+
+    public int getRequiredPersons() {
+        return requiredPersons;
+    }
+
+    public void setRequiredPersons(int requiredPersons) {
+        this.requiredPersons = requiredPersons;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getProfilePic() {
+        return profilePic;
+    }
+
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
+    }
+
+    public int getFeedId() {
+        return feedId;
+    }
+
+    public void setFeedId(int feedId) {
+        this.feedId = feedId;
+    }
+
+    public int getFeedType() {
+        return feedType;
+    }
+
+    public void setFeedType(int feedType) {
+        this.feedType = feedType;
     }
 }

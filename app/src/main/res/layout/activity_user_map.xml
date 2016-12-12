@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <include
-        layout="@layout/home_toolbar"/>
+        layout="@layout/share_toolbar"/>
 
     <LinearLayout
         android:id="@+id/wishbox_progress_container"

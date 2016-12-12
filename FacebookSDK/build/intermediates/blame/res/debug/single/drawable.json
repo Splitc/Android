@@ -76,12 +76,12 @@
         "source": "/Users/neo/Documents/Splitc-Repos/Android/FacebookSDK/res/drawable/com_facebook_profile_default_icon.png"
     },
     {
-        "merged": "/Users/neo/Documents/Splitc-Repos/Android/FacebookSDK/build/intermediates/res/merged/debug/drawable/com_facebook_picker_list_selector_disabled.9.png",
-        "source": "/Users/neo/Documents/Splitc-Repos/Android/FacebookSDK/res/drawable/com_facebook_picker_list_selector_disabled.9.png"
-    },
-    {
         "merged": "/Users/neo/Documents/Splitc-Repos/Android/FacebookSDK/build/intermediates/res/merged/debug/drawable/com_facebook_button_grey_focused.9.png",
         "source": "/Users/neo/Documents/Splitc-Repos/Android/FacebookSDK/res/drawable/com_facebook_button_grey_focused.9.png"
+    },
+    {
+        "merged": "/Users/neo/Documents/Splitc-Repos/Android/FacebookSDK/build/intermediates/res/merged/debug/drawable/com_facebook_picker_list_selector_disabled.9.png",
+        "source": "/Users/neo/Documents/Splitc-Repos/Android/FacebookSDK/res/drawable/com_facebook_picker_list_selector_disabled.9.png"
     },
     {
         "merged": "/Users/neo/Documents/Splitc-Repos/Android/FacebookSDK/build/intermediates/res/merged/debug/drawable/com_facebook_button_grey_normal.9.png",
