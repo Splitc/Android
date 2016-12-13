@@ -13,19 +13,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import in.splitc.share.R;
 import in.splitc.share.ZApplication;
-import in.splitc.share.adapters.FeedAdapter;
 import in.splitc.share.adapters.UsersAdapter;
-import in.splitc.share.data.Feed;
 import in.splitc.share.data.Message;
-import in.splitc.share.db.ChatDBWrapper;
-import in.splitc.share.utils.CommonLib;
 
 /**
  * Created by neo on 03/12/16.

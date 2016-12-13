@@ -21,8 +21,6 @@ public class MessagesDBManager extends SQLiteOpenHelper {
     private static final String ID = "messageId";
     private static final String SENDER = "sender";
     private static final String TO= "to";
-    private static final String TYPE = "type";
-    private static final String TYPE_ID = "typeId";
     private static final String MESSAGE = "message";
     private static final String TIMESTAMP = "timestamp";
 
@@ -37,8 +35,6 @@ public class MessagesDBManager extends SQLiteOpenHelper {
             + ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
             + SENDER + " INTEGER, "
             + TO + " INTEGER, "
-            + TYPE + " INTEGER, "
-            + TYPE_ID + " INTEGER, "
             + MESSAGE + " VARCHAR, "
             + TIMESTAMP + " INTEGER); ";
 
@@ -93,8 +89,6 @@ public class MessagesDBManager extends SQLiteOpenHelper {
 
                 values.put(SENDER, message.getSender());
                 values.put(TO, message.getTo());
-                values.put(TYPE, message.getType());
-                values.put(TYPE_ID, message.getTypeId());
                 values.put(MESSAGE, message.getMessage());
 
                 // Inserting Row
@@ -172,7 +166,7 @@ public class MessagesDBManager extends SQLiteOpenHelper {
         return queries;
     }
 
-    public ArrayList<Message> getMessages(int type, int typeId) {
+    public ArrayList<Message> getMessages() {
         SQLiteDatabase db = null;
         Cursor cursor = null;
         ArrayList<Message> queries = new ArrayList<Message>();
@@ -183,8 +177,7 @@ public class MessagesDBManager extends SQLiteOpenHelper {
             db = ctx.openOrCreateDatabase("/data/data/" + packageName + "/databases/" + DATABASE_NAME,
                     SQLiteDatabase.OPEN_READONLY, null);
 
-            cursor = db.query(CACHE_TABLE_NAME, null,
-                    TYPE + " =? AND" + TYPE_ID + " =?", new String[] {Integer.toString(type), Integer.toString(typeId)}, null, null, null, null);
+            cursor = db.query(CACHE_TABLE_NAME, null, null, new String[] {}, null, null, null, null);
 
             if (cursor != null)
                 cursor.moveToFirst();

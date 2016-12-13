@@ -20,16 +20,10 @@ public class ChatDBManager extends SQLiteOpenHelper {
 
     // columns
     private static final String ID = "chatId";
-    private static final String FEED_ID = "feedId";
-    private static final String FEED_TYPE = "feedType";
-    private static final String FROM_ADDRESS = "from";
-    private static final String TO_ADDRESS = "to";
-    private static final String START_TIME = "startTime";
-    private static final String REQUIRED_PERSONS = "requiredPersons";
-    private static final String DESCRIPTION = "description";
     private static final String USER_ID = "userId";
     private static final String USER_NAME = "userName";
     private static final String USER_IMAGE_URL = "userImage";
+    private static final String LAST_MESSAGE = "lastMessage";
     private static final String TIMESTAMP = "timestamp";
 
     // database version
@@ -41,16 +35,10 @@ public class ChatDBManager extends SQLiteOpenHelper {
     // table create query
     private static final String DICTIONARY_TABLE_CREATE = "CREATE TABLE IF NOT EXISTS " + CACHE_TABLE_NAME + " ("
             + ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
-            + FEED_ID + " INTEGER, "
-            + FEED_TYPE + " INTEGER, "
-            + FROM_ADDRESS + " VARCHAR, "
-            + TO_ADDRESS + " VARCHAR, "
-            + START_TIME + " INTEGER, "
-            + REQUIRED_PERSONS + " INTEGER, "
-            + DESCRIPTION + " VARCHAR(1000), "
             + USER_ID + " INTEGER, "
             + USER_NAME + " VARCHAR, "
             + USER_IMAGE_URL + " VARCHAR(1000), "
+            + LAST_MESSAGE + " VARCHAR(1000), "
             + TIMESTAMP + " INTEGER); ";
 
     private static final String DATABASE_NAME = "CHATSDB";
@@ -87,6 +75,7 @@ public class ChatDBManager extends SQLiteOpenHelper {
                     SQLiteDatabase.OPEN_READWRITE, null);
             ContentValues values = new ContentValues();
             values.put(TIMESTAMP, timestamp);
+            values.put(LAST_MESSAGE, message.getMessage());
 
             boolean contains = false;
 
@@ -98,18 +87,11 @@ public class ChatDBManager extends SQLiteOpenHelper {
             }
 
             if (contains) {
-                result = (int) db.update(CACHE_TABLE_NAME, values, FEED_ID + "=? AND " + FEED_TYPE + "=?",
-                        new String[] { message.getFeedId() + "", message.getFeedType() + ""});
+                result = (int) db.update(CACHE_TABLE_NAME, values, USER_ID + "=? OR " + USER_ID + "=?",
+                        new String[] { message.getUserId() + "", message.getTo() + ""});
 
             } else {
 
-                values.put(FEED_ID, message.getFeedId());
-                values.put(FEED_TYPE, message.getFeedType());
-                values.put(FROM_ADDRESS, message.getSourceAddress());
-                values.put(TO_ADDRESS, message.getDestinationAddress());
-                values.put(START_TIME, message.getStartTime());
-                values.put(REQUIRED_PERSONS, message.getRequiredPersons());
-                values.put(DESCRIPTION, message.getDescription());
                 values.put(USER_ID, message.getUserId());
                 values.put(USER_NAME, message.getUserName());
                 values.put(USER_IMAGE_URL, message.getProfilePic());
@@ -152,13 +134,6 @@ public class ChatDBManager extends SQLiteOpenHelper {
                 Message feed = new Message();
                 int j = 1;
 
-                feed.setFeedId(cursor.getInt(j++));
-                feed.setFeedType(cursor.getInt(j++));
-                feed.setSourceAddress(cursor.getString(j++));
-                feed.setDestinationAddress(cursor.getString(j++));
-                feed.setStartTime(cursor.getInt(j++));
-                feed.setRequiredPersons(cursor.getInt(j++));
-                feed.setDescription(cursor.getString(j++));
                 feed.setUserId(cursor.getInt(j++));
                 feed.setUserName(cursor.getString(j++));
                 feed.setProfilePic(cursor.getString(j++));

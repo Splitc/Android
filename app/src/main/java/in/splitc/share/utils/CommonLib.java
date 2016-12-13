@@ -50,7 +50,7 @@ public class CommonLib {
 
     public final static boolean ZLogger = false;
 
-    public static String SERVER_URL = "http://192.168.0.104:8080/SplitcServer/rest/";
+    public static String SERVER_URL = "http://192.168.0.103:8080/SplitcServer/rest/";
 
     // Login animation time
     public static final int ANIMATION_LOGIN = 200;
