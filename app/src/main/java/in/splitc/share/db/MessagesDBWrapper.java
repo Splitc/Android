@@ -20,7 +20,7 @@ public class MessagesDBWrapper {
         return helper.addMessage(user, timestamp);
     }
 
-    public static ArrayList<Message> getMessages() {
-        return helper.getMessages();
+    public static ArrayList<Message> getMessages(int userId) {
+        return helper.getMessages(userId);
     }
 }

@@ -21,6 +21,7 @@ import in.splitc.share.R;
 import in.splitc.share.ZApplication;
 import in.splitc.share.adapters.UsersAdapter;
 import in.splitc.share.data.Message;
+import in.splitc.share.db.ChatDBWrapper;
 
 /**
  * Created by neo on 03/12/16.

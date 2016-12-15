@@ -67,5 +67,8 @@
     <color name="primary_text_color">#212121</color>
     <color name="secondary_text_color">#808083</color>
     <color name="separator_color">#e7e7e7</color>
-
+    <color name="message_from">#fef3e5</color>
+    <color name="message_to">#edf8fc</color>
+    <color name="hint_text_color">#526780</color>
+    <color name="black_trans_fifty">#80000000</color>
 </resources>

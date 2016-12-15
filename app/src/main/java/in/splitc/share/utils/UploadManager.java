@@ -48,6 +48,7 @@ public class UploadManager {
     public static final int SEND_FEEDBACK = 113;
     public static final int UPDATE_REG_ID = 114;
     public static final int USER_DETAILS = 115;
+    public static final int SEND_MESSAGE = 120;
 
     public static final String HEADER_KEY_TOKEN = "accesstoken";
     public static final String HEADER_KEY_USERID = "userid";

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/chat_snippet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <RelativeLayout
+        android:id="@+id/left_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/size5"
+        android:visibility="gone">
+
+        <in.splitc.share.utils.TextViewRegular
+            android:id="@+id/message_preview_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/size10"
+            android:layout_marginRight="@dimen/size20"
+            android:layout_alignParentLeft="true"
+            android:background="@color/message_from"
+            android:padding="@dimen/size10"
+            android:minWidth="@dimen/size3"
+            android:textColor="@color/black_trans_fifty"
+            android:textSize="@dimen/size14" />
+
+        <in.splitc.share.utils.TextViewRegular
+            android:id="@+id/date_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/message_preview_left"
+            android:layout_alignRight="@id/message_preview_left"
+            android:gravity="right|top"
+            android:layout_alignParentLeft="true"
+            android:textColor="@color/font_color"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:textSize="@dimen/size7" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/right_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/size5">
+
+        <in.splitc.share.utils.TextViewRegular
+            android:id="@+id/message_preview_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/size10"
+            android:layout_marginRight="@dimen/size20"
+            android:background="@color/message_to"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/size10"
+            android:textColor="@color/hint_text_color"
+            android:minWidth="@dimen/size3"
+            android:textSize="@dimen/size14" />
+
+        <in.splitc.share.utils.TextViewRegular
+            android:id="@+id/date_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/message_preview_right"
+            android:layout_alignLeft="@id/message_preview_right"
+            android:layout_alignParentRight="true"
+            android:gravity="left|top"
+            android:textColor="@color/font_color"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:text="date right"
+            android:textSize="@dimen/size7" />
+    </RelativeLayout>
+</RelativeLayout>

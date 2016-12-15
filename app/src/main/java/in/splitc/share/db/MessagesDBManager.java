@@ -10,7 +10,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 
 import in.splitc.share.data.Message;
-import in.splitc.share.utils.CommonLib;
 
 /**
  * Created by neo on 24/11/16.
@@ -20,7 +19,7 @@ public class MessagesDBManager extends SQLiteOpenHelper {
     // columns
     private static final String ID = "messageId";
     private static final String SENDER = "sender";
-    private static final String TO= "to";
+    private static final String TO = "otherUserId";
     private static final String MESSAGE = "message";
     private static final String TIMESTAMP = "timestamp";
 
@@ -134,8 +133,6 @@ public class MessagesDBManager extends SQLiteOpenHelper {
                 message.setChatId(cursor.getInt(j++));
                 message.setSender(cursor.getInt(j++));
                 message.setTo(cursor.getInt(j++));
-                message.setType(cursor.getInt(j++));
-                message.setTypeId(cursor.getInt(j++));
                 message.setMessage(cursor.getString(j++));
                 message.setTimestamp(cursor.getInt(j++));
 
@@ -166,7 +163,7 @@ public class MessagesDBManager extends SQLiteOpenHelper {
         return queries;
     }
 
-    public ArrayList<Message> getMessages() {
+    public ArrayList<Message> getMessages(int userId) {
         SQLiteDatabase db = null;
         Cursor cursor = null;
         ArrayList<Message> queries = new ArrayList<Message>();
@@ -177,7 +174,7 @@ public class MessagesDBManager extends SQLiteOpenHelper {
             db = ctx.openOrCreateDatabase("/data/data/" + packageName + "/databases/" + DATABASE_NAME,
                     SQLiteDatabase.OPEN_READONLY, null);
 
-            cursor = db.query(CACHE_TABLE_NAME, null, null, new String[] {}, null, null, null, null);
+            cursor = db.query(CACHE_TABLE_NAME, null, SENDER + "=? OR " + TO + "=?", new String[] {Integer.toString(userId), Integer.toString(userId)}, null, null, TIMESTAMP + " ASC", null);
 
             if (cursor != null)
                 cursor.moveToFirst();
@@ -189,8 +186,6 @@ public class MessagesDBManager extends SQLiteOpenHelper {
                 message.setChatId(cursor.getInt(j++));
                 message.setSender(cursor.getInt(j++));
                 message.setTo(cursor.getInt(j++));
-                message.setType(cursor.getInt(j++));
-                message.setTypeId(cursor.getInt(j++));
                 message.setMessage(cursor.getString(j++));
                 message.setTimestamp(cursor.getInt(j++));
                 queries.add(message);

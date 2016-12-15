@@ -2,6 +2,7 @@ package in.splitc.share.adapters;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,7 +35,7 @@ public class UsersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     private Activity context;
     private ImageLoader loader;
-
+    private SharedPreferences prefs;
     private int width, height;
 
     @Override
@@ -42,6 +43,11 @@ public class UsersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         int position = (Integer) view.getTag();
         Message currentRide = feedItems.get(position);
         switch (view.getId()) {
+            case R.id.feed_snippet_container: {
+                Intent intent = new Intent(context, ChatActivity.class);
+                intent.putExtra("userId", currentRide.getTo() == prefs.getInt("userId", 0) ? currentRide.getSender():currentRide.getTo());
+                context.startActivity(intent);
+            }
         }
     }
 
@@ -77,6 +83,7 @@ public class UsersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         loader = new ImageLoader(context, (ZApplication) context.getApplication());
         this.width = context.getWindowManager().getDefaultDisplay().getWidth();
         this.height = context.getWindowManager().getDefaultDisplay().getHeight();
+        prefs = context.getSharedPreferences("application_settings", 0);
     }
 
     @Override
@@ -92,8 +99,6 @@ public class UsersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         if (holder instanceof RideViewHolder) {
             final Message feedItem = feedItems.get(position);
             final RideViewHolder rideViewHolder = (RideViewHolder) holder;
-            rideViewHolder.start_location.setText(feedItem.getSourceAddress());
-            rideViewHolder.drop_location.setText(feedItem.getDestinationAddress());
             rideViewHolder.last_message.setText(feedItem.getMessage());
             rideViewHolder.user_name.setText(feedItem.getUserName());
             if (feedItem.getProfilePic() != null)

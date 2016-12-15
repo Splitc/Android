@@ -15,15 +15,6 @@ public class Message implements Serializable {
     private String message;
     private long timestamp;
 
-    // feed details, available in the first message only
-    private int feedId;
-    private int feedType;
-    private String sourceAddress;
-    private String destinationAddress;
-    private long startTime;
-    private int requiredPersons;
-    private String description;
-
     // user details, available in the first message only
     private int userId;
     private String userName;
@@ -87,46 +78,6 @@ public class Message implements Serializable {
         this.timestamp = timestamp;
     }
 
-    public String getSourceAddress() {
-        return sourceAddress;
-    }
-
-    public void setSourceAddress(String sourceAddress) {
-        this.sourceAddress = sourceAddress;
-    }
-
-    public String getDestinationAddress() {
-        return destinationAddress;
-    }
-
-    public void setDestinationAddress(String destinationAddress) {
-        this.destinationAddress = destinationAddress;
-    }
-
-    public long getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(long startTime) {
-        this.startTime = startTime;
-    }
-
-    public int getRequiredPersons() {
-        return requiredPersons;
-    }
-
-    public void setRequiredPersons(int requiredPersons) {
-        this.requiredPersons = requiredPersons;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public int getUserId() {
         return userId;
     }
@@ -151,19 +102,4 @@ public class Message implements Serializable {
         this.profilePic = profilePic;
     }
 
-    public int getFeedId() {
-        return feedId;
-    }
-
-    public void setFeedId(int feedId) {
-        this.feedId = feedId;
-    }
-
-    public int getFeedType() {
-        return feedType;
-    }
-
-    public void setFeedType(int feedType) {
-        this.feedType = feedType;
-    }
 }

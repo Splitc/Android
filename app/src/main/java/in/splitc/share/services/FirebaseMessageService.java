@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.LocalBroadcastManager;
 
 import com.facebook.LoginActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -92,9 +93,9 @@ public class FirebaseMessageService extends FirebaseMessagingService {
     private void sendChatNotification(Message message) {
 
         // always broadcast the message so appropriate receiver can listen to it
-//        Intent smsIntent = new Intent(CommonLib.LOCAL_CHAT_BROADCAST);
-//        smsIntent.putExtra("message", message);
-//        LocalBroadcastManager.getInstance(this).sendBroadcast(smsIntent);
+        Intent smsIntent = new Intent(CommonLib.LOCAL_CHAT_BROADCAST);
+        smsIntent.putExtra("message", message);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(smsIntent);
 //
 //        // If the case is not handled, then show the notification
 //        Bundle bundle = new Bundle();

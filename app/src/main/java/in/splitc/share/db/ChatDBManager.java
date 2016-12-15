@@ -80,7 +80,7 @@ public class ChatDBManager extends SQLiteOpenHelper {
             boolean contains = false;
 
             for (Message address : users) {
-                if (message.getFeedId() == address.getFeedId() && message.getFeedType() == address.getFeedType()) {
+                if (message.getSender() == address.getUserId() || message.getTo() == address.getUserId()) {
                     contains = true;
                     break;
                 }

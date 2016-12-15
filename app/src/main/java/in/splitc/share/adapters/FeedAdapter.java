@@ -60,7 +60,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                 break;
             case R.id.feed_snippet_container:
                 Intent intent = new Intent(context, ChatActivity.class);
-                intent.putExtra("feedItem", currentRide);
+                intent.putExtra("user", currentRide.getUser());
                 context.startActivity(intent);
                 break;
         }

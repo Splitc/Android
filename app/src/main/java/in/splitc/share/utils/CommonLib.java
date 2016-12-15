@@ -36,12 +36,16 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.text.DateFormat;
+import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map;
+
+import in.splitc.share.R;
 
 /**
  * Created by apoorvarora on 03/10/16.
@@ -347,6 +351,23 @@ public class CommonLib {
      * @param lng2
      * @return distance in km
      */
+
+    // longdate should be in seconds
+    public static String convertSecondsToTime(long longDate) {
+        String convert_date = "";
+        try {
+            Date date = new Date(longDate * 1000);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("h:mm aa");
+            DateFormatSymbols symbols = new DateFormatSymbols(Locale.getDefault());
+            symbols.setAmPmStrings(new String[]{"AM", "PM"});
+            simpleDateFormat.setDateFormatSymbols(symbols);
+            convert_date = simpleDateFormat.format(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return convert_date;
+    }
+
 
     public static float distFrom(double lat1, double lng1, double lat2, double lng2) {
         Log.e("lat1"+lat1+"  long1"+lng1,"lat 2"+lat2 +"  long2"+lng2);
