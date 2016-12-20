@@ -63,7 +63,7 @@ public class ChatDBManager extends SQLiteOpenHelper {
     }
 
     // Called when a message is sent
-    public int addChat (Message message, long timestamp) {
+    public int addChat (Message message, long timestamp, int creatorId) {
         ArrayList<Message> users = getAllChats();
         int result = -1;
         Cursor cursor = null;
@@ -92,7 +92,11 @@ public class ChatDBManager extends SQLiteOpenHelper {
 
             } else {
 
-                values.put(USER_ID, message.getUserId());
+                int userId = message.getUserId() > 0 ? message.getUserId() :
+                        (message.getSender() != 0 && message.getSender() != creatorId) ? message.getSender() :
+                        (message.getTo() != 0 && message.getTo() != creatorId) ? message.getTo() : 0;
+
+                values.put(USER_ID, userId);
                 values.put(USER_NAME, message.getUserName());
                 values.put(USER_IMAGE_URL, message.getProfilePic());
 

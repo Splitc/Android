@@ -112,7 +112,7 @@ public class FirebaseMessageService extends FirebaseMessagingService {
         smsIntent.putExtra("message", message);
         LocalBroadcastManager.getInstance(this).sendBroadcast(smsIntent);
 
-        MessagesDBWrapper.addMessage(message, System.currentTimeMillis()/1000);
+        MessagesDBWrapper.addMessage(message, System.currentTimeMillis()/1000, prefs.getInt("userId", 0));
 //
 //        // If the case is not handled, then show the notification
 //        Bundle bundle = new Bundle();

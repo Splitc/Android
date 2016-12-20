@@ -16,8 +16,8 @@ public class ChatDBWrapper {
         helper = new ChatDBManager(context);
     }
 
-    public static int addChat(Message chat, long timestamp) {
-        return helper.addChat(chat, timestamp);
+    public static int addChat(Message chat, long timestamp, int creatorId) {
+        return helper.addChat(chat, timestamp, creatorId);
     }
 
     public static ArrayList<Message> getAllChats() {

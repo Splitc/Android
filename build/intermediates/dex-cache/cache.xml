@@ -61,7 +61,7 @@
         jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         revision="24.0.1"
-        sha1="66888361e66538cfe89009b5047921177320422a">
+        sha1="d01e3a06ba36416d97e09d26ed7dc2b0bfa4b957">
         <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_670a49ac1cf57fee33f4b998549da5d1ae61aade/classes.dex" />
     </item>
     <item
@@ -117,7 +117,7 @@
         jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         revision="24.0.1"
-        sha1="0aebce5f1c94d97290a776432c18ce1fa586f1cc">
+        sha1="63e6ad14333dc0445dcc0bdd26ad463b81aafaed">
         <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_144a797ac2d1c77c86b845b0722e4fa7383e9226/classes.dex" />
     </item>
     <item

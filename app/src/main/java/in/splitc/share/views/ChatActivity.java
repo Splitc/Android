@@ -183,7 +183,7 @@ public class ChatActivity extends AppCompatActivity implements UploadManagerCall
                     messageObj.setProfilePic(user.getProfilePic());
                 }
                 messageObj.setTimestamp(System.currentTimeMillis()/1000);
-                MessagesDBWrapper.addMessage(messageObj, System.currentTimeMillis()/1000);
+                MessagesDBWrapper.addMessage(messageObj, System.currentTimeMillis()/1000, prefs.getInt("userId", 0));
 
                 messages.add(messageObj);
                 mAdapter.notifyDataSetChanged();

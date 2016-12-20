@@ -59,7 +59,7 @@ public class MessagesDBManager extends SQLiteOpenHelper {
     }
 
     // Called when a message is sent
-    public int addMessage (Message message, long timestamp) {
+    public int addMessage (Message message, long timestamp, int creatorId) {
         ArrayList<Message> users = getAllMessages();
         int result = -1;
         Cursor cursor = null;
@@ -105,7 +105,7 @@ public class MessagesDBManager extends SQLiteOpenHelper {
             result = -1;
         }
         if (!contains) {
-            ChatDBWrapper.addChat(message, System.currentTimeMillis() / 1000);
+            ChatDBWrapper.addChat(message, System.currentTimeMillis() / 1000, creatorId);
         }
         return result;
     }

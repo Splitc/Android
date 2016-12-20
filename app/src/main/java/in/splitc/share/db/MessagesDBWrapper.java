@@ -16,8 +16,8 @@ public class MessagesDBWrapper {
         helper = new MessagesDBManager(context);
     }
 
-    public static int addMessage(Message user, long timestamp) {
-        return helper.addMessage(user, timestamp);
+    public static int addMessage(Message user, long timestamp, int creatorId) {
+        return helper.addMessage(user, timestamp, creatorId);
     }
 
     public static ArrayList<Message> getMessages(int userId) {
