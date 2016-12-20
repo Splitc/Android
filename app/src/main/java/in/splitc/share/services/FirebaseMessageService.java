@@ -14,10 +14,18 @@ import com.facebook.LoginActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xml.sax.Parser;
+
+import java.util.Map;
+
 import in.splitc.share.R;
 import in.splitc.share.ZApplication;
 import in.splitc.share.data.Message;
+import in.splitc.share.db.MessagesDBWrapper;
 import in.splitc.share.utils.CommonLib;
+import in.splitc.share.utils.ParserJson;
 
 /**
  * Created by apoorvarora on 07/10/16.
@@ -35,13 +43,20 @@ public class FirebaseMessageService extends FirebaseMessagingService {
             if (remoteMessage.getNotification() != null && remoteMessage.getNotification().getBody() != null)
                 sendNotification(remoteMessage.getNotification().getBody());
             else if (remoteMessage.getData() != null) { // chat notification
-//                Gson gson = new Gson();
-//                try {
-//                    MessageDetails message = gson.fromJson(gson.toJson(ParserJson.parse_FriendlyMessage(remoteMessage.getData())), MessageDetails.class);
-//                    sendChatNotification(message);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
+
+                Map<String, String> map = remoteMessage.getData();
+                if ( map.containsKey("type")) {
+                    String type = map.get("type");
+
+                    if (type.equals("chat")) {
+                        try {
+                            Message message = ParserJson.parse_Message(new JSONObject(map.get("Notification")));
+                            sendChatNotification(message);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
             }
         }
     }
@@ -96,6 +111,8 @@ public class FirebaseMessageService extends FirebaseMessagingService {
         Intent smsIntent = new Intent(CommonLib.LOCAL_CHAT_BROADCAST);
         smsIntent.putExtra("message", message);
         LocalBroadcastManager.getInstance(this).sendBroadcast(smsIntent);
+
+        MessagesDBWrapper.addMessage(message, System.currentTimeMillis()/1000);
 //
 //        // If the case is not handled, then show the notification
 //        Bundle bundle = new Bundle();

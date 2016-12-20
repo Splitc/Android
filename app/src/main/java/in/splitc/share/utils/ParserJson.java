@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import in.splitc.share.data.Feed;
+import in.splitc.share.data.Message;
 import in.splitc.share.data.Ride;
 import in.splitc.share.data.User;
 
@@ -379,6 +380,27 @@ public class ParserJson {
         }
 
         return user;
+    }
+
+    public static final Message parse_Message(JSONObject messageJson) throws JSONException {
+        if (messageJson == null)
+            return null;
+
+        Message message = new Message();
+
+        if (messageJson.has("from") && messageJson.get("from") instanceof Integer) {
+            message.setSender(messageJson.getInt("from"));
+        }
+
+        if (messageJson.has("to") && messageJson.get("to") instanceof Integer) {
+            message.setTo(messageJson.getInt("to"));
+        }
+
+        if (messageJson.has("message")) {
+            message.setMessage(String.valueOf(messageJson.get("message")));
+        }
+
+        return message;
     }
 
 }
