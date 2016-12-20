@@ -50,6 +50,14 @@
 
         <!-- Meta-data of the application -->
         <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_launcher" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
+
+
+        <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
         <meta-data
@@ -166,19 +174,22 @@
 
         <!-- Services -->
         <service android:name=".services.CacheCleanerService" />
-        <service android:name=".services.FirebaseMessageService" />
-
-        <!-- Receivers -->
-        <receiver
-            android:name=".services.FirebaseTokenService"
-            android:permission="com.google.android.c2dm.permission.SEND">
+        <!-- Firebase instance id service -->
+        <service
+            android:name=".services.FirebaseMessageService"
+            android:exported="true">
             <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-
-                <category android:name="in.cloudtech.myvyomi.receivers" />
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
-        </receiver>
+        </service>
+        <!-- Firebase messaging -->
+        <service
+            android:name=".services.FirebaseTokenService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
     </application>
 

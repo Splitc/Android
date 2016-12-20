@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
+
+    <item
+        jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="24.0.1"
+        sha1="325506ef5defeef2753cfe4e7960ff9391ddbb8f">
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_670a49ac1cf57fee33f4b998549da5d1ae61aade/classes.dex" />
+    </item>
+
+</items>

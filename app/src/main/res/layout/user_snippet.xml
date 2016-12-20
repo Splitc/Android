@@ -26,13 +26,15 @@
 
         <in.splitc.share.utils.TextViewRegular
             android:id="@+id/user_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:textColor="@color/secondary_text_color"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/user_image"
-            android:padding="@dimen/size5"
+            android:textColor="@color/colorPrimary"
+            android:layout_toRightOf="@id/user_image"
+            android:paddingLeft="@dimen/size10"
+            android:paddingRight="@dimen/size10"
+            android:paddingTop="@dimen/size10"
+            android:paddingBottom="@dimen/size5"
             android:textSize="@dimen/size12"/>
 
         <in.splitc.share.utils.TextViewRegular
@@ -40,13 +42,12 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:textColor="@color/primary_text_color"
-            android:textColorHint="@color/secondary_text_color"
-            android:layout_marginLeft="@dimen/size25"
+            android:textColor="@color/secondary_text_color"
+            android:paddingLeft="@dimen/size10"
+            android:paddingRight="@dimen/size10"
             android:textSize="@dimen/size14"
-            android:layout_alignParentTop="true"
             android:layout_toRightOf="@id/user_image"
-            android:layout_toLeftOf="@id/time_container"
+            android:layout_below="@id/user_name"
             android:ellipsize="end"/>
 
     </RelativeLayout>

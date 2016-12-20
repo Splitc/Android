@@ -82,8 +82,10 @@ public class ChatActivity extends AppCompatActivity implements UploadManagerCall
         UploadManager.addCallback(this);
 
         if (getIntent() != null ) {
-            if (getIntent().hasExtra("user"))
+            if (getIntent().hasExtra("user")) {
                 user = (User) getIntent().getSerializableExtra("user");
+                userId = user.getUserId();
+            }
             else if (getIntent().hasExtra("userId")) {
                 userId = getIntent().getIntExtra("userId", 0);
                 fetchUserDetails();

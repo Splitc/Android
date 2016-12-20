@@ -13,6 +13,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,8 +64,21 @@ public class UsersActivity extends AppCompatActivity {
         mAdapter = new UsersAdapter(rides, this);
         recyclerView.setAdapter(mAdapter);
 
+        mSwipeRefreshLayout.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        refreshView();
+                    }
+                }
+        );
+
         setUpActionBar();
 
+        refreshView();
+    }
+
+    private void refreshView() {
         new FetchChats().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
     }
 
@@ -84,9 +101,19 @@ public class UsersActivity extends AppCompatActivity {
                 return;
 
             if (result != null && result instanceof ArrayList<?>) {
+                mSwipeRefreshLayout.setRefreshing(false);
                 rides.clear();
                 rides.addAll((ArrayList<Message>)result);
                 mAdapter.notifyDataSetChanged();
+
+                if (rides.size() > 0) {
+                    findViewById(R.id.empty_state_container).setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                } else {
+                    ((TextView)findViewById(R.id.empty_message)).setText(getResources().getString(R.string.empty_message_chat));
+                    findViewById(R.id.empty_state_container).setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                }
             } else {
                 // something went wrong with the DB connection
             }

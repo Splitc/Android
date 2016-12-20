@@ -16,8 +16,6 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:paddingLeft="@dimen/size10"
-        android:paddingTop="@dimen/size15"
-        android:paddingBottom="@dimen/size15"
         android:src="@drawable/pick_drop"/>
 
     <LinearLayout

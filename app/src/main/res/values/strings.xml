@@ -84,4 +84,7 @@
 
     <string name="chat_title">Pieces and Pings</string>
 
+    <string name="empty_message_chat">No chats yet</string>
+
+
 </resources>

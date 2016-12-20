@@ -137,6 +137,8 @@ public class ChatDBManager extends SQLiteOpenHelper {
                 feed.setUserId(cursor.getInt(j++));
                 feed.setUserName(cursor.getString(j++));
                 feed.setProfilePic(cursor.getString(j++));
+                feed.setMessage(cursor.getString(j++));
+                feed.setTimestamp(cursor.getInt(j++));
 
                 queries.add(feed);
             }

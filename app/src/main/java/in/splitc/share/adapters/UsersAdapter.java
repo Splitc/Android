@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,16 +12,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import in.splitc.share.R;
 import in.splitc.share.ZApplication;
-import in.splitc.share.data.Feed;
 import in.splitc.share.data.Message;
+import in.splitc.share.data.User;
 import in.splitc.share.utils.CommonLib;
 import in.splitc.share.utils.ImageLoader;
-import in.splitc.share.utils.OnLoadMoreListener;
 import in.splitc.share.views.ChatActivity;
 import in.splitc.share.views.UserProfileActivity;
 
@@ -45,8 +42,17 @@ public class UsersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         switch (view.getId()) {
             case R.id.feed_snippet_container: {
                 Intent intent = new Intent(context, ChatActivity.class);
-                intent.putExtra("userId", currentRide.getTo() == prefs.getInt("userId", 0) ? currentRide.getSender():currentRide.getTo());
+                int userId = currentRide.getUserId() > 0 ? currentRide.getUserId() : currentRide.getTo() == prefs.getInt("userId", 0) ? currentRide.getSender():currentRide.getTo();
+                intent.putExtra("userId", userId);
                 context.startActivity(intent);
+                break;
+            }
+            case R.id.user_image: {
+                Intent intent = new Intent(context, UserProfileActivity.class);
+                int userId = currentRide.getUserId() > 0 ? currentRide.getUserId() : currentRide.getTo() == prefs.getInt("userId", 0) ? currentRide.getSender():currentRide.getTo();
+                intent.putExtra("userId", userId);
+                context.startActivity(intent);
+                break;
             }
         }
     }
