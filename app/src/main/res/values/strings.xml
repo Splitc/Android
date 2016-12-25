@@ -5,13 +5,14 @@
     <string name="logout_confirm">Are you sure?</string>
     <string name="confirm_booking">Confirm Booking?</string>
     <string name="feedback">Send feedback</string>
+    <string name="rate_us">Rate us</string>
     <string name="about_us">About</string>
     <string name="login_via_facebook">Login with Facebook</string>
     <string name="submit">SUBMIT</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="feedback_hint">Write something...</string>
     <string name="feedback_email">If you have something to say that doesn\'t fit here, please shoot us an email at atnak.inar@gmail.com</string>
-    <string name="feedback_email_subject">Zomato Android App Feedback</string>
+    <string name="feedback_email_subject">Splitc Android App Feedback</string>
     <string name="send_mail">Send Mail</string>
     <string name="no_email_clients">There are no email clients installed.</string>
     <string name="feedback_title">Feedback</string>
@@ -85,6 +86,7 @@
     <string name="chat_title">Pieces and Pings</string>
 
     <string name="empty_message_chat">No chats yet</string>
+    <string name="no_users">No users in this ride</string>
 
 
 </resources>

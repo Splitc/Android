@@ -133,7 +133,7 @@ public class FeedbackActivity extends AppCompatActivity implements UploadManager
     private SpannableString getFeedbackEmailSpannableText() {
 
         String feedbackText = getResources().getString(R.string.feedback_email);
-        String email = "hello@zapplon.com";
+        String email = "atnak.inar@gmail.com";
         SpannableString ss = new SpannableString(feedbackText);
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
@@ -163,7 +163,7 @@ public class FeedbackActivity extends AppCompatActivity implements UploadManager
         Intent i = new Intent(Intent.ACTION_SEND);
 
         i.setType("application/octet-stream");
-        i.putExtra(Intent.EXTRA_EMAIL, new String[] { "hellp@zapplon.com" });
+        i.putExtra(Intent.EXTRA_EMAIL, new String[] { "atnak.inar@gmail.com" });
         i.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.feedback_email_subject));
 
         try {
@@ -259,9 +259,12 @@ public class FeedbackActivity extends AppCompatActivity implements UploadManager
 
     @Override
     public void onBackPressed() {
-        InputMethodManager imm = (InputMethodManager) this.getSystemService(INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(findViewById(R.id.feedback_content).getWindowToken(), 0);
-        finish();
+        try {
+            CommonLib.hideKeyboard(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        super.onBackPressed();
     }
 
     public void submit(View v) {

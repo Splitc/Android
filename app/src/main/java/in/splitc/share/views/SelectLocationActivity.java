@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -74,8 +75,6 @@ public class SelectLocationActivity extends AppCompatActivity {
         width = getWindowManager().getDefaultDisplay().getWidth();
         height = getWindowManager().getDefaultDisplay().getHeight();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         setUpActionBar();
 
         callback = new RandomCallback() {
@@ -165,32 +164,12 @@ public class SelectLocationActivity extends AppCompatActivity {
 
     private void setUpActionBar() {
 
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setHomeButtonEnabled(false);
-        actionBar.setDisplayHomeAsUpEnabled(false);
-        if(Build.VERSION.SDK_INT > 20)
-            actionBar.setElevation(0);
-
-        LayoutInflater inflator = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View actionBarCustomView = inflator.inflate(R.layout.white_action_bar, null);
-        actionBarCustomView.findViewById(R.id.home_icon_container).setVisibility(View.VISIBLE);
-        actionBar.setCustomView(actionBarCustomView);
-
-        SpannableString s = new SpannableString(getString(R.string.pick_location));
-        s.setSpan(
-                new TypefaceSpan(getApplicationContext(), CommonLib.FONT_BOLD,
-                        getResources().getColor(R.color.white), getResources().getDimension(R.dimen.size16)),
-                0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        TextView title = (TextView) actionBarCustomView.findViewById(R.id.title);
-
-        ((RelativeLayout.LayoutParams) actionBarCustomView.findViewById(R.id.back_icon).getLayoutParams())
-                .setMargins(width / 40, 0, 0, 0);
-        actionBarCustomView.findViewById(R.id.title).setPadding(width / 20, 0, width / 40, 0);
-        title.setText(s);
-        title.setAllCaps(true);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(getResources().getString(R.string.pick_location));
     }
 
     @Override
@@ -222,6 +201,17 @@ public class SelectLocationActivity extends AppCompatActivity {
         }
 
     }
+
+    @Override
+    public void onBackPressed() {
+        try {
+            CommonLib.hideKeyboard(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        super.onBackPressed();
+    }
+
 
     private class GetAddresses extends AsyncTask<Object, Void, Object> {
 

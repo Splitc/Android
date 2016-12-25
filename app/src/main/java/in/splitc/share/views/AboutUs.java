@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
@@ -37,8 +38,6 @@ public class AboutUs extends AppCompatActivity {
         setContentView(R.layout.activity_aboutus);
         width = getWindowManager().getDefaultDisplay().getWidth();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         setUpActionBar();
 
         fixsizes();
@@ -73,33 +72,12 @@ public class AboutUs extends AppCompatActivity {
     }
 
     private void setUpActionBar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setHomeButtonEnabled(false);
-        actionBar.setDisplayHomeAsUpEnabled(false);
-        if(Build.VERSION.SDK_INT > 20)
-            actionBar.setElevation(0);
-
-        LayoutInflater inflator = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View actionBarCustomView = inflator.inflate(R.layout.white_action_bar, null);
-        actionBarCustomView.findViewById(R.id.home_icon_container).setVisibility(View.VISIBLE);
-        actionBar.setCustomView(actionBarCustomView);
-
-        SpannableString s = new SpannableString(getString(R.string.about_us));
-        s.setSpan(
-                new TypefaceSpan(getApplicationContext(), CommonLib.FONT_BOLD,
-                        getResources().getColor(R.color.white), getResources().getDimension(R.dimen.size16)),
-                0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        TextView title = (TextView) actionBarCustomView.findViewById(R.id.title);
-
-        ((RelativeLayout.LayoutParams) actionBarCustomView.findViewById(R.id.back_icon).getLayoutParams())
-                .setMargins(width / 40, 0, 0, 0);
-        actionBarCustomView.findViewById(R.id.title).setPadding(width / 20, 0, width / 40, 0);
-        title.setText(s);
-        title.setAllCaps(true);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(getResources().getString(R.string.about_us));
     }
 
     void fixsizes() {
@@ -194,18 +172,4 @@ public class AboutUs extends AppCompatActivity {
         }
 
     }
-    public void aboutUs(View view)
-    {
-        Uri uri = Uri.parse("http://www.splitc.in/terms/");
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(intent);
-
-    }
-    public void privacyPolicy(View view)
-    {
-        Uri uri = Uri.parse("http://www.splitc.in/privacy/");
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(intent);
-    }
-
 }

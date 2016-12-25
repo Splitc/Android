@@ -396,8 +396,42 @@ public class ParserJson {
             message.setTo(messageJson.getInt("to"));
         }
 
+        if (messageJson.has("chatId") && messageJson.get("chatId") instanceof Integer) {
+            message.setChatId(messageJson.getInt("chatId"));
+        }
+
+        if (messageJson.has("type") && messageJson.get("type") instanceof Integer) {
+            message.setType(messageJson.getInt("type"));
+        }
+
+        if (messageJson.has("typeId") && messageJson.get("typeId") instanceof Integer) {
+            message.setTypeId(messageJson.getInt("typeId"));
+        }
+
         if (messageJson.has("message")) {
             message.setMessage(String.valueOf(messageJson.get("message")));
+        }
+
+        if (messageJson.has("timestamp") && messageJson.get("timestamp") instanceof Long) {
+            message.setTimestamp(messageJson.getLong("timestamp"));
+        } else if (messageJson.has("timestamp") && messageJson.get("timestamp") instanceof Integer) {
+            message.setTimestamp(messageJson.getInt("timestamp"));
+        }
+
+        if (messageJson.has("to") && messageJson.get("to") instanceof Integer) {
+            message.setTo(messageJson.getInt("to"));
+        }
+
+        if (messageJson.has("userId") && messageJson.get("userId") instanceof Integer) {
+            message.setUserId(messageJson.getInt("userId"));
+        }
+
+        if (messageJson.has("userName")) {
+            message.setUserName(String.valueOf(messageJson.get("userId")));
+        }
+
+        if (messageJson.has("profilePic")) {
+            message.setProfilePic(String.valueOf(messageJson.get("profilePic")));
         }
 
         return message;

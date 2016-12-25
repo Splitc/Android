@@ -1,23 +1,17 @@
 package in.splitc.share.views;
 
-import android.Manifest;
 import android.animation.Animator;
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.os.AsyncTask;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -37,7 +31,6 @@ import in.splitc.share.utils.CommonLib;
 import in.splitc.share.utils.ImageLoader;
 import in.splitc.share.utils.UploadManager;
 import in.splitc.share.utils.UploadManagerCallback;
-
 import okhttp3.FormBody;
 
 /**
@@ -130,9 +123,13 @@ public class HomeActivity extends AppCompatActivity implements UploadManagerCall
                 switch (menuItem.getItemId()) {
                     case R.id.nav_myloads:
                         setupHomeFragment();
+                        menuItem.setChecked(true);
+                        ((MenuItem)navigationView.getMenu().getItem(1)).setChecked(false);
                         break;
                     case R.id.nav_order_history:
                         setupMyRidesFragment();
+                        menuItem.setChecked(true);
+                        ((MenuItem)navigationView.getMenu().getItem(0)).setChecked(false);
                         break;
                 }
                 return true;
@@ -207,6 +204,21 @@ public class HomeActivity extends AppCompatActivity implements UploadManagerCall
             public void onClick(View view) {
                 Intent intent = new Intent(HomeActivity.this, FeedbackActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        findViewById(R.id.rate_us).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("market://details?id="+getPackageName()));
+                    startActivity(browserIntent);
+                } catch (ActivityNotFoundException e) {
+
+                } catch (Exception e) {
+
+                }
             }
         });
 

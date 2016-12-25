@@ -11,10 +11,12 @@ import android.graphics.Bitmap;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import io.fabric.sdk.android.Fabric;
 import java.util.Calendar;
 import java.util.List;
 
@@ -128,7 +130,7 @@ public class ZApplication extends Application {
 
             try {
                 //add
-
+                Fabric.with(getApplicationContext(), new Crashlytics());
             } catch (Exception e) {
                 e.printStackTrace();
             }

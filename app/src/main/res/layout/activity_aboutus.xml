@@ -69,6 +69,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/separator3"
+        android:clickable="true"
         android:background="@drawable/whitebuttoncustomback"
         android:orientation="horizontal" >
 
@@ -77,7 +78,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@color/transparent1"
-            android:clickable="false"
             android:gravity="center"
             android:paddingTop="0dp"
             android:text="U"
@@ -90,13 +90,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@color/transparent1"
-            android:clickable="true"
             android:gravity="center_vertical"
             android:maxLines="1"
             android:text="@string/about_us_terms_of_use"
             android:textColor="@color/black"
-            android:textSize="@dimen/size14"
-            android:onClick="aboutUs"/>
+            android:textSize="@dimen/size14"/>
     </LinearLayout>
 
     <View
@@ -111,16 +109,15 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:clickable="true"
         android:background="@drawable/whitebuttoncustomback"
-        android:orientation="horizontal"
-        android:onClick="privacyPolicy">
+        android:orientation="horizontal">
 
         <in.splitc.share.utils.IconView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@color/transparent1"
-            android:clickable="false"
             android:gravity="center"
             android:paddingTop="0dp"
             android:text="g"
@@ -133,7 +130,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@color/transparent1"
-            android:clickable="false"
             android:gravity="center_vertical"
             android:maxLines="1"
             android:text="@string/about_us_privacypolicy"

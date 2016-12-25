@@ -110,7 +110,7 @@ public class MyRidesFragment extends Fragment implements UploadManagerCallback {
 
     private void refreshView() {
         rides = new ArrayList<Ride>();
-        mAdapter = new MyRidesAdapter(rides, recyclerView);
+        mAdapter = new MyRidesAdapter(rides, activity, recyclerView);
         recyclerView.setAdapter(mAdapter);
 
         String url = CommonLib.SERVER_URL + "ride/fetch?start=" + 0 + "&count=" + count;

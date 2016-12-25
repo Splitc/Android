@@ -483,6 +483,12 @@ public class HomeFragment extends Fragment implements ZLocationCallback, UploadM
                 location = ret.getJSONArray("results").getJSONObject(0);
                 location_string = location.getString("formatted_address");
                 zapp.setAddressString(location_string);
+
+                if (!destroyed) {
+                    String text = ((TextView) getView.findViewById(R.id.start_location)).getText().toString();
+                    if (text.length() < 1)
+                        ((TextView) getView.findViewById(R.id.start_location)).setText(zapp.getAddressString());
+                }
             } catch (JSONException e1) {
                 e1.printStackTrace();
             }

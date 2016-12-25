@@ -1,38 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:fillViewport="true">
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/feedback_container"
+    <include
+        layout="@layout/share_toolbar"/>
+
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:fillViewport="true">
 
-        <include
-            layout="@layout/share_toolbar"/>
-
-        <in.splitc.share.utils.EditTextLight
-            android:id="@+id/feedback_content"
+        <LinearLayout
+            android:id="@+id/feedback_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/edittext_zhl_rounded"
-            android:gravity="top"
-            android:hint="@string/feedback_hint"
-            android:inputType="textMultiLine|textCapSentences"
-            android:textColorHint="@color/zhl_darkest"
-            android:layout_margin="@dimen/size20"
-            android:textSize="@dimen/size16" />
+            android:orientation="vertical" >
 
-        <in.splitc.share.utils.TextViewLight
-            android:id="@+id/feedback_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/feedback_email"
-            android:layout_margin="@dimen/size20"
-            android:textSize="@dimen/size14" />
-    </LinearLayout>
+            <in.splitc.share.utils.EditTextLight
+                android:id="@+id/feedback_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_zhl_rounded"
+                android:gravity="top"
+                android:hint="@string/feedback_hint"
+                android:inputType="textMultiLine|textCapSentences"
+                android:textColorHint="@color/zhl_darkest"
+                android:layout_margin="@dimen/size20"
+                android:textSize="@dimen/size16" />
 
-</ScrollView>
+            <in.splitc.share.utils.TextViewLight
+                android:id="@+id/feedback_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/feedback_email"
+                android:layout_margin="@dimen/size20"
+                android:textSize="@dimen/size14" />
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

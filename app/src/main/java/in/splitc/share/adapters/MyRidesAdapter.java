@@ -1,19 +1,25 @@
 package in.splitc.share.adapters;
 
+import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import in.splitc.share.R;
-import in.splitc.share.data.Ride;
-import in.splitc.share.utils.CommonLib;
-import in.splitc.share.utils.OnLoadMoreListener;
-
 import java.util.List;
+
+import in.splitc.share.R;
+import in.splitc.share.ZApplication;
+import in.splitc.share.data.Ride;
+import in.splitc.share.data.User;
+import in.splitc.share.utils.CommonLib;
+import in.splitc.share.utils.ImageLoader;
+import in.splitc.share.utils.OnLoadMoreListener;
+import in.splitc.share.utils.ZCircularImageView;
 
 /**
  * Created by neo on 30/10/16.
@@ -29,16 +35,16 @@ public class MyRidesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private boolean isLoading;
     private int visibleThreshold = 5;
     private int lastVisibleItem, totalItemCount;
+    private Activity context;
+    private ImageLoader loader;
 
     public class RideViewHolder extends RecyclerView.ViewHolder {
-        public TextView start_location, drop_location, pickup_timer, description;
-
+        public TextView start_location, drop_location, pickup_timer;
         public RideViewHolder(View view) {
             super(view);
             start_location = (TextView) view.findViewById(R.id.start_location);
             drop_location = (TextView) view.findViewById(R.id.drop_location);
             pickup_timer = (TextView) view.findViewById(R.id.pickup_timer);
-            description = (TextView) view.findViewById(R.id.description);
         }
     }
 
@@ -55,9 +61,10 @@ public class MyRidesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         this.mOnLoadMoreListener = mOnLoadMoreListener;
     }
 
-    public MyRidesAdapter(List<Ride> moviesList, RecyclerView mRecyclerView) {
+    public MyRidesAdapter(List<Ride> moviesList, Activity context, RecyclerView mRecyclerView) {
         this.moviesList = moviesList;
-
+        this.context = context;
+        loader = new ImageLoader(context, (ZApplication) context.getApplication());
         final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -102,7 +109,6 @@ public class MyRidesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             rideViewHolder.start_location.setText(movie.getFromAddress());
             rideViewHolder.drop_location.setText(movie.getToAddress());
             rideViewHolder.pickup_timer.setText(CommonLib.getTimeFormattedString(movie.getCreated()));
-            rideViewHolder.description.setText(movie.getDescription());
         } else if (holder instanceof LoadingViewHolder) {
             LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;
             loadingViewHolder.progressBar.setIndeterminate(true);

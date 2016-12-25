@@ -55,6 +55,17 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin">
 
             <in.splitc.share.utils.TextViewLight
+                android:id="@+id/rate_us"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/size14"
+                android:padding="@dimen/size10"
+                android:textColor="@color/zhl_darkest"
+                android:paddingTop="@dimen/height5"
+                android:text="@string/rate_us"
+                android:paddingBottom="@dimen/height5"/>
+
+            <in.splitc.share.utils.TextViewLight
                 android:id="@+id/feedback"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

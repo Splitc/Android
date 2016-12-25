@@ -3,227 +3,255 @@
 
     <item
         jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.facebook.android/FacebookSDK/3.23.1/jars/libs/bolts-android-1.1.2.jar"
-        jumboMode="true"
+        jumboMode="false"
         revision="24.0.1"
         sha1="014223c90ff1ee23b319b640b746d334be47ff33">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/8/bolts-android-1.1.2_10b908f63b3f205382851bcfec05f45d34ccc80d/classes.dex" />
-    </item>
-    <item
-        jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
-        jumboMode="true"
-        revision="24.0.1"
-        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_5741856c09306744e5fde6213966fd16f642ea17/classes.dex" />
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/bolts-android-1.1.2_10b908f63b3f205382851bcfec05f45d34ccc80d.jar" />
     </item>
     <item
         jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/24.2.1/jars/classes.jar"
-        jumboMode="true"
+        jumboMode="false"
         revision="24.0.1"
         sha1="7521486d9bfd2cd9e756e0cf75ed7d97f2ce2d3b">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-recyclerview-v7-24.2.1_82cf0c8a1a315a962b215b48a31377d1b873d027/classes.dex" />
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/com.android.support-recyclerview-v7-24.2.1_82cf0c8a1a315a962b215b48a31377d1b873d027.jar" />
     </item>
     <item
-        jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.2.1/jars/classes.jar"
-        jumboMode="true"
+        jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="false"
         revision="24.0.1"
-        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-24.2.1_405f842d4fa87011c33587f98e1e704d8f39bcca/classes.dex" />
+        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/internal_impl-24.2.1_5741856c09306744e5fde6213966fd16f642ea17.jar" />
+    </item>
+    <item
+        jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.facebook.android/FacebookSDK/3.23.1/jars/classes.jar"
+        jumboMode="false"
+        revision="24.0.1"
+        sha1="b76d6decb2db478e709ba6497ba8b78450b653e0">
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/com.facebook.android-FacebookSDK-3.23.1_5c21d6dceeef89b56dc781c4ddc8771c09de8ea5.jar" />
     </item>
     <item
         jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.1/jars/classes.jar"
-        jumboMode="true"
+        jumboMode="false"
         revision="24.0.1"
         sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-fragment-24.2.1_434013b07dc01b23aa4524c01002b60f7ccc02fc/classes.dex" />
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/com.android.support-support-fragment-24.2.1_434013b07dc01b23aa4524c01002b60f7ccc02fc.jar" />
+    </item>
+    <item
+        jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="24.0.1"
+        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/com.android.support-appcompat-v7-24.2.1_405f842d4fa87011c33587f98e1e704d8f39bcca.jar" />
     </item>
     <item
         jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/24.2.1/jars/libs/internal_impl-24.2.1.jar"
-        jumboMode="true"
+        jumboMode="false"
         revision="24.0.1"
         sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_c0d95df215a58e36830ff6a971891f12182a2fef/classes.dex" />
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/internal_impl-24.2.1_c0d95df215a58e36830ff6a971891f12182a2fef.jar" />
     </item>
     <item
         jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/jars/classes.jar"
-        jumboMode="true"
+        jumboMode="false"
         revision="24.0.1"
         sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-ui-24.2.1_f9071f7ee4ac9cef8f6795e1e6d57da68f007775/classes.dex" />
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/com.android.support-support-core-ui-24.2.1_f9071f7ee4ac9cef8f6795e1e6d57da68f007775.jar" />
+    </item>
+    <item
+        jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.crashlytics.sdk.android/answers/1.3.10/jars/classes.jar"
+        jumboMode="false"
+        revision="24.0.1"
+        sha1="ed6b455e3dd7bbf1ff31f8df0b41e2f0d87f3ace">
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/com.crashlytics.sdk.android-answers-1.3.10_1809dc33f72c5a514a162015893fe7c9bed5c015.jar" />
+    </item>
+    <item
+        jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/io.fabric.sdk.android/fabric/1.3.14/jars/classes.jar"
+        jumboMode="false"
+        revision="24.0.1"
+        sha1="a319fd4d548ba4cc9511561d37109ba922bfbf6a">
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/io.fabric.sdk.android-fabric-1.3.14_09873d4438ecaeb69e920bc5596da6554da8c620.jar" />
     </item>
     <item
         jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/classes.jar"
-        jumboMode="true"
+        jumboMode="false"
         revision="24.0.1"
         sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-compat-24.2.1_35f6c612d24dc1614f6354f9aa4f7096567bde20/classes.dex" />
-    </item>
-    <item
-        jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        revision="24.0.1"
-        sha1="d01e3a06ba36416d97e09d26ed7dc2b0bfa4b957">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_670a49ac1cf57fee33f4b998549da5d1ae61aade/classes.dex" />
-    </item>
-    <item
-        jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
-        jumboMode="true"
-        revision="24.0.1"
-        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_48b362e1a067f5609cfaec074b12fcacc2a90604/classes.dex" />
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/com.android.support-support-compat-24.2.1_35f6c612d24dc1614f6354f9aa4f7096567bde20.jar" />
     </item>
     <item
         jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/24.2.1/jars/classes.jar"
-        jumboMode="true"
+        jumboMode="false"
         revision="24.0.1"
         sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-24.2.1_20a97689f11ef7d317b5ea861ac8f34ffa46fc0a/classes.dex" />
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/com.android.support-support-core-utils-24.2.1_20a97689f11ef7d317b5ea861ac8f34ffa46fc0a.jar" />
+    </item>
+    <item
+        jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="false"
+        revision="24.0.1"
+        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/internal_impl-24.2.1_48b362e1a067f5609cfaec074b12fcacc2a90604.jar" />
     </item>
     <item
         jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.google.firebase/firebase-analytics-impl/9.8.0/jars/classes.jar"
-        jumboMode="true"
+        jumboMode="false"
         revision="24.0.1"
         sha1="190a642ba16d1421296a4d794606279b80039c59">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-analytics-impl-9.8.0_37ac3a7eda6cc476c1b750f2ece4ca51e6ad3c49/classes.dex" />
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/com.google.firebase-firebase-analytics-impl-9.8.0_37ac3a7eda6cc476c1b750f2ece4ca51e6ad3c49.jar" />
     </item>
     <item
         jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/24.2.1/jars/classes.jar"
-        jumboMode="true"
+        jumboMode="false"
         revision="24.0.1"
         sha1="c5e6490573cd2cc8018417f60ddd251138b6ed61">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-cardview-v7-24.2.1_b80fb718e0d9743a448c84af533a9692a5b4959c/classes.dex" />
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/com.android.support-cardview-v7-24.2.1_b80fb718e0d9743a448c84af533a9692a5b4959c.jar" />
     </item>
     <item
         jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.1/jars/libs/internal_impl-24.2.1.jar"
-        jumboMode="true"
+        jumboMode="false"
         revision="24.0.1"
         sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_b3d969051d7b54d92b2f9817bd4d5d925708d4ac/classes.dex" />
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/internal_impl-24.2.1_b3d969051d7b54d92b2f9817bd4d5d925708d4ac.jar" />
     </item>
     <item
         jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.android.support/support-v4/24.2.1/jars/classes.jar"
-        jumboMode="true"
+        jumboMode="false"
         revision="24.0.1"
         sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-24.2.1_0d15826a9c21463d2813bbcac4e6ce34931fae04/classes.dex" />
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/com.android.support-support-v4-24.2.1_0d15826a9c21463d2813bbcac4e6ce34931fae04.jar" />
     </item>
     <item
         jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.google.firebase/firebase-analytics/9.8.0/jars/classes.jar"
-        jumboMode="true"
+        jumboMode="false"
         revision="24.0.1"
         sha1="9ff04cc3470178a44512624036751a803418c2ca">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-analytics-9.8.0_ae9d79ecb60a1cac4b5b0fe3cf2c960a25f76a4b/classes.dex" />
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/com.google.firebase-firebase-analytics-9.8.0_ae9d79ecb60a1cac4b5b0fe3cf2c960a25f76a4b.jar" />
     </item>
     <item
-        jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
+        jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.crashlytics.sdk.android/crashlytics-core/2.3.14/jars/classes.jar"
+        jumboMode="false"
         revision="24.0.1"
-        sha1="63e6ad14333dc0445dcc0bdd26ad463b81aafaed">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_144a797ac2d1c77c86b845b0722e4fa7383e9226/classes.dex" />
-    </item>
-    <item
-        jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.8.0/jars/classes.jar"
-        jumboMode="true"
-        revision="24.0.1"
-        sha1="7e92aadd0697922316d1395c1887a23aebec640a">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-base-9.8.0_6260f3f2b1991da947071a38b97cda69810715bf/classes.dex" />
-    </item>
-    <item
-        jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/9.8.0/jars/classes.jar"
-        jumboMode="true"
-        revision="24.0.1"
-        sha1="04bbbddf868aa02dd33f9e90d8f5d908c360f638">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-location-9.8.0_31184228b01ea7b54227b6282e07521d364207e9/classes.dex" />
-    </item>
-    <item
-        jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.google.firebase/firebase-iid/9.8.0/jars/classes.jar"
-        jumboMode="true"
-        revision="24.0.1"
-        sha1="6b6f292b8b951dcf2ecf2b20853e3eabc7d65c48">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-iid-9.8.0_939f6a1c3350ccd457ad34092b9878d506212d05/classes.dex" />
-    </item>
-    <item
-        jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-tasks/9.8.0/jars/classes.jar"
-        jumboMode="true"
-        revision="24.0.1"
-        sha1="bf2e1838e4428616c1aa26edf43de72b5b99bf84">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-tasks-9.8.0_8a5a4dd12b13bbbe8444e9579f45327df7a72390/classes.dex" />
-    </item>
-    <item
-        jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/9.8.0/jars/classes.jar"
-        jumboMode="true"
-        revision="24.0.1"
-        sha1="9f6d236bac26d02b410e4ee186ba517ace5ee661">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-basement-9.8.0_e323e5d1445132dfa7ec0512f4238992b8790a47/classes.dex" />
+        sha1="7ff77725723167163d69439e3fd077bd0899babf">
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/com.crashlytics.sdk.android-crashlytics-core-2.3.14_19eee1e24018f7c8bbefbb4a9403c16ad622b8e6.jar" />
     </item>
     <item
         jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.android.support/design/24.2.1/jars/classes.jar"
-        jumboMode="true"
+        jumboMode="false"
         revision="24.0.1"
         sha1="e03f47f3d1017a093bb3239d4ec47c3447f40744">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-design-24.2.1_a0c87d3f2d97202789b80befe20258e5143135de/classes.dex" />
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/com.android.support-design-24.2.1_a0c87d3f2d97202789b80befe20258e5143135de.jar" />
+    </item>
+    <item
+        jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/9.8.0/jars/classes.jar"
+        jumboMode="false"
+        revision="24.0.1"
+        sha1="04bbbddf868aa02dd33f9e90d8f5d908c360f638">
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/com.google.android.gms-play-services-location-9.8.0_31184228b01ea7b54227b6282e07521d364207e9.jar" />
+    </item>
+    <item
+        jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-tasks/9.8.0/jars/classes.jar"
+        jumboMode="false"
+        revision="24.0.1"
+        sha1="bf2e1838e4428616c1aa26edf43de72b5b99bf84">
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/com.google.android.gms-play-services-tasks-9.8.0_8a5a4dd12b13bbbe8444e9579f45327df7a72390.jar" />
     </item>
     <item
         jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/24.2.1/jars/classes.jar"
-        jumboMode="true"
+        jumboMode="false"
         revision="24.0.1"
         sha1="d5c731fc64c03dfe04d51134955b483551c35849">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-24.2.1_f56408a3b4955b877f9523ca2f278c02d19ab24c/classes.dex" />
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/com.android.support-support-vector-drawable-24.2.1_f56408a3b4955b877f9523ca2f278c02d19ab24c.jar" />
     </item>
     <item
-        jar="/Users/neo/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.4.1/c7c4f9e35c2fd5900da24f9872e3971801f08ce0/okhttp-3.4.1.jar"
-        jumboMode="true"
+        jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.google.firebase/firebase-iid/9.8.0/jars/classes.jar"
+        jumboMode="false"
         revision="24.0.1"
-        sha1="c7c4f9e35c2fd5900da24f9872e3971801f08ce0">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/okhttp-3.4.1_44dbc27a5f72e278624004d061f0c4c26de0249b/classes.dex" />
+        sha1="6b6f292b8b951dcf2ecf2b20853e3eabc7d65c48">
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/com.google.firebase-firebase-iid-9.8.0_939f6a1c3350ccd457ad34092b9878d506212d05.jar" />
+    </item>
+    <item
+        jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/9.8.0/jars/classes.jar"
+        jumboMode="false"
+        revision="24.0.1"
+        sha1="9f6d236bac26d02b410e4ee186ba517ace5ee661">
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/com.google.android.gms-play-services-basement-9.8.0_e323e5d1445132dfa7ec0512f4238992b8790a47.jar" />
     </item>
     <item
         jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.google.firebase/firebase-common/9.8.0/jars/classes.jar"
-        jumboMode="true"
+        jumboMode="false"
         revision="24.0.1"
         sha1="c61641e333fa88da21758bab8cc28ee16604b05f">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-common-9.8.0_e31e751811da14a76cbdca933575bd3227362d2c/classes.dex" />
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/com.google.firebase-firebase-common-9.8.0_e31e751811da14a76cbdca933575bd3227362d2c.jar" />
     </item>
     <item
-        jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/24.2.1/jars/classes.jar"
-        jumboMode="true"
+        jar="/Users/neo/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.4.1/c7c4f9e35c2fd5900da24f9872e3971801f08ce0/okhttp-3.4.1.jar"
+        jumboMode="false"
         revision="24.0.1"
-        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-24.2.1_84eb41919ff8bb87061fa05252aad3291077c1bb/classes.dex" />
+        sha1="c7c4f9e35c2fd5900da24f9872e3971801f08ce0">
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/okhttp-3.4.1_44dbc27a5f72e278624004d061f0c4c26de0249b.jar" />
+    </item>
+    <item
+        jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.crashlytics.sdk.android/crashlytics/2.6.5/jars/classes.jar"
+        jumboMode="false"
+        revision="24.0.1"
+        sha1="02cc9f2e5899415add52bc716602b6b38e7eeb99">
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/com.crashlytics.sdk.android-crashlytics-2.6.5_d4b83943d819efcfd4c31d656a56b8d60026eb88.jar" />
     </item>
     <item
         jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.google.firebase/firebase-messaging/9.8.0/jars/classes.jar"
-        jumboMode="true"
+        jumboMode="false"
         revision="24.0.1"
         sha1="5ffe8867f51cfc726e9fb21db1e5b6962ebf25a0">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-messaging-9.8.0_844b3b3756c8f55528a92782c170aefcc25653aa/classes.dex" />
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/com.google.firebase-firebase-messaging-9.8.0_844b3b3756c8f55528a92782c170aefcc25653aa.jar" />
     </item>
     <item
         jar="/Users/neo/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.9.0/f824591a0016efbaeddb8300bee54832a1398cfa/okio-1.9.0.jar"
-        jumboMode="true"
+        jumboMode="false"
         revision="24.0.1"
         sha1="f824591a0016efbaeddb8300bee54832a1398cfa">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/okio-1.9.0_205ab19ec6a5392fcbb2d20d8b36f91bae1f2ad6/classes.dex" />
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/okio-1.9.0_205ab19ec6a5392fcbb2d20d8b36f91bae1f2ad6.jar" />
     </item>
     <item
-        jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/classes.jar"
-        jumboMode="true"
+        jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.crashlytics.sdk.android/beta/1.2.2/jars/classes.jar"
+        jumboMode="false"
         revision="24.0.1"
-        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-24.2.1_8b33a8117f92a78a45285b4da34f01259e351fd3/classes.dex" />
+        sha1="b42cf2134829f715edfa2adaf0ee246631322dba">
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/com.crashlytics.sdk.android-beta-1.2.2_d777d8f17e16d5aa119789ea5101e8c5a40f25c2.jar" />
     </item>
     <item
         jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/jars/libs/internal_impl-24.2.1.jar"
-        jumboMode="true"
+        jumboMode="false"
         revision="24.0.1"
         sha1="867dad63c33388ff8c7644b236579355036d075f">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_dc8f5075e01c93e3f0154a42b6d286b47e74e3d0/classes.dex" />
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/internal_impl-24.2.1_dc8f5075e01c93e3f0154a42b6d286b47e74e3d0.jar" />
     </item>
     <item
         jar="/Users/apoorvarora/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/24.2.1/support-annotations-24.2.1.jar"
-        jumboMode="true"
+        jumboMode="false"
         revision="24.0.1"
         sha1="8de3aafecbdf98a61db6427f008f2d515bcd2544">
-        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-24.2.1_c136917a3b22e013d16fd925da1d9d50fd1013dd/classes.dex" />
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/support-annotations-24.2.1_c136917a3b22e013d16fd925da1d9d50fd1013dd.jar" />
+    </item>
+    <item
+        jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/24.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="24.0.1"
+        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/com.android.support-animated-vector-drawable-24.2.1_84eb41919ff8bb87061fa05252aad3291077c1bb.jar" />
+    </item>
+    <item
+        jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="24.0.1"
+        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/com.android.support-support-media-compat-24.2.1_8b33a8117f92a78a45285b4da34f01259e351fd3.jar" />
+    </item>
+    <item
+        jar="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.8.0/jars/classes.jar"
+        jumboMode="false"
+        revision="24.0.1"
+        sha1="7e92aadd0697922316d1395c1887a23aebec640a">
+        <dex dex="/Users/neo/Documents/Splitc-Repos/Android/app/build/intermediates/pre-dexed/release/com.google.android.gms-play-services-base-9.8.0_6260f3f2b1991da947071a38b97cda69810715bf.jar" />
     </item>
 
 </items>

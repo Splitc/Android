@@ -37,6 +37,7 @@ import in.splitc.share.adapters.ChatAdapter;
 import in.splitc.share.data.Message;
 import in.splitc.share.data.User;
 import in.splitc.share.db.MessagesDBWrapper;
+import in.splitc.share.db.UserDBWrapper;
 import in.splitc.share.utils.CommonLib;
 import in.splitc.share.utils.ImageLoader;
 import in.splitc.share.utils.UploadManager;
@@ -88,7 +89,7 @@ public class ChatActivity extends AppCompatActivity implements UploadManagerCall
             }
             else if (getIntent().hasExtra("userId")) {
                 userId = getIntent().getIntExtra("userId", 0);
-                fetchUserDetails();
+                new GetUserDetails().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
             }
         } else
             finish();
@@ -262,6 +263,38 @@ public class ChatActivity extends AppCompatActivity implements UploadManagerCall
             } else {
                 // something went wrong with the DB connection
             }
+        }
+    }
+
+    private class GetUserDetails extends AsyncTask<Object, Void, Object> {
+
+        // execute the api
+        @Override
+        protected Object doInBackground(Object... params) {
+            try {
+                return UserDBWrapper.getUser(userId);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object result) {
+            if (destroyed)
+                return;
+
+            if (result != null && result instanceof User) {
+                user = (User)result;
+                if (user.getUserId() > 0 && user.getProfilePic() != null && user.getUserName() != null
+                        && user.getUserName().length() > 0) {
+                    setUpActionBar();
+                    return;
+                }
+            } else {
+                // something went wrong with the DB connection
+            }
+            fetchUserDetails();
         }
     }
 
