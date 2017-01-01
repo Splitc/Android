@@ -142,7 +142,7 @@ public class AboutUs extends AppCompatActivity {
                         getResources().getString(
                                 R.string.about_us_privacypolicy));
                 intent.putExtra("url",
-                        "https://www.splitc.in/privacy/");
+                        "http://splitc.in/privacy-policy/");
                 startActivity(intent);
 
             }
